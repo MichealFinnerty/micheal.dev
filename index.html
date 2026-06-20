@@ -101,6 +101,7 @@
   }
   .nav-links{
     display:flex;
+    align-items:center;
     gap:32px;
     font-size:14px;
     font-weight:500;
@@ -132,6 +133,8 @@
     transition:transform 0.2s ease, background 0.2s ease;
   }
   .nav-cta:hover{background:var(--pine); transform:translateY(-1px);}
+  .nav-cta-desktop-only{display:inline-flex;}
+  .nav-links .nav-cta-mobile{display:none;}
   .nav-toggle{display:none;}
 
   @media (max-width:760px){
@@ -139,6 +142,7 @@
       position:fixed;
       top:64px; right:0;
       flex-direction:column;
+      align-items:flex-start;
       background:var(--paper);
       width:100%;
       padding:24px 28px;
@@ -148,7 +152,11 @@
       transition:transform 0.3s ease;
     }
     .nav-links.open{transform:translateY(0);}
-    .nav-cta{display:none;}
+
+    /* Hide the floating top-right CTA on mobile... */
+    .nav-cta-desktop-only{display:none;}
+
+    /* ...and show BOTH CTAs inside the dropdown instead, so nothing is lost */
     .nav-links .nav-cta-mobile{
       display:inline-block;
       font-family:var(--mono);
@@ -158,6 +166,12 @@
       border-radius:8px;
       width:fit-content;
     }
+    .nav-links .nav-cta-mobile.secondary{
+      background:transparent;
+      color:var(--ink);
+      border:1.5px solid var(--line);
+    }
+
     .nav-toggle{
       display:flex;
       flex-direction:column;
@@ -831,9 +845,10 @@
       <a href="#services" class="nav-link">Services</a>
       <a href="#pricing" class="nav-link">Pricing</a>
       <a href="#process" class="nav-link">Process</a>
+      <a href="portfolio.html" class="nav-cta-mobile secondary">Portfolio</a>
       <a href="#contact" class="nav-cta-mobile">Get in touch</a>
     </div>
-    <a href="portfolio.html" class="nav-cta">Portfolio</a>
+    <a href="portfolio.html" class="nav-cta nav-cta-desktop-only">Portfolio</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
