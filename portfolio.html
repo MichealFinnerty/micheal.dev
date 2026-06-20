@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio & Samples | Micheál Finnerty — Web Development</title>
+<meta name="description" content="Sample websites and client portfolio from Micheál Finnerty, web developer based in Pallaskenry, Co. Limerick.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0E14;
+    --paper:#F7F5F0;
+    --pine:#2E6E5E;
+    --pine-light:#3D8A75;
+    --amber:#E8A33D;
+    --stone:#8B8378;
+    --line: rgba(11,14,20,0.1);
+    --card: #FFFFFF;
+    --radius: 14px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--amber); color:var(--ink);}
+
+  :focus-visible{
+    outline:3px solid var(--pine);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(247,245,240,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  nav.scrolled{
+    border-color:var(--line);
+    box-shadow:0 2px 24px rgba(11,14,20,0.05);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 28px;
+    max-width:1120px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    letter-spacing:-0.02em;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--pine);
+    box-shadow:0 0 0 0 rgba(46,110,94,0.5);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(46,110,94,0.45);}
+    70%{box-shadow:0 0 0 8px rgba(46,110,94,0);}
+    100%{box-shadow:0 0 0 0 rgba(46,110,94,0);}
+  }
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-size:14px;
+    font-weight:500;
+  }
+  .nav-links a{
+    position:relative;
+    padding:4px 0;
+    color:var(--ink);
+    opacity:0.75;
+    transition:opacity 0.2s;
+  }
+  .nav-links a:hover{opacity:1;}
+  .nav-links a.active{opacity:1;}
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    bottom:0; left:0;
+    width:0%; height:2px;
+    background:var(--amber);
+    transition:width 0.25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-links a.active::after{width:100%;}
+  .nav-cta{
+    font-family:var(--mono);
+    font-size:13px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:10px 18px;
+    border-radius:8px;
+    transition:transform 0.2s ease, background 0.2s ease;
+  }
+  .nav-cta:hover{background:var(--pine); transform:translateY(-1px);}
+  .nav-toggle{display:none;}
+
+  @media (max-width:760px){
+    .nav-links{
+      position:fixed;
+      top:64px; right:0;
+      flex-direction:column;
+      background:var(--paper);
+      width:100%;
+      padding:24px 28px;
+      gap:20px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-110%);
+      transition:transform 0.3s ease;
+    }
+    .nav-links.open{transform:translateY(0);}
+    .nav-cta{display:none;}
+    .nav-links .nav-cta-mobile{
+      display:inline-block;
+      font-family:var(--mono);
+      background:var(--ink);
+      color:var(--paper);
+      padding:10px 16px;
+      border-radius:8px;
+      width:fit-content;
+    }
+    .nav-toggle{
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:6px;
+      z-index:101;
+    }
+    .nav-toggle span{
+      width:22px; height:2px;
+      background:var(--ink);
+      border-radius:2px;
+      transition:0.25s ease;
+    }
+    .nav-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-toggle.active span:nth-child(2){opacity:0;}
+    .nav-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  }
+
+  /* ===== PAGE HEADER ===== */
+  .page-header{
+    padding:160px 0 70px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--pine);
+    letter-spacing:0.04em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+    opacity:0;
+    animation:fadeUp 0.6s ease 0.1s forwards;
+  }
+  .eyebrow::before{
+    content:'';
+    width:18px; height:1px;
+    background:var(--pine);
+  }
+  h1{
+    font-family:var(--display);
+    font-size:clamp(36px, 4.6vw, 56px);
+    line-height:1.06;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    margin-bottom:18px;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.22s forwards;
+    max-width:680px;
+  }
+  h1 .accent{color:var(--pine);}
+  .page-sub{
+    font-size:17px;
+    color:var(--stone);
+    max-width:520px;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.36s forwards;
+  }
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ===== SECTION SCAFFOLDING ===== */
+  section{padding:50px 0 110px;}
+  .section-head{
+    margin-bottom:44px;
+    max-width:620px;
+  }
+  .section-tag{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--pine);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:14px;
+    display:block;
+  }
+  h2{
+    font-family:var(--display);
+    font-size:clamp(26px, 3.2vw, 36px);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.15;
+  }
+  .section-sub{
+    color:var(--stone);
+    font-size:15.5px;
+    margin-top:12px;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ===== SAMPLE BARS ===== */
+  .bar-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .sample-bar{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:30px 36px;
+    overflow:hidden;
+    isolation:isolate;
+    transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    min-height:108px;
+  }
+  .sample-bar:hover{
+    transform:translateX(6px);
+    box-shadow:0 18px 40px -18px rgba(11,14,20,0.18);
+    border-color:var(--pine);
+  }
+  .sample-bar .bar-fade{
+    position:absolute;
+    top:0; right:0; bottom:0;
+    width:48%;
+    z-index:0;
+    opacity:0.55;
+    background-size:cover;
+    background-position:center;
+    filter:grayscale(55%) brightness(0.85) contrast(0.92) saturate(0.7);
+    transition:opacity 0.3s ease, width 0.3s ease, filter 0.3s ease;
+  }
+  .sample-bar:hover .bar-fade{width:54%; opacity:0.7; filter:grayscale(40%) brightness(0.9) contrast(0.94) saturate(0.8);}
+  .sample-bar .bar-fade::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to left, transparent 0%, var(--card) 88%);
+    z-index:2;
+  }
+
+  /* Banner photo per sample, dulled via filter above so it stays quiet */
+  .fade-cafe{background-image:url('Portfolio/Sample%20Websites/Example%201%20Cafe/banner.jpg');}
+  .fade-industrial{background-image:url('Portfolio/Sample%20Websites/Example%202%20Industrial%20Company/banner.jpg');}
+  .fade-barbers{background-image:url('Portfolio/Sample%20Websites/Example%203%20Barbers/banner.jpg');}
+  .fade-club{background-image:url('Portfolio/Sample%20Websites/Example%204%20Club/banner.jpg');}
+
+  .bar-content{
+    position:relative;
+    z-index:1;
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  .bar-num{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--stone);
+    flex-shrink:0;
+  }
+  .bar-text h3{
+    font-family:var(--display);
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .bar-text p{
+    font-size:13.5px;
+    color:var(--stone);
+  }
+  .bar-arrow{
+    position:relative;
+    z-index:1;
+    width:38px; height:38px;
+    border-radius:50%;
+    border:1.5px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    transition:background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+  .sample-bar:hover .bar-arrow{
+    background:var(--ink);
+    border-color:var(--ink);
+    transform:rotate(45deg);
+  }
+  .bar-arrow svg{transition:stroke 0.25s ease;}
+  .sample-bar:hover .bar-arrow svg{stroke:var(--paper);}
+
+  @media (max-width:640px){
+    .sample-bar{padding:24px 22px; min-height:88px;}
+    .bar-text h3{font-size:17px;}
+    .bar-fade{width:38%;}
+    .sample-bar:hover .bar-fade{width:44%;}
+  }
+
+  /* ===== PORTFOLIO EMPTY STATE ===== */
+  .portfolio-bar{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:30px 36px;
+    min-height:108px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    overflow:hidden;
+  }
+  .portfolio-bar::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background-image: repeating-linear-gradient(135deg, var(--line) 0 1px, transparent 1px 14px);
+    opacity:0.6;
+  }
+  .portfolio-bar .bar-content{opacity:0.55;}
+  .portfolio-bar .bar-text h3{color:var(--stone); font-weight:500;}
+  .portfolio-tag{
+    position:relative;
+    z-index:1;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--stone);
+    border:1px dashed var(--line);
+    padding:6px 12px;
+    border-radius:20px;
+    flex-shrink:0;
+    white-space:nowrap;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    padding:48px 0 36px;
+    text-align:center;
+  }
+  footer .f-logo{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--stone);
+    margin-bottom:8px;
+  }
+  footer .f-note{
+    font-size:12.5px;
+    color:rgba(139,131,120,0.6);
+  }
+
+  @media (max-width:600px){
+    .wrap{padding:0 20px;}
+    .page-header{padding:130px 0 50px;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="dot"></span>micheal.dev</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#samples" class="nav-link active">Samples</a>
+      <a href="#portfolio" class="nav-link">Portfolio</a>
+      <a href="index.html#contact" class="nav-cta-mobile">Get in touch</a>
+    </div>
+    <a href="index.html" class="nav-cta">← Back to site</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="wrap">
+    <span class="eyebrow">WORK</span>
+    <h1>Samples &amp; <span class="accent">portfolio.</span></h1>
+    <p class="page-sub">A look at the kind of sites I build, plus real client projects as they go live.</p>
+  </div>
+</header>
+
+<main>
+
+  <section id="samples">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">Sample Websites</span>
+        <h2>Four businesses, four builds</h2>
+        <p class="section-sub">Fictional businesses. Each one shows how I'd approach that kind of site.</p>
+      </div>
+
+      <div class="bar-list reveal">
+
+        <a class="sample-bar" href="Portfolio/Sample%20Websites/Example%201%20Cafe/index1.html" target="_blank" rel="noopener">
+          <div class="bar-content">
+            <span class="bar-num">01</span>
+            <div class="bar-text">
+              <h3>The Mill House Café</h3>
+              <p>Cafés &amp; restaurants — menu, hours, booking-ready contact</p>
+            </div>
+          </div>
+          <span class="bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+          <span class="bar-fade fade-cafe"></span>
+        </a>
+
+        <a class="sample-bar" href="Portfolio/Sample%20Websites/Example%202%20Industrial%20Company/index2.html" target="_blank" rel="noopener">
+          <div class="bar-content">
+            <span class="bar-num">02</span>
+            <div class="bar-text">
+              <h3>Industrial Company</h3>
+              <p>Trades &amp; manufacturing — services, capability, enquiry forms</p>
+            </div>
+          </div>
+          <span class="bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+          <span class="bar-fade fade-industrial"></span>
+        </a>
+
+        <a class="sample-bar" href="Portfolio/Sample%20Websites/Example%203%20Barbers/index3.html" target="_blank" rel="noopener">
+          <div class="bar-content">
+            <span class="bar-num">03</span>
+            <div class="bar-text">
+              <h3>Barbers</h3>
+              <p>Personal care &amp; grooming — gallery, pricing, bookings</p>
+            </div>
+          </div>
+          <span class="bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+          <span class="bar-fade fade-barbers"></span>
+        </a>
+
+        <a class="sample-bar" href="Portfolio/Sample%20Websites/Example%204%20Club/index4.html" target="_blank" rel="noopener">
+          <div class="bar-content">
+            <span class="bar-num">04</span>
+            <div class="bar-text">
+              <h3>Club</h3>
+              <p>Clubs &amp; community groups — fixtures, news, membership</p>
+            </div>
+          </div>
+          <span class="bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+          <span class="bar-fade fade-club"></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">Portfolio</span>
+        <h2>Client work</h2>
+        <p class="section-sub">This section fills up as real projects go live. Want to be the first?</p>
+      </div>
+
+      <div class="bar-list reveal">
+        <div class="portfolio-bar">
+          <div class="bar-content">
+            <span class="bar-num">—</span>
+            <div class="bar-text">
+              <h3>Coming soon</h3>
+              <p>Your business could be the first project featured here</p>
+            </div>
+          </div>
+          <span class="portfolio-tag">No live projects yet</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-logo">micheal.dev</div>
+    <div class="f-note">Micheál Finnerty · Pallaskenry, Co. Limerick · © 2026</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ===== Nav scroll state =====
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  // ===== Mobile nav toggle =====
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    const isOpen = links.classList.toggle('open');
+    toggle.classList.toggle('active', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.classList.remove('active');
+    toggle.setAttribute('aria-expanded', false);
+  }));
+
+  // ===== Active link highlight on scroll =====
+  const sections = ['samples', 'portfolio'].map(id => document.getElementById(id));
+  const navAnchors = document.querySelectorAll('.nav-link');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if ('IntersectionObserver' in window) {
+    const navIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navAnchors.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.5, rootMargin: '-80px 0px -40% 0px' });
+    sections.forEach(s => s && navIo.observe(s));
+  }
+
+  // ===== Scroll reveal =====
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+})();
+</script>
+
+</body>
+</html>
