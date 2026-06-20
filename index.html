@@ -608,6 +608,66 @@
   }
   .price-cta:hover{background:var(--pine);}
 
+  /* ===== MAINTENANCE STRIP ===== */
+  .maint-banner{
+    margin-top:24px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:30px 32px;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:28px;
+  }
+  .maint-icon{
+    width:52px; height:52px;
+    border-radius:14px;
+    background:rgba(46,110,94,0.08);
+    border:1px solid rgba(46,110,94,0.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    color:var(--pine);
+  }
+  .maint-copy h3{
+    font-family:var(--display);
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .maint-copy p{
+    font-size:14px;
+    color:var(--stone);
+    max-width:460px;
+  }
+  .maint-price{
+    text-align:right;
+    white-space:nowrap;
+  }
+  .maint-price .mp-amount{
+    font-family:var(--display);
+    font-size:30px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .maint-price .mp-unit{
+    font-family:var(--body);
+    font-size:13px;
+    color:var(--stone);
+    display:block;
+    margin-top:2px;
+  }
+  @media (max-width:700px){
+    .maint-banner{
+      grid-template-columns:1fr;
+      text-align:left;
+      gap:16px;
+    }
+    .maint-price{text-align:left;}
+  }
+
   .offer-banner{
     margin-top:28px;
     background:var(--ink);
@@ -998,6 +1058,20 @@
             <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Database storage &amp; admin features</li>
           </ul>
           <a href="#contact" class="price-cta">Get started</a>
+        </div>
+      </div>
+
+      <div class="maint-banner reveal">
+        <div class="maint-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="maint-copy">
+          <h3>Maintenance &amp; General Updates</h3>
+          <p>Already have a static website? I can handle text edits, image swaps, price/hours updates and small fixes, billed hourly rather than a monthly contract.</p>
+        </div>
+        <div class="maint-price">
+          <span class="mp-amount">€25</span>
+          <span class="mp-unit">per hour</span>
         </div>
       </div>
 
