@@ -101,7 +101,6 @@
   }
   .nav-links{
     display:flex;
-    align-items:center;
     gap:32px;
     font-size:14px;
     font-weight:500;
@@ -127,16 +126,13 @@
     font-family:var(--mono);
     font-size:13px;
     background:var(--ink);
-    color:var(--paper);
+    color:#FFFFFF !important;
     padding:10px 18px;
     border-radius:8px;
     transition:transform 0.2s ease, background 0.2s ease;
   }
   .nav-cta:hover{background:var(--pine); transform:translateY(-1px);}
-
-  /* Mobile-only duplicate of "Get in touch" styled as a plain link, hidden on desktop */
-  .nav-links .nav-link-mobile{display:none;}
-
+  .nav-portfolio-mobile{display:none;}
   .nav-toggle{display:none;}
 
   @media (max-width:760px){
@@ -144,7 +140,6 @@
       position:fixed;
       top:64px; right:0;
       flex-direction:column;
-      align-items:flex-start;
       background:var(--paper);
       width:100%;
       padding:24px 28px;
@@ -154,18 +149,17 @@
       transition:transform 0.3s ease;
     }
     .nav-links.open{transform:translateY(0);}
-
-    /* Portfolio keeps its bold CTA look and now lives inside the dropdown, last item */
-    .nav-cta{
-      order:2;
-    }
-
-    /* "Get in touch" becomes a small plain link on mobile, matching desktop's hierarchy */
-    .nav-links .nav-link-mobile{
+    .nav-cta{display:none;}
+    .nav-links .nav-cta-mobile,
+    .nav-links .nav-portfolio-mobile{
       display:inline-block;
-      order:1;
+      font-family:var(--mono);
+      background:var(--ink);
+      color:var(--paper);
+      padding:10px 16px;
+      border-radius:8px;
+      width:fit-content;
     }
-
     .nav-toggle{
       display:flex;
       flex-direction:column;
@@ -839,9 +833,10 @@
       <a href="#services" class="nav-link">Services</a>
       <a href="#pricing" class="nav-link">Pricing</a>
       <a href="#process" class="nav-link">Process</a>
-      <a href="#contact" class="nav-link nav-link-mobile">Get in touch</a>
-      <a href="portfolio.html" class="nav-cta">Portfolio</a>
+      <a href="#contact" class="nav-cta-mobile">Get in touch</a>
+      <a href="portfolio.html" class="nav-portfolio-mobile">Portfolio</a>
     </div>
+    <a href="portfolio.html" class="nav-cta">Portfolio</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
