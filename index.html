@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micheál Finnerty — Web Development</title>
+<meta name="description" content="Professional, affordable websites for local businesses in Limerick and beyond. Built by Micheál Finnerty.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0E14;
+    --paper:#F7F5F0;
+    --pine:#2E6E5E;
+    --pine-light:#3D8A75;
+    --amber:#E8A33D;
+    --stone:#8B8378;
+    --line: rgba(11,14,20,0.1);
+    --card: #FFFFFF;
+    --radius: 14px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--amber); color:var(--ink);}
+
+  :focus-visible{
+    outline:3px solid var(--pine);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(247,245,240,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  nav.scrolled{
+    border-color:var(--line);
+    box-shadow:0 2px 24px rgba(11,14,20,0.05);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 28px;
+    max-width:1120px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    letter-spacing:-0.02em;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--pine);
+    box-shadow:0 0 0 0 rgba(46,110,94,0.5);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(46,110,94,0.45);}
+    70%{box-shadow:0 0 0 8px rgba(46,110,94,0);}
+    100%{box-shadow:0 0 0 0 rgba(46,110,94,0);}
+  }
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-size:14px;
+    font-weight:500;
+  }
+  .nav-links a{
+    position:relative;
+    padding:4px 0;
+    color:var(--ink);
+    opacity:0.75;
+    transition:opacity 0.2s;
+  }
+  .nav-links a:hover{opacity:1;}
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    bottom:0; left:0;
+    width:0%; height:2px;
+    background:var(--amber);
+    transition:width 0.25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:var(--mono);
+    font-size:13px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:10px 18px;
+    border-radius:8px;
+    transition:transform 0.2s ease, background 0.2s ease;
+  }
+  .nav-cta:hover{background:var(--pine); transform:translateY(-1px);}
+  .nav-toggle{display:none;}
+
+  @media (max-width:760px){
+    .nav-links{
+      position:fixed;
+      top:64px; right:0;
+      flex-direction:column;
+      background:var(--paper);
+      width:100%;
+      padding:24px 28px;
+      gap:20px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-110%);
+      transition:transform 0.3s ease;
+    }
+    .nav-links.open{transform:translateY(0);}
+    .nav-cta{display:none;}
+    .nav-links .nav-cta-mobile{
+      display:inline-block;
+      font-family:var(--mono);
+      background:var(--ink);
+      color:var(--paper);
+      padding:10px 16px;
+      border-radius:8px;
+      width:fit-content;
+    }
+    .nav-toggle{
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:6px;
+      z-index:101;
+    }
+    .nav-toggle span{
+      width:22px; height:2px;
+      background:var(--ink);
+      border-radius:2px;
+      transition:0.25s ease;
+    }
+    .nav-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-toggle.active span:nth-child(2){opacity:0;}
+    .nav-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:160px 0 100px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--pine);
+    letter-spacing:0.04em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+    opacity:0;
+    animation:fadeUp 0.6s ease 0.1s forwards;
+  }
+  .eyebrow::before{
+    content:'';
+    width:18px; height:1px;
+    background:var(--pine);
+  }
+  h1{
+    font-family:var(--display);
+    font-size:clamp(40px, 5.4vw, 68px);
+    line-height:1.04;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    margin-bottom:24px;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.22s forwards;
+  }
+  h1 .accent{
+    color:var(--pine);
+    position:relative;
+  }
+  .hero-sub{
+    font-size:18px;
+    color:var(--stone);
+    max-width:480px;
+    margin-bottom:34px;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.36s forwards;
+  }
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.5s forwards;
+  }
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .btn{
+    font-family:var(--body);
+    font-weight:600;
+    font-size:15px;
+    padding:14px 26px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    transition:transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .btn-primary:hover{
+    background:var(--pine);
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(46,110,94,0.25);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1.5px solid var(--line);
+  }
+  .btn-ghost:hover{
+    border-color:var(--ink);
+    transform:translateY(-2px);
+  }
+
+  /* Hero terminal mockup */
+  .mock{
+    background:var(--ink);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 30px 70px -20px rgba(11,14,20,0.45);
+    transform:rotate(0.6deg);
+  }
+  .mock-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 16px;
+    background:#13171F;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .mock-dot{width:10px;height:10px;border-radius:50%;}
+  .mock-bar .mock-dot:nth-child(1){background:#FF5F57;}
+  .mock-bar .mock-dot:nth-child(2){background:#FEBC2E;}
+  .mock-bar .mock-dot:nth-child(3){background:#28C840;}
+  .mock-file{
+    margin-left:10px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:rgba(255,255,255,0.4);
+  }
+  .mock-body{
+    padding:24px 22px 28px;
+    font-family:var(--mono);
+    font-size:13.5px;
+    line-height:1.85;
+    min-height:300px;
+    color:#cfd8d4;
+  }
+  .mock-body .c-tag{color:#7AA2C7;}
+  .mock-body .c-attr{color:#E8A33D;}
+  .mock-body .c-str{color:#9DC9A8;}
+  .mock-body .c-com{color:#6B7280;}
+  #typed-code{white-space:pre-wrap; word-break:break-word;}
+  .cursor-blink{
+    display:inline-block;
+    width:8px; height:16px;
+    background:var(--amber);
+    vertical-align:middle;
+    animation:blink 1s steps(1) infinite;
+    margin-left:2px;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  .mock-preview{
+    border-top:1px dashed rgba(255,255,255,0.1);
+    margin-top:18px;
+    padding-top:16px;
+    opacity:0;
+    transition:opacity 0.5s ease;
+  }
+  .mock-preview.show{opacity:1;}
+  .preview-card{
+    background:var(--paper);
+    border-radius:10px;
+    padding:16px;
+    color:var(--ink);
+  }
+  .preview-card .pc-title{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:15px;
+    margin-bottom:4px;
+  }
+  .preview-card .pc-sub{
+    font-size:11.5px;
+    color:var(--stone);
+    margin-bottom:10px;
+  }
+  .preview-card .pc-btn{
+    display:inline-block;
+    background:var(--pine);
+    color:#fff;
+    font-size:11px;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:6px;
+  }
+
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr; gap:48px;}
+    .hero{padding:130px 0 60px;}
+    .mock{transform:none;}
+  }
+
+  /* ===== SECTION SCAFFOLDING ===== */
+  section{padding:110px 0;}
+  .section-head{
+    margin-bottom:56px;
+    max-width:620px;
+  }
+  .section-tag{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--pine);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:14px;
+    display:block;
+  }
+  h2{
+    font-family:var(--display);
+    font-size:clamp(28px, 3.6vw, 42px);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.15;
+  }
+  .section-sub{
+    color:var(--stone);
+    font-size:16px;
+    margin-top:14px;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ===== ABOUT ===== */
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:60px;
+    align-items:start;
+  }
+  .about-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px;
+  }
+  .about-card + .about-card{margin-top:20px;}
+  .ac-label{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--stone);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:10px;
+  }
+  .ac-value{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:20px;
+  }
+  .about-text p{
+    font-size:17px;
+    color:#3a3f47;
+    margin-bottom:18px;
+  }
+  .about-text p:last-child{margin-bottom:0;}
+  .badge-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:24px;
+  }
+  .badge{
+    font-family:var(--mono);
+    font-size:12.5px;
+    background:rgba(46,110,94,0.08);
+    color:var(--pine);
+    padding:7px 14px;
+    border-radius:20px;
+    border:1px solid rgba(46,110,94,0.18);
+  }
+
+  @media (max-width:880px){
+    .about-grid{grid-template-columns:1fr;}
+  }
+
+  /* ===== SERVICES / SKILLS ===== */
+  .skill-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .skill-cell{
+    background:var(--card);
+    padding:28px 22px;
+    transition:background 0.25s ease;
+    cursor:default;
+  }
+  .skill-cell:hover{background:#FBFAF6;}
+  .skill-cell .sk-icon{
+    width:36px; height:36px;
+    margin-bottom:16px;
+    color:var(--pine);
+  }
+  .skill-cell h3{
+    font-family:var(--display);
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .skill-cell p{
+    font-size:13.5px;
+    color:var(--stone);
+  }
+  @media (max-width:880px){
+    .skill-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:520px){
+    .skill-grid{grid-template-columns:1fr;}
+  }
+
+  .service-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:40px;
+  }
+  .service-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 24px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    transition:transform 0.2s ease, border-color 0.2s ease;
+  }
+  .service-row:hover{
+    transform:translateX(6px);
+    border-color:var(--pine);
+  }
+  .service-row span{font-size:15px;}
+  .service-row .sr-name{font-weight:500;}
+
+  /* ===== PRICING ===== */
+  .price-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:24px;
+  }
+  .price-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:36px 32px;
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .price-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 24px 50px -20px rgba(11,14,20,0.18);
+  }
+  .price-card.featured{
+    border-color:var(--pine);
+    background:linear-gradient(165deg, #FFFFFF 0%, #F2F8F5 100%);
+  }
+  .price-card.featured::before{
+    content:'POPULAR';
+    position:absolute;
+    top:20px; right:-32px;
+    background:var(--pine);
+    color:#fff;
+    font-family:var(--mono);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    padding:5px 40px;
+    transform:rotate(40deg);
+  }
+  .price-name{
+    font-family:var(--display);
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .price-amount{
+    font-family:var(--display);
+    font-size:44px;
+    font-weight:700;
+    margin:14px 0 4px;
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+  }
+  .price-amount span{
+    font-family:var(--body);
+    font-size:14px;
+    font-weight:400;
+    color:var(--stone);
+  }
+  .price-feat{
+    list-style:none;
+    margin:26px 0 30px;
+    display:flex;
+    flex-direction:column;
+    gap:13px;
+  }
+  .price-feat li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:14.5px;
+    color:#3a3f47;
+  }
+  .price-feat li svg{
+    flex-shrink:0;
+    margin-top:3px;
+    color:var(--pine);
+  }
+  .price-cta{
+    display:block;
+    text-align:center;
+    width:100%;
+    padding:13px;
+    border-radius:9px;
+    font-weight:600;
+    font-size:14.5px;
+    background:var(--ink);
+    color:#fff;
+    transition:background 0.2s ease;
+  }
+  .price-cta:hover{background:var(--pine);}
+
+  .offer-banner{
+    margin-top:28px;
+    background:var(--ink);
+    border-radius:18px;
+    padding:36px 38px;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:28px;
+    color:var(--paper);
+    position:relative;
+    overflow:hidden;
+  }
+  .offer-banner::after{
+    content:'';
+    position:absolute;
+    top:-50%; right:-10%;
+    width:300px; height:300px;
+    background:radial-gradient(circle, rgba(232,163,61,0.25), transparent 70%);
+  }
+  .offer-tag{
+    font-family:var(--mono);
+    font-size:34px;
+    font-weight:700;
+    color:var(--amber);
+    line-height:1;
+    white-space:nowrap;
+  }
+  .offer-tag .strike{
+    display:block;
+    font-size:14px;
+    color:rgba(247,245,240,0.45);
+    text-decoration:line-through;
+    font-weight:400;
+    margin-top:4px;
+  }
+  .offer-copy h3{
+    font-family:var(--display);
+    font-size:20px;
+    margin-bottom:6px;
+  }
+  .offer-copy p{
+    font-size:14px;
+    color:rgba(247,245,240,0.7);
+    max-width:420px;
+  }
+  .offer-banner .btn-primary{
+    background:var(--amber);
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .offer-banner .btn-primary:hover{
+    background:#fff;
+    box-shadow:0 10px 24px rgba(232,163,61,0.25);
+  }
+
+  @media (max-width:880px){
+    .price-grid{grid-template-columns:1fr;}
+    .offer-banner{grid-template-columns:1fr; text-align:left;}
+    .offer-banner .btn-primary{width:fit-content;}
+  }
+
+  /* ===== PROCESS ===== */
+  .process-line{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:24px;
+    margin-top:20px;
+  }
+  .process-line::before{
+    content:'';
+    position:absolute;
+    top:19px; left:0; right:0;
+    height:1px;
+    background:var(--line);
+    z-index:0;
+  }
+  .process-step{
+    position:relative;
+    z-index:1;
+  }
+  .ps-num{
+    width:40px; height:40px;
+    border-radius:50%;
+    background:var(--paper);
+    border:1.5px solid var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--mono);
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:18px;
+    transition:background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .process-step.in .ps-num{
+    background:var(--pine);
+    color:#fff;
+    border-color:var(--pine);
+  }
+  .process-step h4{
+    font-family:var(--display);
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .process-step p{
+    font-size:13.5px;
+    color:var(--stone);
+  }
+  @media (max-width:880px){
+    .process-line{grid-template-columns:1fr 1fr; gap:36px 24px;}
+    .process-line::before{display:none;}
+  }
+  @media (max-width:520px){
+    .process-line{grid-template-columns:1fr;}
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-section{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:28px;
+    margin:0 28px;
+    padding:80px 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .contact-section::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(46,110,94,0.25), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(232,163,61,0.15), transparent 45%);
+    pointer-events:none;
+  }
+  .contact-inner{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+  }
+  .contact-section h2{color:var(--paper);}
+  .contact-section .section-sub{color:rgba(247,245,240,0.6);}
+  .contact-section .section-tag{color:var(--amber);}
+
+  .contact-list{
+    margin-top:32px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .contact-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-size:15.5px;
+  }
+  .contact-item .ci-icon{
+    width:38px; height:38px;
+    border-radius:10px;
+    background:rgba(247,245,240,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .contact-item a:hover{color:var(--amber);}
+
+  .form-card{
+    background:rgba(247,245,240,0.04);
+    border:1px solid rgba(247,245,240,0.12);
+    border-radius:16px;
+    padding:28px;
+    backdrop-filter:blur(6px);
+  }
+  .form-field{margin-bottom:18px;}
+  .form-field label{
+    display:block;
+    font-family:var(--mono);
+    font-size:12px;
+    color:rgba(247,245,240,0.55);
+    margin-bottom:8px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .form-field input, .form-field textarea{
+    width:100%;
+    background:rgba(247,245,240,0.06);
+    border:1px solid rgba(247,245,240,0.15);
+    border-radius:9px;
+    padding:12px 14px;
+    color:var(--paper);
+    font-family:var(--body);
+    font-size:14.5px;
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .form-field input::placeholder, .form-field textarea::placeholder{color:rgba(247,245,240,0.3);}
+  .form-field input:focus, .form-field textarea:focus{
+    outline:none;
+    border-color:var(--amber);
+    background:rgba(247,245,240,0.09);
+  }
+  .form-field textarea{resize:vertical; min-height:96px;}
+  .form-submit{
+    width:100%;
+    background:var(--amber);
+    color:var(--ink);
+    border:none;
+    padding:14px;
+    border-radius:9px;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .form-submit:hover{background:#fff; transform:translateY(-2px);}
+  .form-note{
+    font-size:12px;
+    color:rgba(247,245,240,0.4);
+    text-align:center;
+    margin-top:12px;
+  }
+  .form-success{
+    display:none;
+    text-align:center;
+    padding:30px 10px;
+  }
+  .form-success.show{display:block;}
+  .form-success .fs-check{
+    width:48px;height:48px;
+    border-radius:50%;
+    background:var(--pine);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 16px;
+  }
+  .form-success h3{font-family:var(--display); margin-bottom:8px;}
+  .form-success p{color:rgba(247,245,240,0.6); font-size:14px;}
+
+  @media (max-width:880px){
+    .contact-section{margin:0 14px; padding:56px 28px; border-radius:20px;}
+    .contact-inner{grid-template-columns:1fr; gap:40px;}
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    padding:48px 0 36px;
+    text-align:center;
+  }
+  footer .f-logo{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--stone);
+    margin-bottom:8px;
+  }
+  footer .f-note{
+    font-size:12.5px;
+    color:rgba(139,131,120,0.6);
+  }
+
+  @media (max-width:600px){
+    .wrap{padding:0 20px;}
+    section{padding:80px 0;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#top" class="logo"><span class="dot"></span>micheal.dev</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="#process" class="nav-link">Process</a>
+      <a href="#contact" class="nav-cta-mobile">Get in touch</a>
+    </div>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">PALLASKENRY, CO. LIMERICK</span>
+        <h1>Websites for local<br>businesses, built by<br><span class="accent">someone local.</span></h1>
+        <p class="hero-sub">I'm Micheál — an 18-year-old web developer giving small businesses a professional online presence, without agency prices.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Start your project →</a>
+          <a href="#pricing" class="btn btn-ghost">See pricing</a>
+        </div>
+      </div>
+
+      <div class="mock">
+        <div class="mock-bar">
+          <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+          <span class="mock-file">your-business.html</span>
+        </div>
+        <div class="mock-body">
+          <span id="typed-code"></span><span class="cursor-blink" id="cursor"></span>
+          <div class="mock-preview" id="mockPreview">
+            <div class="preview-card">
+              <div class="pc-title">Your Business Name</div>
+              <div class="pc-sub">Open today · Pallaskenry, Limerick</div>
+              <span class="pc-btn">Contact Us</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">About</span>
+        <h2>Built locally. Coded properly.</h2>
+        <p class="section-sub">My goal is simple: help local businesses establish an online presence with professional, affordable websites — without the high costs that big web design companies charge.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="reveal">
+          <div class="about-card">
+            <div class="ac-label">Based in</div>
+            <div class="ac-value">Pallaskenry, Co. Limerick</div>
+          </div>
+          <div class="about-card">
+            <div class="ac-label">Education</div>
+            <div class="ac-value">Leaving Cert, Class of 2026</div>
+            <p style="margin-top:10px; font-size:14px; color:var(--stone);">Salesian Secondary College Pallaskenry — Honours Computer Science, Computer Science Subject Award</p>
+          </div>
+        </div>
+
+        <div class="about-text reveal">
+          <p>I started building websites because I saw how many local shops, trades and services in the area either had no website at all, or one that hadn't been touched in years. Most can't justify the cost a big agency charges for a handful of pages.</p>
+          <p>So I do it differently — clean, modern, mobile-friendly sites at a fair price, built and looked after by one person who actually lives here and answers the phone.</p>
+          <div class="badge-row">
+            <span class="badge">HTML &amp; CSS</span>
+            <span class="badge">JavaScript</span>
+            <span class="badge">Responsive Design</span>
+            <span class="badge">Databases</span>
+            <span class="badge">Java</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">What I Do</span>
+        <h2>Services &amp; technical skills</h2>
+      </div>
+
+      <div class="skill-grid reveal">
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M9 18v3M15 18v3M7 21h10"/></svg>
+          <h3>Business Websites</h3>
+          <p>Full sites built around what your customers actually need to find.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"/></svg>
+          <h3>Info &amp; Contact Pages</h3>
+          <p>Clear opening hours, location and a way for people to reach you.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+          <h3>Mobile-Friendly Design</h3>
+          <p>Looks right and works properly on a phone — where most visitors will land.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg>
+          <h3>Updates &amp; Maintenance</h3>
+          <p>Prices change, hours change. I keep your site current as your business moves.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+          <h3>Custom HTML Builds</h3>
+          <p>No bloated templates — hand-coded pages that load fast and stay yours.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+          <h3>Databases</h3>
+          <p>Booking systems, request forms and stored data when your site needs to do more.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 17l6-6-6-6M12 19h8"/></svg>
+          <h3>JavaScript</h3>
+          <p>Interactive elements that make a site feel alive, not just a digital leaflet.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+          <h3>Layout &amp; Design</h3>
+          <p>Considered structure and visual hierarchy, not just text on a white page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">Pricing</span>
+        <h2>Straightforward pricing, no surprises</h2>
+        <p class="section-sub">Two packages cover most small businesses. Need something different? Get in touch and we'll figure it out.</p>
+      </div>
+
+      <div class="price-grid reveal">
+        <div class="price-card">
+          <div class="price-name">Basic Business Website</div>
+          <div class="price-amount">€300</div>
+          <ul class="price-feat">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Home, About &amp; Services pages</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Contact details + Google Maps</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Mobile-friendly design</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Clean, professional styling</li>
+          </ul>
+          <a href="#contact" class="price-cta">Get started</a>
+        </div>
+
+        <div class="price-card featured">
+          <div class="price-name">Website + Customer Features</div>
+          <div class="price-amount">€500</div>
+          <ul class="price-feat">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Everything in Basic</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Multiple pages</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Contact forms &amp; image galleries</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Booking / request system</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Database storage &amp; admin features</li>
+          </ul>
+          <a href="#contact" class="price-cta">Get started</a>
+        </div>
+      </div>
+
+      <div class="offer-banner reveal">
+        <div class="offer-tag">€50<span class="strike">from €300</span></div>
+        <div class="offer-copy">
+          <h3>First Customer Offer</h3>
+          <p>As I'm just starting out, my first customer gets a special rate — in exchange for letting the finished site be used as a showcase example in future portfolios and proposals.</p>
+        </div>
+        <a href="#contact" class="btn btn-primary">Claim this offer</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">How It Works</span>
+        <h2>From first chat to live site</h2>
+      </div>
+
+      <div class="process-line reveal">
+        <div class="process-step">
+          <div class="ps-num">1</div>
+          <h4>Free chat</h4>
+          <p>No-obligation discussion about what your business actually needs.</p>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">2</div>
+          <h4>Build</h4>
+          <p>I design and code your site, keeping you updated as it comes together.</p>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">3</div>
+          <h4>Review</h4>
+          <p>You check it on your own phone and laptop before anything goes live.</p>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">4</div>
+          <h4>Launch &amp; support</h4>
+          <p>Site goes live, and I'm on hand for updates and maintenance after.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-section reveal">
+        <div class="contact-inner">
+          <div>
+            <span class="section-tag">Get In Touch</span>
+            <h2>Let's talk about<br>your website.</h2>
+            <p class="section-sub">Free, no-obligation discussion about your requirements. Currently taking on small business and personal website projects.</p>
+
+            <div class="contact-list">
+              <div class="contact-item">
+                <span class="ci-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="1.8"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 7l9 6 9-6M3 7v10h18V7"/></svg></span>
+                <a href="mailto:micheal.finnerty2@gmail.com">micheal.finnerty2@gmail.com</a>
+              </div>
+              <div class="contact-item">
+                <span class="ci-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                <a href="tel:+353858592103">00 353 85 859 2103</a>
+              </div>
+              <div class="contact-item">
+                <span class="ci-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                <span>Pallaskenry, Co. Limerick</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <form id="contactForm">
+              <div class="form-field">
+                <label for="f-name">Name</label>
+                <input type="text" id="f-name" placeholder="Your name" required>
+              </div>
+              <div class="form-field">
+                <label for="f-email">Email</label>
+                <input type="email" id="f-email" placeholder="you@example.com" required>
+              </div>
+              <div class="form-field">
+                <label for="f-business">Business (optional)</label>
+                <input type="text" id="f-business" placeholder="e.g. The Mill House Café">
+              </div>
+              <div class="form-field">
+                <label for="f-message">What do you need?</label>
+                <textarea id="f-message" placeholder="Tell me a bit about your business and what you're after..." required></textarea>
+              </div>
+              <button type="submit" class="form-submit">Send message</button>
+              <p class="form-note">I'll get back to you within a day or two.</p>
+            </form>
+
+            <div class="form-success" id="formSuccess">
+              <div class="fs-check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <h3>Message received</h3>
+              <p>Thanks for reaching out — I'll be in touch shortly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-logo">micheal.dev</div>
+    <div class="f-note">Micheál Finnerty · Pallaskenry, Co. Limerick · © 2026</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ===== Nav scroll state =====
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  // ===== Mobile nav toggle =====
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    const isOpen = links.classList.toggle('open');
+    toggle.classList.toggle('active', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.classList.remove('active');
+    toggle.setAttribute('aria-expanded', false);
+  }));
+
+  // ===== Hero typing animation =====
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const codeLines = [
+    {text: '<span class="c-tag">&lt;section</span> <span class="c-attr">class</span>=<span class="c-str">"hero"</span><span class="c-tag">&gt;</span>', pause: 60},
+    {text: '  <span class="c-tag">&lt;h1&gt;</span>Your Business Name<span class="c-tag">&lt;/h1&gt;</span>', pause: 60},
+    {text: '  <span class="c-com">&lt;!-- mobile-friendly, fast, yours --&gt;</span>', pause: 80},
+    {text: '  <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#contact"</span><span class="c-tag">&gt;</span>Contact Us<span class="c-tag">&lt;/a&gt;</span>', pause: 60},
+    {text: '<span class="c-tag">&lt;/section&gt;</span>', pause: 40}
+  ];
+
+  const typedEl = document.getElementById('typed-code');
+  const cursorEl = document.getElementById('cursor');
+  const previewEl = document.getElementById('mockPreview');
+
+  function typeSequence() {
+    if (reduceMotion) {
+      typedEl.innerHTML = codeLines.map(l => l.text).join('\n');
+      previewEl.classList.add('show');
+      return;
+    }
+
+    let lineIdx = 0;
+    let html = '';
+
+    function typeLine() {
+      if (lineIdx >= codeLines.length) {
+        setTimeout(() => previewEl.classList.add('show'), 300);
+        return;
+      }
+      const line = codeLines[lineIdx];
+      // Build plain text length to type, but inject markup at the end of the line render
+      const temp = document.createElement('div');
+      temp.innerHTML = line.text;
+      const plain = temp.textContent;
+      let charIdx = 0;
+
+      const typeChar = () => {
+        if (charIdx <= plain.length) {
+          // progressively reveal: show partial plain text styled simply while typing,
+          // then swap to full markup once line is done for accurate coloring
+          const partial = plain.slice(0, charIdx);
+          typedEl.innerHTML = html + escapeHtml(partial);
+          charIdx++;
+          setTimeout(typeChar, 14 + Math.random() * 18);
+        } else {
+          html += line.text + '\n';
+          typedEl.innerHTML = html;
+          lineIdx++;
+          setTimeout(typeLine, line.pause);
+        }
+      };
+      typeChar();
+    }
+
+    function escapeHtml(str){
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    typeLine();
+  }
+
+  // start after hero fade-in begins
+  setTimeout(typeSequence, 650);
+
+  // ===== Scroll reveal =====
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+
+    // Process steps light up individually
+    const steps = document.querySelectorAll('.process-step');
+    const stepIo = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const idx = Array.from(steps).indexOf(entry.target);
+          setTimeout(() => entry.target.classList.add('in'), idx * 150);
+          stepIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    steps.forEach(el => stepIo.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+    document.querySelectorAll('.process-step').forEach(el => el.classList.add('in'));
+  }
+
+  // ===== Contact form =====
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.style.display = 'none';
+    success.classList.add('show');
+  });
+})();
+</script>
+
+</body>
+</html>
