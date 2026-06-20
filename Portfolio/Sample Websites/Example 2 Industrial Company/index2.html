@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sherwood Electrical — Domestic & Commercial Electricians</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%231A1D1F%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 fill=%22%23F4B400%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-weight=%22bold%22>S</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2315171A%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 fill=%22%23F4B400%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-weight=%22bold%22>S</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --charcoal:#1A1D1F;
-    --charcoal-soft:#24282B;
+    --panel:#15171A;
+    --charcoal:#1F2326;
     --slate:#2E4057;
     --yellow:#F4B400;
     --yellow-dim:#D69E00;
@@ -19,14 +19,16 @@
     --grey:#8A8F94;
     --line:#3A3F43;
     --line-light:#DAD6CC;
+    --ease:cubic-bezier(.22,.61,.36,1);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     font-family:'Inter', sans-serif;
-    color:var(--charcoal);
+    color:var(--panel);
     background:var(--off);
     line-height:1.55;
+    position:relative;
   }
   h1,h2,h3{font-family:'Big Shoulders Display', sans-serif;text-transform:uppercase;line-height:1;letter-spacing:0.01em;}
   a{color:inherit;text-decoration:none;}
@@ -37,11 +39,45 @@
     font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
     font-weight:700;color:var(--yellow-dim);
   }
+  .tabular{font-family:'Space Mono',monospace;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}
+  }
+
+  /* ===== Circuit trace spine (signature element) ===== */
+  .circuit-rail{
+    position:fixed; top:0; left:0; width:100%; height:100%; z-index:5;
+    pointer-events:none;
+  }
+  .circuit-rail svg{position:absolute;top:0;left:50%;transform:translateX(-50%);height:100%;width:2px;overflow:visible;}
+  #circuit-path{
+    stroke:var(--yellow); stroke-width:2; fill:none;
+    stroke-dasharray:6 10; opacity:0.55;
+  }
+  #circuit-flow{
+    stroke:var(--yellow); stroke-width:2; fill:none;
+    stroke-dasharray:3 240; stroke-dashoffset:0;
+    filter:drop-shadow(0 0 3px rgba(244,180,0,0.9));
+  }
+  .junction{
+    position:absolute; left:50%; width:11px; height:11px; border-radius:50%;
+    background:var(--charcoal); border:2px solid var(--line);
+    transform:translate(-50%,-50%);
+    transition:background .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .junction.live{
+    background:var(--yellow); border-color:var(--yellow);
+    box-shadow:0 0 14px rgba(244,180,0,0.7);
+  }
+  @media (max-width:860px){
+    .circuit-rail{display:none;}
+  }
 
   /* ===== Header ===== */
   header{
     position:sticky;top:0;z-index:50;
-    background:var(--charcoal);
+    background:var(--panel);
     border-bottom:1px solid var(--line);
   }
   .nav{
@@ -55,21 +91,23 @@
   }
   .logo .bolt{color:var(--yellow);font-size:1.1rem;}
   .nav-links{display:flex;gap:30px;font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.04em;list-style:none;}
-  .nav-links a{margin-right:30px;}
-  .nav-links a:last-child{margin-right:0;}
-  .nav-links a{color:#C7C9CB;padding:4px 0;border-bottom:2px solid transparent;}
+  .nav-links a{color:#C7C9CB;padding:4px 0;border-bottom:2px solid transparent;transition:color .2s var(--ease), border-color .2s var(--ease);}
   .nav-links a:hover{color:#fff;border-bottom-color:var(--yellow);}
   .nav-cta{
-    background:var(--yellow);color:var(--charcoal);padding:11px 22px;
+    background:var(--yellow);color:var(--panel);padding:11px 22px;
     font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.04em;
+    transition:background .2s var(--ease), transform .2s var(--ease);
   }
-  .nav-cta:hover{background:#fff;}
+  .nav-cta:hover{background:#fff;transform:translateY(-1px);}
   .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
-  .burger span{width:24px;height:2px;background:#fff;display:block;}
+  .burger span{width:24px;height:2px;background:#fff;display:block;transition:transform .25s var(--ease), opacity .25s var(--ease);}
+  .nav.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav.open .burger span:nth-child(2){opacity:0;}
+  .nav.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
   /* ===== Hero ===== */
   .hero{
-    background:var(--charcoal);
+    background:var(--panel);
     color:#fff;position:relative;
     padding:60px 24px 0;
     border-bottom:6px solid var(--yellow);
@@ -83,57 +121,74 @@
   .hero h1{
     font-size:clamp(2.4rem,5vw,4rem);font-weight:800;margin:18px 0 22px;
     max-width:560px;
+    opacity:0; transform:translateY(14px);
+    animation:riseIn .8s var(--ease) .1s forwards;
   }
-  .hero h1 em{color:var(--yellow);font-style:normal;}
-  .hero p{font-size:1.05rem;color:#B8BBBE;max-width:460px;margin-bottom:30px;}
-  .btn-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero h1 em{color:var(--yellow);font-style:normal;position:relative;}
+  .hero p.lede{
+    font-size:1.05rem;color:#B8BBBE;max-width:460px;margin-bottom:30px;
+    opacity:0; transform:translateY(14px);
+    animation:riseIn .8s var(--ease) .25s forwards;
+  }
+  .btn-row{
+    display:flex;gap:14px;flex-wrap:wrap;
+    opacity:0; transform:translateY(14px);
+    animation:riseIn .8s var(--ease) .4s forwards;
+  }
+  @keyframes riseIn{to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion: reduce){
+    .hero h1, .hero p.lede, .btn-row{animation:none;opacity:1;transform:none;}
+  }
+
   .btn{
     display:inline-block;padding:15px 28px;font-weight:700;font-size:0.85rem;
     text-transform:uppercase;letter-spacing:0.04em;
+    transition:background .2s var(--ease), transform .2s var(--ease), border-color .2s var(--ease);
   }
-  .btn-primary{background:var(--yellow);color:var(--charcoal);}
-  .btn-primary:hover{background:#fff;}
+  .btn-primary{background:var(--yellow);color:var(--panel);}
+  .btn-primary:hover{background:#fff;transform:translateY(-2px);}
   .btn-ghost{border:1px solid #4A4F53;color:#fff;}
-  .btn-ghost:hover{border-color:#fff;}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,0.05);}
 
   .hero-status{padding:56px 0 56px 40px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:28px;}
   .status-row{display:flex;align-items:baseline;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--line);}
   .status-row:last-child{border-bottom:none;padding-bottom:0;}
   .status-row .label{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--grey);font-weight:600;}
-  .status-row .val{font-family:'Big Shoulders Display',sans-serif;font-size:1.5rem;font-weight:700;color:#fff;}
+  .status-row .val{font-family:'Space Mono',monospace;font-size:1.35rem;font-weight:700;color:#fff;}
   .status-row .val.live{color:var(--yellow);display:flex;align-items:center;gap:9px;}
   .dot{width:9px;height:9px;border-radius:50%;background:var(--yellow);display:inline-block;animation:pulse 1.8s infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
   @media (prefers-reduced-motion:reduce){.dot{animation:none;}}
 
   /* ===== Section scaffolding ===== */
-  section{padding:84px 24px;}
+  section{padding:84px 24px;position:relative;z-index:10;}
   .section-head{
     display:flex;align-items:baseline;justify-content:space-between;
-    max-width:1140px;margin:0 auto 44px;padding-bottom:18px;border-bottom:2px solid var(--charcoal);
+    max-width:1140px;margin:0 auto 44px;padding-bottom:18px;border-bottom:2px solid var(--panel);
     flex-wrap:wrap;gap:10px;
   }
-  .section-head h2{font-size:clamp(1.9rem,3.4vw,2.6rem);color:var(--charcoal);font-weight:800;}
-  .section-head .num{font-family:'Big Shoulders Display',sans-serif;font-size:1rem;color:var(--grey);font-weight:700;}
+  .section-head h2{font-size:clamp(1.9rem,3.4vw,2.6rem);color:var(--panel);font-weight:800;}
+  .section-head .num{font-family:'Space Mono',monospace;font-size:0.95rem;color:var(--grey);font-weight:700;}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease), transform .6s var(--ease);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none;}}
 
   /* ===== About ===== */
   .about{background:#fff;}
   .about-grid{display:grid;grid-template-columns:0.95fr 1.05fr;gap:56px;max-width:1140px;margin:0 auto;align-items:start;}
-  .about-img{
-    aspect-ratio:4/5;background:
-      repeating-linear-gradient(135deg, var(--slate) 0 18px, #25394c 18px 36px);
-    position:relative;border:1px solid var(--line-light);
-  }
-  .about-img::after{
-    content:"EST. 2014";position:absolute;bottom:18px;left:18px;
+  .about-art{aspect-ratio:4/5;position:relative;border:1px solid var(--line-light);background:var(--panel);overflow:hidden;}
+  .about-art svg{width:100%;height:100%;display:block;}
+  .about-art .est-tag{
+    position:absolute;bottom:18px;left:18px;
     font-family:'Big Shoulders Display',sans-serif;color:var(--yellow);font-weight:800;font-size:1.1rem;
-    background:var(--charcoal);padding:6px 12px;
+    background:var(--panel);padding:6px 12px;z-index:2;
   }
   .about p{color:#4A4540;margin-bottom:16px;max-width:520px;}
-  .about p:first-of-type{font-size:1.15rem;color:var(--charcoal);font-weight:500;}
+  .about p:first-of-type{font-size:1.15rem;color:var(--panel);font-weight:500;}
   .cert-row{display:flex;gap:32px;margin-top:32px;flex-wrap:wrap;}
   .cert{display:flex;flex-direction:column;gap:4px;min-width:110px;}
-  .cert .num{font-family:'Big Shoulders Display',sans-serif;font-size:2.2rem;font-weight:800;color:var(--slate);}
+  .cert .num{font-family:'Space Mono',monospace;font-size:2.1rem;font-weight:700;color:var(--slate);}
   .cert .lbl{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--grey);font-weight:600;}
 
   /* ===== Services — spec-sheet table style ===== */
@@ -142,54 +197,64 @@
   .spec-row{
     display:grid;grid-template-columns:90px 1fr 1fr;gap:24px;
     padding:28px 0;border-bottom:1px solid var(--line-light);align-items:start;
+    transition:background .2s var(--ease);
   }
   .spec-row .tag{
-    font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:1.3rem;color:var(--line-light);
+    font-family:'Space Mono',monospace;font-weight:700;font-size:1.2rem;color:var(--line-light);
+    transition:color .2s var(--ease);
   }
-  .spec-row h3{font-size:1.25rem;color:var(--charcoal);font-weight:700;text-transform:none;}
+  .spec-row h3{font-size:1.25rem;color:var(--panel);font-weight:700;text-transform:none;}
   .spec-row p{color:#605A52;font-size:0.95rem;}
+  .spec-row:hover{background:rgba(244,180,0,0.05);}
   .spec-row:hover .tag{color:var(--yellow-dim);}
 
   /* ===== Coverage / testimonials ===== */
-  .coverage{background:var(--charcoal);color:#fff;}
+  .coverage{background:var(--panel);color:#fff;}
   .coverage .section-head{border-bottom-color:var(--line);}
   .coverage .section-head h2{color:#fff;}
   .coverage .section-head .num{color:var(--grey);}
   .quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:1140px;margin:0 auto;background:var(--line);border:1px solid var(--line);}
-  .quote{background:var(--charcoal);padding:30px;}
+  .quote{background:var(--panel);padding:30px;transition:background .25s var(--ease);}
+  .quote:hover{background:var(--charcoal);}
   .quote .stars{color:var(--yellow);font-size:0.9rem;margin-bottom:14px;letter-spacing:2px;}
   .quote p{font-size:0.97rem;color:#D6D8D9;margin-bottom:18px;}
   .quote-author{font-weight:700;font-size:0.82rem;color:#fff;text-transform:uppercase;letter-spacing:0.04em;}
-  .quote-area{font-size:0.78rem;color:var(--grey);margin-top:2px;}
+  .quote-area{font-size:0.78rem;color:var(--grey);margin-top:2px;font-family:'Space Mono',monospace;}
 
   /* ===== Contact ===== */
   .contact{background:#fff;}
   .contact-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;max-width:1140px;margin:0 auto;}
   .info-block{margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid var(--line-light);}
   .info-block:last-child{border-bottom:none;}
-  .info-block h3{color:var(--charcoal);font-size:0.95rem;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.04em;}
+  .info-block h3{color:var(--panel);font-size:0.95rem;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.04em;}
   .info-block p{color:#605A52;font-size:0.95rem;}
+  .info-block a{transition:color .2s var(--ease);}
   .info-block a:hover{color:var(--yellow-dim);}
   .map-frame{border:1px solid var(--line-light);margin-top:8px;filter:grayscale(0.3) contrast(1.05);}
 
   form{display:flex;flex-direction:column;gap:16px;}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  label{font-size:0.78rem;font-weight:700;color:var(--charcoal);text-transform:uppercase;letter-spacing:0.05em;}
+  .field{display:flex;flex-direction:column;gap:8px;}
+  label{font-size:0.78rem;font-weight:700;color:var(--panel);text-transform:uppercase;letter-spacing:0.05em;}
   input,textarea,select{
     padding:13px 14px;border:1px solid var(--line-light);
-    font-family:inherit;font-size:0.95rem;background:var(--off);color:var(--charcoal);
+    font-family:inherit;font-size:0.95rem;background:var(--off);color:var(--panel);
+    transition:border-color .2s var(--ease);
   }
   textarea{resize:vertical;min-height:110px;}
   input:focus,textarea:focus,select:focus{border-color:var(--yellow-dim);}
+  .submit-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
   .submit-btn{
-    background:var(--charcoal);color:#fff;border:none;cursor:pointer;
+    background:var(--panel);color:#fff;border:none;cursor:pointer;
     padding:15px 28px;font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.04em;
     width:fit-content;
+    transition:background .2s var(--ease), transform .2s var(--ease);
   }
-  .submit-btn:hover{background:var(--slate);}
+  .submit-btn:hover{background:var(--slate);transform:translateY(-2px);}
+  .submit-btn:active{transform:translateY(0);}
   .form-status{font-size:0.85rem;color:var(--slate);min-height:18px;font-weight:600;}
 
-  footer{background:var(--charcoal);color:var(--grey);padding:36px 24px;text-align:center;font-size:0.85rem;border-top:4px solid var(--yellow);}
+  footer{background:var(--panel);color:var(--grey);padding:36px 24px;text-align:center;font-size:0.85rem;border-top:4px solid var(--yellow);}
   footer .logo{color:#fff;justify-content:center;margin-bottom:10px;}
 
   @media (max-width:860px){
@@ -198,24 +263,45 @@
     .burger{display:flex;}
     .nav.open .nav-links{
       display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;
-      background:var(--charcoal);padding:22px 24px;gap:18px;border-bottom:1px solid var(--line);
+      background:var(--panel);padding:22px 24px;gap:18px;border-bottom:1px solid var(--line);
     }
     .nav.open .nav-cta{
       display:inline-block;margin:0 24px 22px;position:absolute;top:calc(100% + 196px);left:0;text-align:center;
+      width:calc(100% - 48px);
     }
     .hero-inner{grid-template-columns:1fr;}
     .hero-main{border-right:none;border-bottom:1px solid var(--line);padding:44px 0;}
-    .hero-status{padding:32px 0;}
+    .hero-status{padding:32px 0;border-left:none;}
+    section{padding:60px 20px;}
     .about-grid{grid-template-columns:1fr;}
-    .about-img{aspect-ratio:16/9;}
+    .about-art{aspect-ratio:16/9;}
     .spec-row{grid-template-columns:1fr;gap:8px;}
     .quote-grid{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}
     .form-row{grid-template-columns:1fr;}
   }
+
+  @media (max-width:480px){
+    .hero h1{font-size:2rem;}
+    .btn{padding:14px 20px;font-size:0.8rem;}
+    .status-row .val{font-size:1.1rem;}
+  }
 </style>
 </head>
 <body>
+
+<!-- Circuit trace spine: current flows down the page, junctions light up per section (desktop only) -->
+<div class="circuit-rail" aria-hidden="true">
+  <svg preserveAspectRatio="none">
+    <path id="circuit-path" d="" />
+    <path id="circuit-flow" d="" />
+  </svg>
+  <div class="junction" id="junction-hero" style="top:0;"></div>
+  <div class="junction" id="junction-about" style="top:0;"></div>
+  <div class="junction" id="junction-services" style="top:0;"></div>
+  <div class="junction" id="junction-coverage" style="top:0;"></div>
+  <div class="junction" id="junction-contact" style="top:0;"></div>
+</div>
 
 <header>
   <nav class="nav" id="nav">
@@ -233,12 +319,12 @@
   </nav>
 </header>
 
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-inner">
     <div class="hero-main">
       <span class="mono-label">Domestic &amp; Commercial · Co. Limerick</span>
       <h1>Wired right,<br>the <em>first</em> time.</h1>
-      <p>Fully qualified electricians covering rewires, fault-finding, EV chargers and commercial fit-outs across Limerick and the surrounding area.</p>
+      <p class="lede">Fully qualified electricians covering rewires, fault-finding, EV chargers and commercial fit-outs across Limerick and the surrounding area.</p>
       <div class="btn-row">
         <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
         <a href="#services" class="btn btn-ghost">View Services</a>
@@ -251,27 +337,56 @@
       </div>
       <div class="status-row">
         <span class="label">Avg. Response</span>
-        <span class="val">Under 2 Hrs</span>
+        <span class="val tabular">&lt; 2 HRS</span>
       </div>
       <div class="status-row">
         <span class="label">Call-Out Area</span>
-        <span class="val">25km Radius</span>
+        <span class="val tabular">25 KM</span>
       </div>
       <div class="status-row">
         <span class="label">Registered</span>
-        <span class="val">RECI No. 014522</span>
+        <span class="val tabular">RECI 014522</span>
       </div>
     </div>
   </div>
 </section>
 
 <section class="about" id="about">
-  <div class="section-head">
+  <div class="section-head reveal">
     <h2>Who We Are</h2>
-    <span class="num">01 / About</span>
+    <span class="num">01 / ABOUT</span>
   </div>
-  <div class="about-grid">
-    <div class="about-img"></div>
+  <div class="about-grid reveal">
+    <div class="about-art">
+      <svg viewBox="0 0 320 400" preserveAspectRatio="xMidYMid slice">
+        <rect width="320" height="400" fill="#15171A"/>
+        <g stroke="#3A3F43" stroke-width="1">
+          <line x1="0" y1="50" x2="320" y2="50"/>
+          <line x1="0" y1="100" x2="320" y2="100"/>
+          <line x1="0" y1="150" x2="320" y2="150"/>
+          <line x1="0" y1="200" x2="320" y2="200"/>
+          <line x1="0" y1="250" x2="320" y2="250"/>
+          <line x1="0" y1="300" x2="320" y2="300"/>
+          <line x1="0" y1="350" x2="320" y2="350"/>
+          <line x1="80" y1="0" x2="80" y2="400"/>
+          <line x1="160" y1="0" x2="160" y2="400"/>
+          <line x1="240" y1="0" x2="240" y2="400"/>
+        </g>
+        <g stroke="#F4B400" stroke-width="2.5" fill="none" opacity="0.9">
+          <path d="M40 50 L40 150 L160 150 L160 250 L280 250 L280 350"/>
+        </g>
+        <circle cx="40" cy="50" r="5" fill="#F4B400"/>
+        <circle cx="160" cy="150" r="5" fill="#F4B400"/>
+        <circle cx="280" cy="250" r="5" fill="#F4B400"/>
+        <circle cx="280" cy="350" r="5" fill="#F4B400"/>
+        <g stroke="#2E4057" stroke-width="2" fill="none" opacity="0.7">
+          <path d="M280 50 L280 120 L200 120 L200 200"/>
+        </g>
+        <circle cx="280" cy="50" r="4" fill="#2E4057"/>
+        <circle cx="200" cy="200" r="4" fill="#2E4057"/>
+      </svg>
+      <span class="est-tag">EST. 2014</span>
+    </div>
     <div>
       <p>Sherwood Electrical has been doing the unglamorous parts of electrical work properly since 2014 — the earthing, the testing, the paperwork that actually matters when something goes wrong.</p>
       <p>We're a small two-van operation, which means the person who quotes the job is the person who shows up to do it. No subcontractors, no call centre, no surprises on the invoice.</p>
@@ -286,28 +401,28 @@
 </section>
 
 <section class="services" id="services">
-  <div class="section-head">
+  <div class="section-head reveal">
     <h2>What We Do</h2>
-    <span class="num">02 / Services</span>
+    <span class="num">02 / SERVICES</span>
   </div>
-  <div class="spec-list">
+  <div class="spec-list reveal">
     <div class="spec-row">
-      <span class="tag">A</span>
+      <span class="tag">01</span>
       <h3>Domestic Rewires &amp; Upgrades</h3>
       <p>Full or partial rewires, fuse board upgrades, and bringing older homes up to current safety standards.</p>
     </div>
     <div class="spec-row">
-      <span class="tag">B</span>
+      <span class="tag">02</span>
       <h3>Fault-Finding &amp; Repairs</h3>
       <p>Tripping breakers, dead sockets, flickering lights — diagnosed and fixed, not just patched over.</p>
     </div>
     <div class="spec-row">
-      <span class="tag">C</span>
+      <span class="tag">03</span>
       <h3>EV Charger Installation</h3>
       <p>Home and workplace charge point installation, fully certified and grant-application ready.</p>
     </div>
     <div class="spec-row">
-      <span class="tag">D</span>
+      <span class="tag">04</span>
       <h3>Commercial Fit-Outs</h3>
       <p>Lighting, power distribution, and compliance work for shops, offices, and small commercial units.</p>
     </div>
@@ -315,38 +430,38 @@
 </section>
 
 <section class="coverage" id="coverage">
-  <div class="section-head">
+  <div class="section-head reveal">
     <h2>What Clients Say</h2>
-    <span class="num">03 / Reviews</span>
+    <span class="num">03 / REVIEWS</span>
   </div>
-  <div class="quote-grid">
+  <div class="quote-grid reveal">
     <div class="quote">
       <div class="stars">★★★★★</div>
       <p>Came out same day for a tripping fuse board, found the fault in twenty minutes and explained exactly what caused it. No messing about.</p>
       <div class="quote-author">Conor Walsh</div>
-      <div class="quote-area">Pallaskenry</div>
+      <div class="quote-area">PALLASKENRY</div>
     </div>
     <div class="quote">
       <div class="stars">★★★★★</div>
       <p>Had our EV charger fitted in an afternoon. Tidy work, proper certification handed over, and they cleaned up after themselves.</p>
       <div class="quote-author">Niamh O'Dwyer</div>
-      <div class="quote-area">Askeaton</div>
+      <div class="quote-area">ASKEATON</div>
     </div>
     <div class="quote">
       <div class="stars">★★★★★</div>
       <p>Used them for a full rewire on a 1970s house. Fair price, kept us updated daily, and the place passed inspection first go.</p>
       <div class="quote-author">Brendan Hayes</div>
-      <div class="quote-area">Foynes</div>
+      <div class="quote-area">FOYNES</div>
     </div>
   </div>
 </section>
 
 <section class="contact" id="contact">
-  <div class="section-head">
+  <div class="section-head reveal">
     <h2>Request a Quote</h2>
-    <span class="num">04 / Contact</span>
+    <span class="num">04 / CONTACT</span>
   </div>
-  <div class="contact-grid">
+  <div class="contact-grid reveal">
     <div>
       <div class="info-block">
         <h3>Coverage</h3>
@@ -363,35 +478,41 @@
       <div class="map-frame">
         <iframe
           src="https://www.google.com/maps?q=Pallaskenry%2C%20Co.%20Limerick&output=embed"
-          width="100%" height="200" style="border:0;" loading="lazy"
+          width="100%" height="200" style="border:0;display:block;" loading="lazy"
           title="Map showing business location"></iframe>
       </div>
     </div>
     <div>
       <form id="contact-form">
         <div class="form-row">
-          <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="field">
             <label for="name">Name</label>
             <input id="name" type="text" required placeholder="Your name">
           </div>
-          <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="field">
             <label for="phone">Phone</label>
             <input id="phone" type="tel" required placeholder="Your number">
           </div>
         </div>
-        <label for="job-type">Job Type</label>
-        <select id="job-type" required>
-          <option value="" disabled selected>Select a service</option>
-          <option>Rewire / Upgrade</option>
-          <option>Fault-Finding</option>
-          <option>EV Charger</option>
-          <option>Commercial Work</option>
-          <option>Other</option>
-        </select>
-        <label for="message">Details</label>
-        <textarea id="message" required placeholder="Tell us a bit about the job"></textarea>
-        <button type="submit" class="submit-btn">Send Request</button>
-        <p class="form-status" id="form-status"></p>
+        <div class="field">
+          <label for="job-type">Job Type</label>
+          <select id="job-type" required>
+            <option value="" disabled selected>Select a service</option>
+            <option>Rewire / Upgrade</option>
+            <option>Fault-Finding</option>
+            <option>EV Charger</option>
+            <option>Commercial Work</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Details</label>
+          <textarea id="message" required placeholder="Tell us a bit about the job"></textarea>
+        </div>
+        <div class="submit-row">
+          <button type="submit" class="submit-btn">Send Request</button>
+          <p class="form-status" id="form-status"></p>
+        </div>
       </form>
     </div>
   </div>
@@ -422,6 +543,88 @@
     status.textContent = "Thanks! Your request has been noted (demo only — connect this to Formspree to send for real).";
     form.reset();
   });
+
+  // Circuit trace spine — only meaningful above the mobile breakpoint where it's rendered
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDesktop = window.matchMedia('(min-width: 861px)').matches;
+
+  if (isDesktop) {
+    const sectionIds = ['hero', 'about', 'services', 'coverage', 'contact'];
+    const junctions = sectionIds.map(id => document.getElementById('junction-' + id));
+    const pathEl = document.getElementById('circuit-path');
+    const flowEl = document.getElementById('circuit-flow');
+    const svgEl = document.querySelector('.circuit-rail svg');
+
+    function layout() {
+      const docHeight = document.documentElement.scrollHeight;
+      svgEl.setAttribute('viewBox', `0 0 2 ${docHeight}`);
+
+      const points = [];
+      sectionIds.forEach((id, i) => {
+        const el = document.getElementById(id);
+        const rect = el.getBoundingClientRect();
+        const top = rect.top + window.scrollY;
+        const centerY = id === 'hero' ? top + 40 : top + 4;
+        points.push(centerY);
+        if (junctions[i]) junctions[i].style.top = centerY + 'px';
+      });
+
+      let d = `M1,${points[0]}`;
+      for (let i = 1; i < points.length; i++) {
+        d += ` L1,${points[i]}`;
+      }
+      pathEl.setAttribute('d', d);
+      flowEl.setAttribute('d', d);
+      return points;
+    }
+
+    let sectionPoints = layout();
+    window.addEventListener('resize', () => { sectionPoints = layout(); }, { passive: true });
+
+    let ticking = false;
+    function updateFlow() {
+      const scrollMid = window.scrollY + window.innerHeight * 0.35;
+
+      // light up junctions we've scrolled past
+      junctions.forEach((j, i) => {
+        if (j && scrollMid >= sectionPoints[i]) {
+          j.classList.add('live');
+        } else if (j) {
+          j.classList.remove('live');
+        }
+      });
+
+      if (!reduceMotion) {
+        const offset = -(window.scrollY * 0.6) % 250;
+        flowEl.style.strokeDashoffset = offset;
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateFlow);
+        ticking = true;
+      }
+    }, { passive: true });
+    updateFlow();
+  }
+
+  // Scroll-triggered reveals
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
 </script>
 
 </body>
