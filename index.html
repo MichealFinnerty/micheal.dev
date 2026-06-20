@@ -1,1120 +1,1120 @@
-!DOCTYPE html
-html lang=en
-head
-meta charset=UTF-8
-meta name=viewport content=width=device-width, initial-scale=1.0
-titleAffordable Web Development Limerick  Websites for Businesses in Munster  Micheál Finnertytitle
-meta name=description content=Affordable web development in Limerick and Munster. Professional websites for small businesses, tradespeople, clubs and local services. Built by Micheál Finnerty.
-meta name=keywords content=web development limerick, web developer limerick, website design limerick, affordable websites limerick, web development munster, website designer munster, small business websites ireland, cheap websites ireland
-link rel=preconnect href=httpsfonts.googleapis.com
-link rel=preconnect href=httpsfonts.gstatic.com crossorigin
-link href=httpsfonts.googleapis.comcss2family=Space+Groteskwght@400;500;600;700&family=Interwght@400;500;600;700&family=JetBrains+Monowght@400;500&display=swap rel=stylesheet
-style
-  root{
-    --ink#0B0E14;
-    --paper#F7F5F0;
-    --pine#2E6E5E;
-    --pine-light#3D8A75;
-    --amber#E8A33D;
-    --stone#8B8378;
-    --line rgba(11,14,20,0.1);
-    --card #FFFFFF;
-    --radius 14px;
-    --display 'Space Grotesk', sans-serif;
-    --body 'Inter', sans-serif;
-    --mono 'JetBrains Mono', monospace;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affordable Web Development Limerick | Websites for Businesses in Munster | Micheál Finnerty</title>
+<meta name="description" content="Affordable web development in Limerick and Munster. Professional websites for small businesses, tradespeople, clubs and local services. Built by Micheál Finnerty.">
+<meta name="keywords" content="web development limerick, web developer limerick, website design limerick, affordable websites limerick, web development munster, website designer munster, small business websites ireland, cheap websites ireland">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0E14;
+    --paper:#F7F5F0;
+    --pine:#2E6E5E;
+    --pine-light:#3D8A75;
+    --amber:#E8A33D;
+    --stone:#8B8378;
+    --line: rgba(11,14,20,0.1);
+    --card: #FFFFFF;
+    --radius: 14px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
   }
 
-  {margin0;padding0;box-sizingborder-box;}
+  *{margin:0;padding:0;box-sizing:border-box;}
 
-  html{scroll-behaviorsmooth;}
+  html{scroll-behavior:smooth;}
 
-  @media (prefers-reduced-motion reduce){
-    html{scroll-behaviorauto;}
-    {animation-duration0.01ms !important; animation-iteration-count1 !important; transition-duration0.01ms !important; scroll-behaviorauto !important;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
   }
 
   body{
-    backgroundvar(--paper);
-    colorvar(--ink);
-    font-familyvar(--body);
-    line-height1.5;
-    overflow-xhidden;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.5;
+    overflow-x:hidden;
   }
 
-  a{colorinherit; text-decorationnone;}
-  selection{backgroundvar(--amber); colorvar(--ink);}
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--amber); color:var(--ink);}
 
-  focus-visible{
-    outline3px solid var(--pine);
-    outline-offset3px;
-    border-radius4px;
+  :focus-visible{
+    outline:3px solid var(--pine);
+    outline-offset:3px;
+    border-radius:4px;
   }
 
   .wrap{
-    max-width1120px;
-    margin0 auto;
-    padding0 28px;
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 28px;
   }
 
-   ===== NAV ===== 
+  /* ===== NAV ===== */
   nav{
-    positionfixed;
-    top0; left0; right0;
-    z-index100;
-    backgroundrgba(247,245,240,0.85);
-    backdrop-filterblur(10px);
-    border-bottom1px solid transparent;
-    transitionborder-color 0.3s ease, box-shadow 0.3s ease;
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(247,245,240,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color 0.3s ease, box-shadow 0.3s ease;
   }
   nav.scrolled{
-    border-colorvar(--line);
-    box-shadow0 2px 24px rgba(11,14,20,0.05);
+    border-color:var(--line);
+    box-shadow:0 2px 24px rgba(11,14,20,0.05);
   }
   .nav-inner{
-    displayflex;
-    align-itemscenter;
-    justify-contentspace-between;
-    padding16px 28px;
-    max-width1120px;
-    margin0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 28px;
+    max-width:1120px;
+    margin:0 auto;
   }
   .logo{
-    font-familyvar(--mono);
-    font-weight500;
-    font-size15px;
-    displayflex;
-    align-itemscenter;
-    gap8px;
-    letter-spacing-0.02em;
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    letter-spacing:-0.02em;
   }
   .logo .dot{
-    width8px;height8px;border-radius50%;
-    backgroundvar(--pine);
-    box-shadow0 0 0 0 rgba(46,110,94,0.5);
-    animationpulse 2.4s infinite;
+    width:8px;height:8px;border-radius:50%;
+    background:var(--pine);
+    box-shadow:0 0 0 0 rgba(46,110,94,0.5);
+    animation:pulse 2.4s infinite;
   }
   @keyframes pulse{
-    0%{box-shadow0 0 0 0 rgba(46,110,94,0.45);}
-    70%{box-shadow0 0 0 8px rgba(46,110,94,0);}
-    100%{box-shadow0 0 0 0 rgba(46,110,94,0);}
+    0%{box-shadow:0 0 0 0 rgba(46,110,94,0.45);}
+    70%{box-shadow:0 0 0 8px rgba(46,110,94,0);}
+    100%{box-shadow:0 0 0 0 rgba(46,110,94,0);}
   }
   .nav-links{
-    displayflex;
-    gap32px;
-    font-size14px;
-    font-weight500;
+    display:flex;
+    gap:32px;
+    font-size:14px;
+    font-weight:500;
   }
   .nav-links a{
-    positionrelative;
-    padding4px 0;
-    colorvar(--ink);
-    opacity0.75;
-    transitionopacity 0.2s;
+    position:relative;
+    padding:4px 0;
+    color:var(--ink);
+    opacity:0.75;
+    transition:opacity 0.2s;
   }
-  .nav-links ahover{opacity1;}
-  .nav-links aafter{
-    content'';
-    positionabsolute;
-    bottom0; left0;
-    width0%; height2px;
-    backgroundvar(--amber);
-    transitionwidth 0.25s ease;
+  .nav-links a:hover{opacity:1;}
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    bottom:0; left:0;
+    width:0%; height:2px;
+    background:var(--amber);
+    transition:width 0.25s ease;
   }
-  .nav-links ahoverafter{width100%;}
+  .nav-links a:hover::after{width:100%;}
   .nav-cta{
-    font-familyvar(--mono);
-    font-size13px;
-    backgroundvar(--ink);
-    colorvar(--paper);
-    padding10px 18px;
-    border-radius8px;
-    transitiontransform 0.2s ease, background 0.2s ease;
+    font-family:var(--mono);
+    font-size:13px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:10px 18px;
+    border-radius:8px;
+    transition:transform 0.2s ease, background 0.2s ease;
   }
-  .nav-ctahover{backgroundvar(--pine); transformtranslateY(-1px);}
-  .nav-toggle{displaynone;}
+  .nav-cta:hover{background:var(--pine); transform:translateY(-1px);}
+  .nav-toggle{display:none;}
 
-  @media (max-width760px){
+  @media (max-width:760px){
     .nav-links{
-      positionfixed;
-      top64px; right0;
-      flex-directioncolumn;
-      backgroundvar(--paper);
-      width100%;
-      padding24px 28px;
-      gap20px;
-      border-bottom1px solid var(--line);
-      transformtranslateY(-110%);
-      transitiontransform 0.3s ease;
+      position:fixed;
+      top:64px; right:0;
+      flex-direction:column;
+      background:var(--paper);
+      width:100%;
+      padding:24px 28px;
+      gap:20px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-110%);
+      transition:transform 0.3s ease;
     }
-    .nav-links.open{transformtranslateY(0);}
-    .nav-cta{displaynone;}
+    .nav-links.open{transform:translateY(0);}
+    .nav-cta{display:none;}
     .nav-links .nav-cta-mobile{
-      displayinline-block;
-      font-familyvar(--mono);
-      backgroundvar(--ink);
-      colorvar(--paper);
-      padding10px 16px;
-      border-radius8px;
-      widthfit-content;
+      display:inline-block;
+      font-family:var(--mono);
+      background:var(--ink);
+      color:var(--paper);
+      padding:10px 16px;
+      border-radius:8px;
+      width:fit-content;
     }
     .nav-toggle{
-      displayflex;
-      flex-directioncolumn;
-      gap5px;
-      backgroundnone;
-      bordernone;
-      cursorpointer;
-      padding6px;
-      z-index101;
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:6px;
+      z-index:101;
     }
     .nav-toggle span{
-      width22px; height2px;
-      backgroundvar(--ink);
-      border-radius2px;
-      transition0.25s ease;
+      width:22px; height:2px;
+      background:var(--ink);
+      border-radius:2px;
+      transition:0.25s ease;
     }
-    .nav-toggle.active spannth-child(1){transformtranslateY(7px) rotate(45deg);}
-    .nav-toggle.active spannth-child(2){opacity0;}
-    .nav-toggle.active spannth-child(3){transformtranslateY(-7px) rotate(-45deg);}
+    .nav-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-toggle.active span:nth-child(2){opacity:0;}
+    .nav-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   }
 
-   ===== HERO ===== 
+  /* ===== HERO ===== */
   .hero{
-    padding160px 0 100px;
-    positionrelative;
+    padding:160px 0 100px;
+    position:relative;
   }
   .hero-grid{
-    displaygrid;
-    grid-template-columns1.05fr 0.95fr;
-    gap56px;
-    align-itemscenter;
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
   }
   .eyebrow{
-    font-familyvar(--mono);
-    font-size13px;
-    colorvar(--pine);
-    letter-spacing0.04em;
-    displayflex;
-    align-itemscenter;
-    gap10px;
-    margin-bottom20px;
-    opacity0;
-    animationfadeUp 0.6s ease 0.1s forwards;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--pine);
+    letter-spacing:0.04em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+    opacity:0;
+    animation:fadeUp 0.6s ease 0.1s forwards;
   }
-  .eyebrowbefore{
-    content'';
-    width18px; height1px;
-    backgroundvar(--pine);
+  .eyebrow::before{
+    content:'';
+    width:18px; height:1px;
+    background:var(--pine);
   }
   h1{
-    font-familyvar(--display);
-    font-sizeclamp(40px, 5.4vw, 68px);
-    line-height1.04;
-    font-weight600;
-    letter-spacing-0.02em;
-    margin-bottom24px;
-    opacity0;
-    animationfadeUp 0.7s ease 0.22s forwards;
+    font-family:var(--display);
+    font-size:clamp(40px, 5.4vw, 68px);
+    line-height:1.04;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    margin-bottom:24px;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.22s forwards;
   }
   h1 .accent{
-    colorvar(--pine);
-    positionrelative;
+    color:var(--pine);
+    position:relative;
   }
   .hero-sub{
-    font-size18px;
-    colorvar(--stone);
-    max-width480px;
-    margin-bottom34px;
-    opacity0;
-    animationfadeUp 0.7s ease 0.36s forwards;
+    font-size:18px;
+    color:var(--stone);
+    max-width:480px;
+    margin-bottom:34px;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.36s forwards;
   }
   .hero-actions{
-    displayflex;
-    gap14px;
-    flex-wrapwrap;
-    opacity0;
-    animationfadeUp 0.7s ease 0.5s forwards;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.5s forwards;
   }
   @keyframes fadeUp{
-    from{opacity0; transformtranslateY(16px);}
-    to{opacity1; transformtranslateY(0);}
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
   }
 
   .btn{
-    font-familyvar(--body);
-    font-weight600;
-    font-size15px;
-    padding14px 26px;
-    border-radius10px;
-    bordernone;
-    cursorpointer;
-    transitiontransform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    displayinline-flex;
-    align-itemscenter;
-    gap8px;
+    font-family:var(--body);
+    font-weight:600;
+    font-size:15px;
+    padding:14px 26px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    transition:transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
   }
   .btn-primary{
-    backgroundvar(--ink);
-    colorvar(--paper);
+    background:var(--ink);
+    color:var(--paper);
   }
-  .btn-primaryhover{
-    backgroundvar(--pine);
-    transformtranslateY(-2px);
-    box-shadow0 10px 24px rgba(46,110,94,0.25);
+  .btn-primary:hover{
+    background:var(--pine);
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(46,110,94,0.25);
   }
   .btn-ghost{
-    backgroundtransparent;
-    colorvar(--ink);
-    border1.5px solid var(--line);
+    background:transparent;
+    color:var(--ink);
+    border:1.5px solid var(--line);
   }
-  .btn-ghosthover{
-    border-colorvar(--ink);
-    transformtranslateY(-2px);
+  .btn-ghost:hover{
+    border-color:var(--ink);
+    transform:translateY(-2px);
   }
 
-   Hero terminal mockup 
+  /* Hero terminal mockup */
   .mock{
-    backgroundvar(--ink);
-    border-radius16px;
-    overflowhidden;
-    box-shadow0 30px 70px -20px rgba(11,14,20,0.45);
-    transformrotate(0.6deg);
+    background:var(--ink);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 30px 70px -20px rgba(11,14,20,0.45);
+    transform:rotate(0.6deg);
   }
   .mock-bar{
-    displayflex;
-    align-itemscenter;
-    gap8px;
-    padding12px 16px;
-    background#13171F;
-    border-bottom1px solid rgba(255,255,255,0.06);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 16px;
+    background:#13171F;
+    border-bottom:1px solid rgba(255,255,255,0.06);
   }
-  .mock-dot{width10px;height10px;border-radius50%;}
-  .mock-bar .mock-dotnth-child(1){background#FF5F57;}
-  .mock-bar .mock-dotnth-child(2){background#FEBC2E;}
-  .mock-bar .mock-dotnth-child(3){background#28C840;}
+  .mock-dot{width:10px;height:10px;border-radius:50%;}
+  .mock-bar .mock-dot:nth-child(1){background:#FF5F57;}
+  .mock-bar .mock-dot:nth-child(2){background:#FEBC2E;}
+  .mock-bar .mock-dot:nth-child(3){background:#28C840;}
   .mock-file{
-    margin-left10px;
-    font-familyvar(--mono);
-    font-size12px;
-    colorrgba(255,255,255,0.4);
+    margin-left:10px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:rgba(255,255,255,0.4);
   }
   .mock-body{
-    padding24px 22px 28px;
-    font-familyvar(--mono);
-    font-size13.5px;
-    line-height1.85;
-    min-height300px;
-    color#cfd8d4;
+    padding:24px 22px 28px;
+    font-family:var(--mono);
+    font-size:13.5px;
+    line-height:1.85;
+    min-height:300px;
+    color:#cfd8d4;
   }
-  .mock-body .c-tag{color#7AA2C7;}
-  .mock-body .c-attr{color#E8A33D;}
-  .mock-body .c-str{color#9DC9A8;}
-  .mock-body .c-com{color#6B7280;}
-  #typed-code{white-spacepre-wrap; word-breakbreak-word;}
+  .mock-body .c-tag{color:#7AA2C7;}
+  .mock-body .c-attr{color:#E8A33D;}
+  .mock-body .c-str{color:#9DC9A8;}
+  .mock-body .c-com{color:#6B7280;}
+  #typed-code{white-space:pre-wrap; word-break:break-word;}
   .cursor-blink{
-    displayinline-block;
-    width8px; height16px;
-    backgroundvar(--amber);
-    vertical-alignmiddle;
-    animationblink 1s steps(1) infinite;
-    margin-left2px;
+    display:inline-block;
+    width:8px; height:16px;
+    background:var(--amber);
+    vertical-align:middle;
+    animation:blink 1s steps(1) infinite;
+    margin-left:2px;
   }
-  @keyframes blink{50%{opacity0;}}
+  @keyframes blink{50%{opacity:0;}}
 
   .mock-preview{
-    border-top1px dashed rgba(255,255,255,0.1);
-    margin-top18px;
-    padding-top16px;
-    opacity0;
-    transitionopacity 0.5s ease;
+    border-top:1px dashed rgba(255,255,255,0.1);
+    margin-top:18px;
+    padding-top:16px;
+    opacity:0;
+    transition:opacity 0.5s ease;
   }
-  .mock-preview.show{opacity1;}
+  .mock-preview.show{opacity:1;}
   .preview-card{
-    backgroundvar(--paper);
-    border-radius10px;
-    padding16px;
-    colorvar(--ink);
+    background:var(--paper);
+    border-radius:10px;
+    padding:16px;
+    color:var(--ink);
   }
   .preview-card .pc-title{
-    font-familyvar(--display);
-    font-weight700;
-    font-size15px;
-    margin-bottom4px;
+    font-family:var(--display);
+    font-weight:700;
+    font-size:15px;
+    margin-bottom:4px;
   }
   .preview-card .pc-sub{
-    font-size11.5px;
-    colorvar(--stone);
-    margin-bottom10px;
+    font-size:11.5px;
+    color:var(--stone);
+    margin-bottom:10px;
   }
   .preview-card .pc-btn{
-    displayinline-block;
-    backgroundvar(--pine);
-    color#fff;
-    font-size11px;
-    font-weight600;
-    padding6px 12px;
-    border-radius6px;
+    display:inline-block;
+    background:var(--pine);
+    color:#fff;
+    font-size:11px;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:6px;
   }
 
-  @media (max-width880px){
-    .hero-grid{grid-template-columns1fr; gap48px;}
-    .hero{padding130px 0 60px;}
-    .mock{transformnone;}
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr; gap:48px;}
+    .hero{padding:130px 0 60px;}
+    .mock{transform:none;}
   }
 
-   ===== SECTION SCAFFOLDING ===== 
-  section{padding110px 0;}
+  /* ===== SECTION SCAFFOLDING ===== */
+  section{padding:110px 0;}
   .section-head{
-    margin-bottom56px;
-    max-width620px;
+    margin-bottom:56px;
+    max-width:620px;
   }
   .section-tag{
-    font-familyvar(--mono);
-    font-size12.5px;
-    colorvar(--pine);
-    text-transformuppercase;
-    letter-spacing0.08em;
-    margin-bottom14px;
-    displayblock;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--pine);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:14px;
+    display:block;
   }
   h2{
-    font-familyvar(--display);
-    font-sizeclamp(28px, 3.6vw, 42px);
-    font-weight600;
-    letter-spacing-0.01em;
-    line-height1.15;
+    font-family:var(--display);
+    font-size:clamp(28px, 3.6vw, 42px);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.15;
   }
   .section-sub{
-    colorvar(--stone);
-    font-size16px;
-    margin-top14px;
+    color:var(--stone);
+    font-size:16px;
+    margin-top:14px;
   }
 
   .reveal{
-    opacity0;
-    transformtranslateY(28px);
-    transitionopacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
   }
-  .reveal.in{opacity1; transformtranslateY(0);}
+  .reveal.in{opacity:1; transform:translateY(0);}
 
-   ===== ABOUT ===== 
+  /* ===== ABOUT ===== */
   .about-grid{
-    displaygrid;
-    grid-template-columns0.9fr 1.1fr;
-    gap60px;
-    align-itemsstart;
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:60px;
+    align-items:start;
   }
   .about-card{
-    backgroundvar(--card);
-    border1px solid var(--line);
-    border-radiusvar(--radius);
-    padding28px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px;
   }
-  .about-card + .about-card{margin-top20px;}
+  .about-card + .about-card{margin-top:20px;}
   .ac-label{
-    font-familyvar(--mono);
-    font-size11.5px;
-    colorvar(--stone);
-    text-transformuppercase;
-    letter-spacing0.06em;
-    margin-bottom10px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--stone);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:10px;
   }
   .ac-value{
-    font-familyvar(--display);
-    font-weight600;
-    font-size20px;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:20px;
   }
   .about-text p{
-    font-size17px;
-    color#3a3f47;
-    margin-bottom18px;
+    font-size:17px;
+    color:#3a3f47;
+    margin-bottom:18px;
   }
-  .about-text plast-child{margin-bottom0;}
+  .about-text p:last-child{margin-bottom:0;}
   .badge-row{
-    displayflex;
-    gap10px;
-    flex-wrapwrap;
-    margin-top24px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:24px;
   }
   .badge{
-    font-familyvar(--mono);
-    font-size12.5px;
-    backgroundrgba(46,110,94,0.08);
-    colorvar(--pine);
-    padding7px 14px;
-    border-radius20px;
-    border1px solid rgba(46,110,94,0.18);
+    font-family:var(--mono);
+    font-size:12.5px;
+    background:rgba(46,110,94,0.08);
+    color:var(--pine);
+    padding:7px 14px;
+    border-radius:20px;
+    border:1px solid rgba(46,110,94,0.18);
   }
 
-  @media (max-width880px){
-    .about-grid{grid-template-columns1fr;}
+  @media (max-width:880px){
+    .about-grid{grid-template-columns:1fr;}
   }
 
-   ===== SERVICES  SKILLS ===== 
+  /* ===== SERVICES / SKILLS ===== */
   .skill-grid{
-    displaygrid;
-    grid-template-columnsrepeat(4, 1fr);
-    gap1px;
-    backgroundvar(--line);
-    border1px solid var(--line);
-    border-radiusvar(--radius);
-    overflowhidden;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
   }
   .skill-cell{
-    backgroundvar(--card);
-    padding28px 22px;
-    transitionbackground 0.25s ease;
-    cursordefault;
+    background:var(--card);
+    padding:28px 22px;
+    transition:background 0.25s ease;
+    cursor:default;
   }
-  .skill-cellhover{background#FBFAF6;}
+  .skill-cell:hover{background:#FBFAF6;}
   .skill-cell .sk-icon{
-    width36px; height36px;
-    margin-bottom16px;
-    colorvar(--pine);
+    width:36px; height:36px;
+    margin-bottom:16px;
+    color:var(--pine);
   }
   .skill-cell h3{
-    font-familyvar(--display);
-    font-size16px;
-    font-weight600;
-    margin-bottom6px;
+    font-family:var(--display);
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:6px;
   }
   .skill-cell p{
-    font-size13.5px;
-    colorvar(--stone);
+    font-size:13.5px;
+    color:var(--stone);
   }
-  @media (max-width880px){
-    .skill-grid{grid-template-columnsrepeat(2,1fr);}
+  @media (max-width:880px){
+    .skill-grid{grid-template-columns:repeat(2,1fr);}
   }
-  @media (max-width520px){
-    .skill-grid{grid-template-columns1fr;}
+  @media (max-width:520px){
+    .skill-grid{grid-template-columns:1fr;}
   }
 
   .service-list{
-    displayflex;
-    flex-directioncolumn;
-    gap14px;
-    margin-top40px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:40px;
   }
   .service-row{
-    displayflex;
-    align-itemscenter;
-    justify-contentspace-between;
-    padding20px 24px;
-    backgroundvar(--card);
-    border1px solid var(--line);
-    border-radius12px;
-    transitiontransform 0.2s ease, border-color 0.2s ease;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 24px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    transition:transform 0.2s ease, border-color 0.2s ease;
   }
-  .service-rowhover{
-    transformtranslateX(6px);
-    border-colorvar(--pine);
+  .service-row:hover{
+    transform:translateX(6px);
+    border-color:var(--pine);
   }
-  .service-row span{font-size15px;}
-  .service-row .sr-name{font-weight500;}
+  .service-row span{font-size:15px;}
+  .service-row .sr-name{font-weight:500;}
 
-   ===== PRICING ===== 
+  /* ===== PRICING ===== */
   .price-grid{
-    displaygrid;
-    grid-template-columnsrepeat(2, 1fr);
-    gap24px;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:24px;
   }
   .price-card{
-    backgroundvar(--card);
-    border1px solid var(--line);
-    border-radius18px;
-    padding36px 32px;
-    positionrelative;
-    overflowhidden;
-    transitiontransform 0.3s ease, box-shadow 0.3s ease;
-    displayflex;
-    flex-directioncolumn;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:36px 32px;
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    display:flex;
+    flex-direction:column;
   }
-  .price-cardhover{
-    transformtranslateY(-6px);
-    box-shadow0 24px 50px -20px rgba(11,14,20,0.18);
+  .price-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 24px 50px -20px rgba(11,14,20,0.18);
   }
   .price-card.featured{
-    border-colorvar(--pine);
-    backgroundlinear-gradient(165deg, #FFFFFF 0%, #F2F8F5 100%);
+    border-color:var(--pine);
+    background:linear-gradient(165deg, #FFFFFF 0%, #F2F8F5 100%);
   }
-  .price-card.featuredbefore{
-    content'POPULAR';
-    positionabsolute;
-    top20px; right-32px;
-    backgroundvar(--pine);
-    color#fff;
-    font-familyvar(--mono);
-    font-size10px;
-    font-weight600;
-    letter-spacing0.08em;
-    padding5px 40px;
-    transformrotate(40deg);
+  .price-card.featured::before{
+    content:'POPULAR';
+    position:absolute;
+    top:20px; right:-32px;
+    background:var(--pine);
+    color:#fff;
+    font-family:var(--mono);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    padding:5px 40px;
+    transform:rotate(40deg);
   }
   .price-name{
-    font-familyvar(--display);
-    font-size20px;
-    font-weight600;
-    margin-bottom6px;
+    font-family:var(--display);
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:6px;
   }
   .price-amount{
-    font-familyvar(--display);
-    font-size44px;
-    font-weight700;
-    margin14px 0 4px;
-    displayflex;
-    align-itemsbaseline;
-    gap6px;
+    font-family:var(--display);
+    font-size:44px;
+    font-weight:700;
+    margin:14px 0 4px;
+    display:flex;
+    align-items:baseline;
+    gap:6px;
   }
   .price-amount span{
-    font-familyvar(--body);
-    font-size14px;
-    font-weight400;
-    colorvar(--stone);
+    font-family:var(--body);
+    font-size:14px;
+    font-weight:400;
+    color:var(--stone);
   }
   .price-feat{
-    list-stylenone;
-    margin26px 0 30px;
-    displayflex;
-    flex-directioncolumn;
-    gap13px;
-    flex-grow1;
+    list-style:none;
+    margin:26px 0 30px;
+    display:flex;
+    flex-direction:column;
+    gap:13px;
+    flex-grow:1;
   }
   .price-feat li{
-    displayflex;
-    align-itemsflex-start;
-    gap10px;
-    font-size14.5px;
-    color#3a3f47;
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:14.5px;
+    color:#3a3f47;
   }
   .price-feat li svg{
-    flex-shrink0;
-    margin-top3px;
-    colorvar(--pine);
+    flex-shrink:0;
+    margin-top:3px;
+    color:var(--pine);
   }
   .price-cta{
-    displayblock;
-    text-aligncenter;
-    width100%;
-    padding13px;
-    border-radius9px;
-    font-weight600;
-    font-size14.5px;
-    backgroundvar(--ink);
-    color#fff;
-    transitionbackground 0.2s ease;
+    display:block;
+    text-align:center;
+    width:100%;
+    padding:13px;
+    border-radius:9px;
+    font-weight:600;
+    font-size:14.5px;
+    background:var(--ink);
+    color:#fff;
+    transition:background 0.2s ease;
   }
-  .price-ctahover{backgroundvar(--pine);}
+  .price-cta:hover{background:var(--pine);}
 
   .offer-banner{
-    margin-top28px;
-    backgroundvar(--ink);
-    border-radius18px;
-    padding36px 38px;
-    displaygrid;
-    grid-template-columnsauto 1fr auto;
-    align-itemscenter;
-    gap28px;
-    colorvar(--paper);
-    positionrelative;
-    overflowhidden;
+    margin-top:28px;
+    background:var(--ink);
+    border-radius:18px;
+    padding:36px 38px;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:28px;
+    color:var(--paper);
+    position:relative;
+    overflow:hidden;
   }
-  .offer-bannerafter{
-    content'';
-    positionabsolute;
-    top-50%; right-10%;
-    width300px; height300px;
-    backgroundradial-gradient(circle, rgba(232,163,61,0.25), transparent 70%);
-    pointer-eventsnone;
+  .offer-banner::after{
+    content:'';
+    position:absolute;
+    top:-50%; right:-10%;
+    width:300px; height:300px;
+    background:radial-gradient(circle, rgba(232,163,61,0.25), transparent 70%);
+    pointer-events:none;
   }
   .offer-tag{
-    font-familyvar(--mono);
-    font-size34px;
-    font-weight700;
-    colorvar(--amber);
-    line-height1;
-    white-spacenowrap;
+    font-family:var(--mono);
+    font-size:34px;
+    font-weight:700;
+    color:var(--amber);
+    line-height:1;
+    white-space:nowrap;
   }
   .offer-tag .strike{
-    displayblock;
-    font-size14px;
-    colorrgba(247,245,240,0.45);
-    text-decorationline-through;
-    font-weight400;
-    margin-top4px;
+    display:block;
+    font-size:14px;
+    color:rgba(247,245,240,0.45);
+    text-decoration:line-through;
+    font-weight:400;
+    margin-top:4px;
   }
   .offer-copy h3{
-    font-familyvar(--display);
-    font-size20px;
-    margin-bottom6px;
+    font-family:var(--display);
+    font-size:20px;
+    margin-bottom:6px;
   }
   .offer-copy p{
-    font-size14px;
-    colorrgba(247,245,240,0.7);
-    max-width420px;
+    font-size:14px;
+    color:rgba(247,245,240,0.7);
+    max-width:420px;
   }
   .offer-banner .btn-primary{
-    backgroundvar(--amber);
-    colorvar(--ink);
-    white-spacenowrap;
+    background:var(--amber);
+    color:var(--ink);
+    white-space:nowrap;
   }
-  .offer-banner .btn-primaryhover{
-    background#fff;
-    box-shadow0 10px 24px rgba(232,163,61,0.25);
-  }
-
-  @media (max-width880px){
-    .price-grid{grid-template-columns1fr;}
-    .offer-banner{grid-template-columns1fr; text-alignleft;}
-    .offer-banner .btn-primary{widthfit-content;}
+  .offer-banner .btn-primary:hover{
+    background:#fff;
+    box-shadow:0 10px 24px rgba(232,163,61,0.25);
   }
 
-   ===== PROCESS ===== 
+  @media (max-width:880px){
+    .price-grid{grid-template-columns:1fr;}
+    .offer-banner{grid-template-columns:1fr; text-align:left;}
+    .offer-banner .btn-primary{width:fit-content;}
+  }
+
+  /* ===== PROCESS ===== */
   .process-line{
-    positionrelative;
-    displaygrid;
-    grid-template-columnsrepeat(4, 1fr);
-    gap24px;
-    margin-top20px;
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:24px;
+    margin-top:20px;
   }
-  .process-linebefore{
-    content'';
-    positionabsolute;
-    top19px; left0; right0;
-    height1px;
-    backgroundvar(--line);
-    z-index0;
+  .process-line::before{
+    content:'';
+    position:absolute;
+    top:19px; left:0; right:0;
+    height:1px;
+    background:var(--line);
+    z-index:0;
   }
   .process-step{
-    positionrelative;
-    z-index1;
+    position:relative;
+    z-index:1;
   }
   .ps-num{
-    width40px; height40px;
-    border-radius50%;
-    backgroundvar(--paper);
-    border1.5px solid var(--ink);
-    displayflex;
-    align-itemscenter;
-    justify-contentcenter;
-    font-familyvar(--mono);
-    font-size14px;
-    font-weight600;
-    margin-bottom18px;
-    transitionbackground 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    width:40px; height:40px;
+    border-radius:50%;
+    background:var(--paper);
+    border:1.5px solid var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--mono);
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:18px;
+    transition:background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
   .process-step.in .ps-num{
-    backgroundvar(--pine);
-    color#fff;
-    border-colorvar(--pine);
+    background:var(--pine);
+    color:#fff;
+    border-color:var(--pine);
   }
   .process-step h4{
-    font-familyvar(--display);
-    font-size16px;
-    font-weight600;
-    margin-bottom8px;
+    font-family:var(--display);
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:8px;
   }
   .process-step p{
-    font-size13.5px;
-    colorvar(--stone);
+    font-size:13.5px;
+    color:var(--stone);
   }
-  @media (max-width880px){
-    .process-line{grid-template-columns1fr 1fr; gap36px 24px;}
-    .process-linebefore{displaynone;}
+  @media (max-width:880px){
+    .process-line{grid-template-columns:1fr 1fr; gap:36px 24px;}
+    .process-line::before{display:none;}
   }
-  @media (max-width520px){
-    .process-line{grid-template-columns1fr;}
+  @media (max-width:520px){
+    .process-line{grid-template-columns:1fr;}
   }
 
-   ===== CONTACT ===== 
+  /* ===== CONTACT ===== */
   .contact-section{
-    backgroundvar(--ink);
-    colorvar(--paper);
-    border-radius28px;
-    margin0 28px;
-    padding80px 56px;
-    positionrelative;
-    overflowhidden;
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:28px;
+    margin:0 28px;
+    padding:80px 56px;
+    position:relative;
+    overflow:hidden;
   }
-  .contact-sectionbefore{
-    content'';
-    positionabsolute;
-    inset0;
-    background
+  .contact-section::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
       radial-gradient(circle at 15% 20%, rgba(46,110,94,0.25), transparent 45%),
       radial-gradient(circle at 85% 80%, rgba(232,163,61,0.15), transparent 45%);
-    pointer-eventsnone;
+    pointer-events:none;
   }
   .contact-inner{
-    positionrelative;
-    z-index1;
-    displaygrid;
-    grid-template-columns1fr 1fr;
-    gap56px;
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
   }
-  .contact-section h2{colorvar(--paper);}
-  .contact-section .section-sub{colorrgba(247,245,240,0.6);}
-  .contact-section .section-tag{colorvar(--amber);}
+  .contact-section h2{color:var(--paper);}
+  .contact-section .section-sub{color:rgba(247,245,240,0.6);}
+  .contact-section .section-tag{color:var(--amber);}
 
   .contact-list{
-    margin-top32px;
-    displayflex;
-    flex-directioncolumn;
-    gap18px;
+    margin-top:32px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
   }
   .contact-item{
-    displayflex;
-    align-itemscenter;
-    gap14px;
-    font-size15.5px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-size:15.5px;
   }
   .contact-item .ci-icon{
-    width38px; height38px;
-    border-radius10px;
-    backgroundrgba(247,245,240,0.08);
-    displayflex;
-    align-itemscenter;
-    justify-contentcenter;
-    flex-shrink0;
+    width:38px; height:38px;
+    border-radius:10px;
+    background:rgba(247,245,240,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
   }
-  .contact-item ahover{colorvar(--amber);}
+  .contact-item a:hover{color:var(--amber);}
 
   .map-card{
-    border-radius16px;
-    overflowhidden;
-    border1px solid rgba(247,245,240,0.12);
-    backgroundrgba(247,245,240,0.04);
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid rgba(247,245,240,0.12);
+    background:rgba(247,245,240,0.04);
   }
   .map-card iframe{
-    width100%;
-    height100%;
-    min-height320px;
-    displayblock;
-    border0;
+    width:100%;
+    height:100%;
+    min-height:320px;
+    display:block;
+    border:0;
   }
 
-  @media (max-width880px){
-    .contact-section{margin0 14px; padding56px 28px; border-radius20px;}
-    .contact-inner{grid-template-columns1fr; gap40px;}
-    .map-card iframe{min-height280px;}
+  @media (max-width:880px){
+    .contact-section{margin:0 14px; padding:56px 28px; border-radius:20px;}
+    .contact-inner{grid-template-columns:1fr; gap:40px;}
+    .map-card iframe{min-height:280px;}
   }
 
-   ===== FOOTER ===== 
+  /* ===== FOOTER ===== */
   footer{
-    padding48px 0 36px;
-    text-aligncenter;
+    padding:48px 0 36px;
+    text-align:center;
   }
   footer .f-logo{
-    font-familyvar(--mono);
-    font-size14px;
-    colorvar(--stone);
-    margin-bottom8px;
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--stone);
+    margin-bottom:8px;
   }
   footer .f-note{
-    font-size12.5px;
-    colorrgba(139,131,120,0.6);
+    font-size:12.5px;
+    color:rgba(139,131,120,0.6);
   }
 
-  @media (max-width600px){
-    .wrap{padding0 20px;}
-    section{padding80px 0;}
+  @media (max-width:600px){
+    .wrap{padding:0 20px;}
+    section{padding:80px 0;}
   }
-style
-head
-body
+</style>
+</head>
+<body>
 
-nav id=navbar
-  div class=nav-inner
-    a href=#top class=logospan class=dotspanmicheal.deva
-    div class=nav-links id=navLinks
-      a href=#about class=nav-linkAbouta
-      a href=#services class=nav-linkServicesa
-      a href=#pricing class=nav-linkPricinga
-      a href=#process class=nav-linkProcessa
-      a href=#contact class=nav-cta-mobileGet in toucha
-    div
-    a href=portfolio.html class=nav-ctaPortfolioa
-    button class=nav-toggle id=navToggle aria-label=Toggle menu aria-expanded=false
-      spanspanspanspanspanspan
-    button
-  div
-nav
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#top" class="logo"><span class="dot"></span>micheal.dev</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="#process" class="nav-link">Process</a>
+      <a href="#contact" class="nav-cta-mobile">Get in touch</a>
+    </div>
+    <a href="portfolio.html" class="nav-cta">Portfolio</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-header class=hero id=top
-  div class=wrap
-    div class=hero-grid
-      div
-        span class=eyebrowPALLASKENRY, CO. LIMERICKspan
-        h1Websites for localbrbusinesses, built bybrspan class=accentsomeone local.spanh1
-        p class=hero-subI'm Micheál, an 18-year-old web developer giving small businesses a professional online presence without the agency price tag.p
-        div class=hero-actions
-          a href=#contact class=btn btn-primaryStart your project →a
-          a href=#pricing class=btn btn-ghostSee pricinga
-        div
-      div
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">PALLASKENRY, CO. LIMERICK</span>
+        <h1>Websites for local<br>businesses, built by<br><span class="accent">someone local.</span></h1>
+        <p class="hero-sub">I'm Micheál, an 18-year-old web developer giving small businesses a professional online presence without the agency price tag.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Start your project →</a>
+          <a href="#pricing" class="btn btn-ghost">See pricing</a>
+        </div>
+      </div>
 
-      div class=mock
-        div class=mock-bar
-          span class=mock-dotspanspan class=mock-dotspanspan class=mock-dotspan
-          span class=mock-fileyour-business.htmlspan
-        div
-        div class=mock-body
-          span id=typed-codespanspan class=cursor-blink id=cursorspan
-          div class=mock-preview id=mockPreview
-            div class=preview-card
-              div class=pc-titleYour Business Namediv
-              div class=pc-subOpen today · Pallaskenry, Limerickdiv
-              span class=pc-btnContact Usspan
-            div
-          div
-        div
-      div
-    div
-  div
-header
+      <div class="mock">
+        <div class="mock-bar">
+          <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+          <span class="mock-file">your-business.html</span>
+        </div>
+        <div class="mock-body">
+          <span id="typed-code"></span><span class="cursor-blink" id="cursor"></span>
+          <div class="mock-preview" id="mockPreview">
+            <div class="preview-card">
+              <div class="pc-title">Your Business Name</div>
+              <div class="pc-sub">Open today · Pallaskenry, Limerick</div>
+              <span class="pc-btn">Contact Us</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
-main
+<main>
 
-  section id=about
-    div class=wrap
-      div class=section-head reveal
-        span class=section-tagAboutspan
-        h2Built locally. Coded properly.h2
-        p class=section-subMy goal is simple. Help local businesses get a professional, affordable website online, without the prices a big web design company would charge.p
-      div
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">About</span>
+        <h2>Built locally. Coded properly.</h2>
+        <p class="section-sub">My goal is simple. Help local businesses get a professional, affordable website online, without the prices a big web design company would charge.</p>
+      </div>
 
-      div class=about-grid
-        div class=reveal
-          div class=about-card
-            div class=ac-labelBased indiv
-            div class=ac-valuePallaskenry, Co. Limerickdiv
-          div
-          div class=about-card
-            div class=ac-labelEducationdiv
-            div class=ac-valueLeaving Cert, Class of 2026div
-            p style=margin-top10px; font-size14px; colorvar(--stone);Salesian Secondary College Pallaskenry. Honours Computer Science, Computer Science Subject Awardp
-          div
-        div
+      <div class="about-grid">
+        <div class="reveal">
+          <div class="about-card">
+            <div class="ac-label">Based in</div>
+            <div class="ac-value">Pallaskenry, Co. Limerick</div>
+          </div>
+          <div class="about-card">
+            <div class="ac-label">Education</div>
+            <div class="ac-value">Leaving Cert, Class of 2026</div>
+            <p style="margin-top:10px; font-size:14px; color:var(--stone);">Salesian Secondary College Pallaskenry. Honours Computer Science, Computer Science Subject Award</p>
+          </div>
+        </div>
 
-        div class=about-text reveal
-          pI started building websites because I saw how many local shops, trades and services in the area either had no website at all, or one that hadn't been touched in years. Most can't justify the cost a big agency charges for a handful of pages.p
-          pSo I do things a bit differently. Clean, modern, mobile-friendly sites at a fair price, built and looked after by one person who actually lives here and answers the phone.p
-          div class=badge-row
-            span class=badgeHTML &amp; CSSspan
-            span class=badgeJavaScriptspan
-            span class=badgeResponsive Designspan
-            span class=badgeDatabasesspan
-            span class=badgeJavaspan
-          div
-        div
-      div
-    div
-  section
+        <div class="about-text reveal">
+          <p>I started building websites because I saw how many local shops, trades and services in the area either had no website at all, or one that hadn't been touched in years. Most can't justify the cost a big agency charges for a handful of pages.</p>
+          <p>So I do things a bit differently. Clean, modern, mobile-friendly sites at a fair price, built and looked after by one person who actually lives here and answers the phone.</p>
+          <div class="badge-row">
+            <span class="badge">HTML &amp; CSS</span>
+            <span class="badge">JavaScript</span>
+            <span class="badge">Responsive Design</span>
+            <span class="badge">Databases</span>
+            <span class="badge">Java</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  section id=services
-    div class=wrap
-      div class=section-head reveal
-        span class=section-tagWhat I Dospan
-        h2Services &amp; technical skillsh2
-      div
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">What I Do</span>
+        <h2>Services &amp; technical skills</h2>
+      </div>
 
-      div class=skill-grid reveal
-        div class=skill-cell
-          svg class=sk-icon viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=1.6rect x=3 y=4 width=18 height=14 rx=2path d=M3 9h18M9 18v3M15 18v3M7 21h10svg
-          h3Business Websitesh3
-          pFull sites built around what your customers actually need to find.p
-        div
-        div class=skill-cell
-          svg class=sk-icon viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=1.6path d=M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9zsvg
-          h3Info &amp; Contact Pagesh3
-          pClear opening hours, location and a way for people to reach you.p
-        div
-        div class=skill-cell
-          svg class=sk-icon viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=1.6rect x=7 y=2 width=10 height=20 rx=2path d=M11 18h2svg
-          h3Mobile-Friendly Designh3
-          pLooks right and works properly on a phone, which is where most visitors will land.p
-        div
-        div class=skill-cell
-          svg class=sk-icon viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=1.6path d=M21 12a9 9 0 1 1-9-9path d=M21 3v6h-6svg
-          h3Updates &amp; Maintenanceh3
-          pPrices change, hours change. I keep your site current as your business moves.p
-        div
-        div class=skill-cell
-          svg class=sk-icon viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=1.6path d=M16 18l6-6-6-6M8 6l-6 6 6 6svg
-          h3Custom HTML Buildsh3
-          pNo bloated templates. Hand-coded pages that load fast and stay yours.p
-        div
-        div class=skill-cell
-          svg class=sk-icon viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=1.6ellipse cx=12 cy=5 rx=8 ry=3path d=M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5path d=M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3svg
-          h3Databasesh3
-          pBooking systems, request forms and stored data when your site needs to do more.p
-        div
-        div class=skill-cell
-          svg class=sk-icon viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=1.6path d=M4 17l6-6-6-6M12 19h8svg
-          h3JavaScripth3
-          pInteractive elements that make a site feel alive, not just a digital leaflet.p
-        div
-        div class=skill-cell
-          svg class=sk-icon viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=1.6path d=M3 3v18h18path d=M7 14l4-4 3 3 5-6svg
-          h3Layout &amp; Designh3
-          pConsidered structure and visual hierarchy, not just text on a white page.p
-        div
-      div
-    div
-  section
+      <div class="skill-grid reveal">
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M9 18v3M15 18v3M7 21h10"/></svg>
+          <h3>Business Websites</h3>
+          <p>Full sites built around what your customers actually need to find.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"/></svg>
+          <h3>Info &amp; Contact Pages</h3>
+          <p>Clear opening hours, location and a way for people to reach you.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+          <h3>Mobile-Friendly Design</h3>
+          <p>Looks right and works properly on a phone, which is where most visitors will land.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg>
+          <h3>Updates &amp; Maintenance</h3>
+          <p>Prices change, hours change. I keep your site current as your business moves.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+          <h3>Custom HTML Builds</h3>
+          <p>No bloated templates. Hand-coded pages that load fast and stay yours.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+          <h3>Databases</h3>
+          <p>Booking systems, request forms and stored data when your site needs to do more.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 17l6-6-6-6M12 19h8"/></svg>
+          <h3>JavaScript</h3>
+          <p>Interactive elements that make a site feel alive, not just a digital leaflet.</p>
+        </div>
+        <div class="skill-cell">
+          <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+          <h3>Layout &amp; Design</h3>
+          <p>Considered structure and visual hierarchy, not just text on a white page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  section id=pricing
-    div class=wrap
-      div class=section-head reveal
-        span class=section-tagPricingspan
-        h2Straightforward pricing, no surprisesh2
-        p class=section-subTwo packages cover most small businesses. Need something different Get in touch and we'll figure it out.p
-      div
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">Pricing</span>
+        <h2>Straightforward pricing, no surprises</h2>
+        <p class="section-sub">Two packages cover most small businesses. Need something different? Get in touch and we'll figure it out.</p>
+      </div>
 
-      div class=price-grid reveal
-        div class=price-card
-          div class=price-nameBasic Business Websitediv
-          div class=price-amount€300div
-          ul class=price-feat
-            lisvg width=16 height=16 viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=2.4path d=M20 6L9 17l-5-5svg Home, About &amp; Services pagesli
-            lisvg width=16 height=16 viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=2.4path d=M20 6L9 17l-5-5svg Contact details + Google Mapsli
-            lisvg width=16 height=16 viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=2.4path d=M20 6L9 17l-5-5svg Mobile-friendly designli
-            lisvg width=16 height=16 viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=2.4path d=M20 6L9 17l-5-5svg Clean, professional stylingli
-          ul
-          a href=#contact class=price-ctaGet starteda
-        div
+      <div class="price-grid reveal">
+        <div class="price-card">
+          <div class="price-name">Basic Business Website</div>
+          <div class="price-amount">€300</div>
+          <ul class="price-feat">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Home, About &amp; Services pages</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Contact details + Google Maps</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Mobile-friendly design</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Clean, professional styling</li>
+          </ul>
+          <a href="#contact" class="price-cta">Get started</a>
+        </div>
 
-        div class=price-card featured
-          div class=price-nameWebsite + Customer Featuresdiv
-          div class=price-amount€500div
-          ul class=price-feat
-            lisvg width=16 height=16 viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=2.4path d=M20 6L9 17l-5-5svg Everything in Basicli
-            lisvg width=16 height=16 viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=2.4path d=M20 6L9 17l-5-5svg Multiple pagesli
-            lisvg width=16 height=16 viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=2.4path d=M20 6L9 17l-5-5svg Contact forms &amp; image galleriesli
-            lisvg width=16 height=16 viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=2.4path d=M20 6L9 17l-5-5svg Booking  request systemli
-            lisvg width=16 height=16 viewBox=0 0 24 24 fill=none stroke=currentColor stroke-width=2.4path d=M20 6L9 17l-5-5svg Database storage &amp; admin featuresli
-          ul
-          a href=#contact class=price-ctaGet starteda
-        div
-      div
+        <div class="price-card featured">
+          <div class="price-name">Website + Customer Features</div>
+          <div class="price-amount">€500</div>
+          <ul class="price-feat">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Everything in Basic</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Multiple pages</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Contact forms &amp; image galleries</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Booking / request system</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Database storage &amp; admin features</li>
+          </ul>
+          <a href="#contact" class="price-cta">Get started</a>
+        </div>
+      </div>
 
-      div class=offer-banner reveal
-        div class=offer-tag€100span class=strikefrom €300spandiv
-        div class=offer-copy
-          h3First Customer Offerh3
-          pAs I'm just starting out, my first customer gets a special rate, in exchange for letting me use the finished site as a showcase example in future portfolios and proposals.p
-        div
-        a href=#contact class=btn btn-primaryClaim this offera
-      div
-    div
-  section
+      <div class="offer-banner reveal">
+        <div class="offer-tag">€100<span class="strike">from €300</span></div>
+        <div class="offer-copy">
+          <h3>First Customer Offer</h3>
+          <p>As I'm just starting out, my first customer gets a special rate, in exchange for letting me use the finished site as a showcase example in future portfolios and proposals.</p>
+        </div>
+        <a href="#contact" class="btn btn-primary">Claim this offer</a>
+      </div>
+    </div>
+  </section>
 
-  section id=process
-    div class=wrap
-      div class=section-head reveal
-        span class=section-tagHow It Worksspan
-        h2From first chat to live siteh2
-      div
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">How It Works</span>
+        <h2>From first chat to live site</h2>
+      </div>
 
-      div class=process-line reveal
-        div class=process-step
-          div class=ps-num1div
-          h4Free chath4
-          pNo-obligation discussion about what your business actually needs.p
-        div
-        div class=process-step
-          div class=ps-num2div
-          h4Buildh4
-          pI design and code your site, keeping you updated as it comes together.p
-        div
-        div class=process-step
-          div class=ps-num3div
-          h4Reviewh4
-          pYou check it on your own phone and laptop before anything goes live.p
-        div
-        div class=process-step
-          div class=ps-num4div
-          h4Launch &amp; supporth4
-          pOnce your website goes live, you receive a 3-month warranty covering any issues.p
-        div
-      div
-    div
-  section
+      <div class="process-line reveal">
+        <div class="process-step">
+          <div class="ps-num">1</div>
+          <h4>Free chat</h4>
+          <p>No-obligation discussion about what your business actually needs.</p>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">2</div>
+          <h4>Build</h4>
+          <p>I design and code your site, keeping you updated as it comes together.</p>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">3</div>
+          <h4>Review</h4>
+          <p>You check it on your own phone and laptop before anything goes live.</p>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">4</div>
+          <h4>Launch &amp; support</h4>
+          <p>Once your website goes live, you receive a 3-month warranty covering any issues.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  section id=contact
-    div class=wrap
-      div class=contact-section reveal
-        div class=contact-inner
-          div
-            span class=section-tagGet In Touchspan
-            h2Let's talk aboutbryour website.h2
-            p class=section-subFree, no-obligation discussion about your requirements. Currently taking on small business and personal website projects.p
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-section reveal">
+        <div class="contact-inner">
+          <div>
+            <span class="section-tag">Get In Touch</span>
+            <h2>Let's talk about<br>your website.</h2>
+            <p class="section-sub">Free, no-obligation discussion about your requirements. Currently taking on small business and personal website projects.</p>
 
-            div class=contact-list
-              div class=contact-item
-                span class=ci-iconsvg width=17 height=17 viewBox=0 0 24 24 fill=none stroke=#E8A33D stroke-width=1.8path d=M4 4h16v16H4z opacity=0path d=M3 7l9 6 9-6M3 7v10h18V7svgspan
-                a href=# onclick=navigator.clipboard.writeText('micheal.finnerty2@gmail.com'); alert('Email copied to clipboard!'); return false;micheal.finnerty2@gmail.coma
-              div
-              div class=contact-item
-                span class=ci-iconsvg width=17 height=17 viewBox=0 0 24 24 fill=none stroke=#E8A33D stroke-width=1.8path d=M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0zcircle cx=12 cy=10 r=3svgspan
-                spanPallaskenry, Co. Limerickspan
-              div
-            div
-          div
+            <div class="contact-list">
+              <div class="contact-item">
+                <span class="ci-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="1.8"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 7l9 6 9-6M3 7v10h18V7"/></svg></span>
+                <a href="#" onclick="navigator.clipboard.writeText('micheal.finnerty2@gmail.com'); alert('Email copied to clipboard!'); return false;">micheal.finnerty2@gmail.com</a>
+              </div>
+              <div class="contact-item">
+                <span class="ci-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E8A33D" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                <span>Pallaskenry, Co. Limerick</span>
+              </div>
+            </div>
+          </div>
 
-          div class=map-card
-            iframe
-              src=httpswww.google.commapsq=Pallaskenry,+Co.+Limerick,+Ireland&output=embed
-              loading=lazy
-              referrerpolicy=no-referrer-when-downgrade
+          <div class="map-card">
+            <iframe
+              src="https://www.google.com/maps?q=Pallaskenry,+Co.+Limerick,+Ireland&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen
-              title=Map showing Pallaskenry, Co. Limerick
-            iframe
-          div
-        div
-      div
-    div
-  section
+              title="Map showing Pallaskenry, Co. Limerick">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-main
+</main>
 
-footer
-  div class=wrap
-    div class=f-logomicheal.devdiv
-    div class=f-noteMicheál Finnerty · Pallaskenry, Co. Limerick · © 2026div
-  div
-footer
+<footer>
+  <div class="wrap">
+    <div class="f-logo">micheal.dev</div>
+    <div class="f-note">Micheál Finnerty · Pallaskenry, Co. Limerick · © 2026</div>
+  </div>
+</footer>
 
-script
+<script>
 (function(){
-   ===== Nav scroll state =====
+  // ===== Nav scroll state =====
   const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () = {
-    nav.classList.toggle('scrolled', window.scrollY  10);
-  }, { passive true });
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
 
-   ===== Mobile nav toggle =====
+  // ===== Mobile nav toggle =====
   const toggle = document.getElementById('navToggle');
   const links = document.getElementById('navLinks');
-  toggle.addEventListener('click', () = {
+  toggle.addEventListener('click', () => {
     const isOpen = links.classList.toggle('open');
     toggle.classList.toggle('active', isOpen);
     toggle.setAttribute('aria-expanded', isOpen);
   });
-  links.querySelectorAll('a').forEach(a = a.addEventListener('click', () = {
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     links.classList.remove('open');
     toggle.classList.remove('active');
     toggle.setAttribute('aria-expanded', false);
   }));
 
-   ===== Hero typing animation =====
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion reduce)').matches;
+  // ===== Hero typing animation =====
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const codeLines = [
-    {text 'span class=c-tag&lt;sectionspan span class=c-attrclassspan=span class=c-strherospanspan class=c-tag&gt;span', pause 60},
-    {text '  span class=c-tag&lt;h1&gt;spanYour Business Namespan class=c-tag&lt;h1&gt;span', pause 60},
-    {text '  span class=c-com&lt;!-- mobile-friendly, fast, yours --&gt;span', pause 80},
-    {text '  span class=c-tag&lt;aspan span class=c-attrhrefspan=span class=c-str#contactspanspan class=c-tag&gt;spanContact Usspan class=c-tag&lt;a&gt;span', pause 60},
-    {text 'span class=c-tag&lt;section&gt;span', pause 40}
+    {text: '<span class="c-tag">&lt;section</span> <span class="c-attr">class</span>=<span class="c-str">"hero"</span><span class="c-tag">&gt;</span>', pause: 60},
+    {text: '  <span class="c-tag">&lt;h1&gt;</span>Your Business Name<span class="c-tag">&lt;/h1&gt;</span>', pause: 60},
+    {text: '  <span class="c-com">&lt;!-- mobile-friendly, fast, yours --&gt;</span>', pause: 80},
+    {text: '  <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#contact"</span><span class="c-tag">&gt;</span>Contact Us<span class="c-tag">&lt;/a&gt;</span>', pause: 60},
+    {text: '<span class="c-tag">&lt;/section&gt;</span>', pause: 40}
   ];
 
   const typedEl = document.getElementById('typed-code');
@@ -1123,7 +1123,7 @@ script
 
   function typeSequence() {
     if (reduceMotion) {
-      typedEl.innerHTML = codeLines.map(l = l.text).join('n');
+      typedEl.innerHTML = codeLines.map(l => l.text).join('\n');
       previewEl.classList.add('show');
       return;
     }
@@ -1132,27 +1132,27 @@ script
     let html = '';
 
     function typeLine() {
-      if (lineIdx = codeLines.length) {
-        setTimeout(() = previewEl.classList.add('show'), 300);
+      if (lineIdx >= codeLines.length) {
+        setTimeout(() => previewEl.classList.add('show'), 300);
         return;
       }
       const line = codeLines[lineIdx];
-       Build plain text length to type, but inject markup at the end of the line render
+      // Build plain text length to type, but inject markup at the end of the line render
       const temp = document.createElement('div');
       temp.innerHTML = line.text;
       const plain = temp.textContent;
       let charIdx = 0;
 
-      const typeChar = () = {
-        if (charIdx = plain.length) {
-           progressively reveal show partial plain text styled simply while typing,
-           then swap to full markup once line is done for accurate coloring
+      const typeChar = () => {
+        if (charIdx <= plain.length) {
+          // progressively reveal: show partial plain text styled simply while typing,
+          // then swap to full markup once line is done for accurate coloring
           const partial = plain.slice(0, charIdx);
           typedEl.innerHTML = html + escapeHtml(partial);
           charIdx++;
-          setTimeout(typeChar, 14 + Math.random()  18);
+          setTimeout(typeChar, 14 + Math.random() * 18);
         } else {
-          html += line.text + 'n';
+          html += line.text + '\n';
           typedEl.innerHTML = html;
           lineIdx++;
           setTimeout(typeLine, line.pause);
@@ -1162,46 +1162,46 @@ script
     }
 
     function escapeHtml(str){
-      return str.replace(&g,'&amp;').replace(g,'&lt;').replace(g,'&gt;');
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
     typeLine();
   }
 
-   start after hero fade-in begins
+  // start after hero fade-in begins
   setTimeout(typeSequence, 650);
 
-   ===== Scroll reveal =====
+  // ===== Scroll reveal =====
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !reduceMotion) {
-    const io = new IntersectionObserver((entries) = {
-      entries.forEach(entry = {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('in');
           io.unobserve(entry.target);
         }
       });
-    }, { threshold 0.12, rootMargin '0px 0px -40px 0px' });
-    revealEls.forEach(el = io.observe(el));
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
 
-     Process steps light up individually
+    // Process steps light up individually
     const steps = document.querySelectorAll('.process-step');
-    const stepIo = new IntersectionObserver((entries) = {
-      entries.forEach((entry, i) = {
+    const stepIo = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
           const idx = Array.from(steps).indexOf(entry.target);
-          setTimeout(() = entry.target.classList.add('in'), idx  150);
+          setTimeout(() => entry.target.classList.add('in'), idx * 150);
           stepIo.unobserve(entry.target);
         }
       });
-    }, { threshold 0.4 });
-    steps.forEach(el = stepIo.observe(el));
+    }, { threshold: 0.4 });
+    steps.forEach(el => stepIo.observe(el));
   } else {
-    revealEls.forEach(el = el.classList.add('in'));
-    document.querySelectorAll('.process-step').forEach(el = el.classList.add('in'));
+    revealEls.forEach(el => el.classList.add('in'));
+    document.querySelectorAll('.process-step').forEach(el => el.classList.add('in'));
   }
 })();
-script
+</script>
 
-body
-html
+</body>
+</html>
