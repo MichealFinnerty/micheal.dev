@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Micheál Finnerty — Web Development</title>
+<title>Micheál Finnerty | Web Development</title>
 <meta name="description" content="Professional, affordable websites for local businesses in Limerick and beyond. Built by Micheál Finnerty.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -526,6 +526,8 @@
     position:relative;
     overflow:hidden;
     transition:transform 0.3s ease, box-shadow 0.3s ease;
+    display:flex;
+    flex-direction:column;
   }
   .price-card:hover{
     transform:translateY(-6px);
@@ -575,6 +577,7 @@
     display:flex;
     flex-direction:column;
     gap:13px;
+    flex-grow:1;
   }
   .price-feat li{
     display:flex;
@@ -621,6 +624,7 @@
     top:-50%; right:-10%;
     width:300px; height:300px;
     background:radial-gradient(circle, rgba(232,163,61,0.25), transparent 70%);
+    pointer-events:none;
   }
   .offer-tag{
     font-family:var(--mono);
@@ -774,79 +778,24 @@
   }
   .contact-item a:hover{color:var(--amber);}
 
-  .form-card{
-    background:rgba(247,245,240,0.04);
-    border:1px solid rgba(247,245,240,0.12);
+  .map-card{
     border-radius:16px;
-    padding:28px;
-    backdrop-filter:blur(6px);
+    overflow:hidden;
+    border:1px solid rgba(247,245,240,0.12);
+    background:rgba(247,245,240,0.04);
   }
-  .form-field{margin-bottom:18px;}
-  .form-field label{
+  .map-card iframe{
+    width:100%;
+    height:100%;
+    min-height:320px;
     display:block;
-    font-family:var(--mono);
-    font-size:12px;
-    color:rgba(247,245,240,0.55);
-    margin-bottom:8px;
-    text-transform:uppercase;
-    letter-spacing:0.04em;
+    border:0;
   }
-  .form-field input, .form-field textarea{
-    width:100%;
-    background:rgba(247,245,240,0.06);
-    border:1px solid rgba(247,245,240,0.15);
-    border-radius:9px;
-    padding:12px 14px;
-    color:var(--paper);
-    font-family:var(--body);
-    font-size:14.5px;
-    transition:border-color 0.2s ease, background 0.2s ease;
-  }
-  .form-field input::placeholder, .form-field textarea::placeholder{color:rgba(247,245,240,0.3);}
-  .form-field input:focus, .form-field textarea:focus{
-    outline:none;
-    border-color:var(--amber);
-    background:rgba(247,245,240,0.09);
-  }
-  .form-field textarea{resize:vertical; min-height:96px;}
-  .form-submit{
-    width:100%;
-    background:var(--amber);
-    color:var(--ink);
-    border:none;
-    padding:14px;
-    border-radius:9px;
-    font-weight:600;
-    font-size:15px;
-    cursor:pointer;
-    transition:background 0.2s ease, transform 0.2s ease;
-  }
-  .form-submit:hover{background:#fff; transform:translateY(-2px);}
-  .form-note{
-    font-size:12px;
-    color:rgba(247,245,240,0.4);
-    text-align:center;
-    margin-top:12px;
-  }
-  .form-success{
-    display:none;
-    text-align:center;
-    padding:30px 10px;
-  }
-  .form-success.show{display:block;}
-  .form-success .fs-check{
-    width:48px;height:48px;
-    border-radius:50%;
-    background:var(--pine);
-    display:flex;align-items:center;justify-content:center;
-    margin:0 auto 16px;
-  }
-  .form-success h3{font-family:var(--display); margin-bottom:8px;}
-  .form-success p{color:rgba(247,245,240,0.6); font-size:14px;}
 
   @media (max-width:880px){
     .contact-section{margin:0 14px; padding:56px 28px; border-radius:20px;}
     .contact-inner{grid-template-columns:1fr; gap:40px;}
+    .map-card iframe{min-height:280px;}
   }
 
   /* ===== FOOTER ===== */
@@ -896,7 +845,7 @@
       <div>
         <span class="eyebrow">PALLASKENRY, CO. LIMERICK</span>
         <h1>Websites for local<br>businesses, built by<br><span class="accent">someone local.</span></h1>
-        <p class="hero-sub">I'm Micheál — an 18-year-old web developer giving small businesses a professional online presence, without agency prices.</p>
+        <p class="hero-sub">I'm Micheál, an 18-year-old web developer giving small businesses a professional online presence without the agency price tag.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Start your project →</a>
           <a href="#pricing" class="btn btn-ghost">See pricing</a>
@@ -930,7 +879,7 @@
       <div class="section-head reveal">
         <span class="section-tag">About</span>
         <h2>Built locally. Coded properly.</h2>
-        <p class="section-sub">My goal is simple: help local businesses establish an online presence with professional, affordable websites — without the high costs that big web design companies charge.</p>
+        <p class="section-sub">My goal is simple. Help local businesses get a professional, affordable website online, without the prices a big web design company would charge.</p>
       </div>
 
       <div class="about-grid">
@@ -942,13 +891,13 @@
           <div class="about-card">
             <div class="ac-label">Education</div>
             <div class="ac-value">Leaving Cert, Class of 2026</div>
-            <p style="margin-top:10px; font-size:14px; color:var(--stone);">Salesian Secondary College Pallaskenry — Honours Computer Science, Computer Science Subject Award</p>
+            <p style="margin-top:10px; font-size:14px; color:var(--stone);">Salesian Secondary College Pallaskenry. Honours Computer Science, Computer Science Subject Award</p>
           </div>
         </div>
 
         <div class="about-text reveal">
           <p>I started building websites because I saw how many local shops, trades and services in the area either had no website at all, or one that hadn't been touched in years. Most can't justify the cost a big agency charges for a handful of pages.</p>
-          <p>So I do it differently — clean, modern, mobile-friendly sites at a fair price, built and looked after by one person who actually lives here and answers the phone.</p>
+          <p>So I do things a bit differently. Clean, modern, mobile-friendly sites at a fair price, built and looked after by one person who actually lives here and answers the phone.</p>
           <div class="badge-row">
             <span class="badge">HTML &amp; CSS</span>
             <span class="badge">JavaScript</span>
@@ -982,7 +931,7 @@
         <div class="skill-cell">
           <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
           <h3>Mobile-Friendly Design</h3>
-          <p>Looks right and works properly on a phone — where most visitors will land.</p>
+          <p>Looks right and works properly on a phone, which is where most visitors will land.</p>
         </div>
         <div class="skill-cell">
           <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg>
@@ -992,7 +941,7 @@
         <div class="skill-cell">
           <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
           <h3>Custom HTML Builds</h3>
-          <p>No bloated templates — hand-coded pages that load fast and stay yours.</p>
+          <p>No bloated templates. Hand-coded pages that load fast and stay yours.</p>
         </div>
         <div class="skill-cell">
           <svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
@@ -1049,10 +998,10 @@
       </div>
 
       <div class="offer-banner reveal">
-        <div class="offer-tag">€50<span class="strike">from €300</span></div>
+        <div class="offer-tag">€100<span class="strike">from €300</span></div>
         <div class="offer-copy">
           <h3>First Customer Offer</h3>
-          <p>As I'm just starting out, my first customer gets a special rate — in exchange for letting the finished site be used as a showcase example in future portfolios and proposals.</p>
+          <p>As I'm just starting out, my first customer gets a special rate, in exchange for letting me use the finished site as a showcase example in future portfolios and proposals.</p>
         </div>
         <a href="#contact" class="btn btn-primary">Claim this offer</a>
       </div>
@@ -1116,33 +1065,14 @@
             </div>
           </div>
 
-          <div class="form-card">
-            <form id="contactForm">
-              <div class="form-field">
-                <label for="f-name">Name</label>
-                <input type="text" id="f-name" placeholder="Your name" required>
-              </div>
-              <div class="form-field">
-                <label for="f-email">Email</label>
-                <input type="email" id="f-email" placeholder="you@example.com" required>
-              </div>
-              <div class="form-field">
-                <label for="f-business">Business (optional)</label>
-                <input type="text" id="f-business" placeholder="e.g. The Mill House Café">
-              </div>
-              <div class="form-field">
-                <label for="f-message">What do you need?</label>
-                <textarea id="f-message" placeholder="Tell me a bit about your business and what you're after..." required></textarea>
-              </div>
-              <button type="submit" class="form-submit">Send message</button>
-              <p class="form-note">I'll get back to you within a day or two.</p>
-            </form>
-
-            <div class="form-success" id="formSuccess">
-              <div class="fs-check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
-              <h3>Message received</h3>
-              <p>Thanks for reaching out — I'll be in touch shortly.</p>
-            </div>
+          <div class="map-card">
+            <iframe
+              src="https://www.google.com/maps?q=Pallaskenry,+Co.+Limerick,+Ireland&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+              title="Map showing Pallaskenry, Co. Limerick">
+            </iframe>
           </div>
         </div>
       </div>
@@ -1273,15 +1203,6 @@
     revealEls.forEach(el => el.classList.add('in'));
     document.querySelectorAll('.process-step').forEach(el => el.classList.add('in'));
   }
-
-  // ===== Contact form =====
-  const form = document.getElementById('contactForm');
-  const success = document.getElementById('formSuccess');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    form.style.display = 'none';
-    success.classList.add('show');
-  });
 })();
 </script>
 
