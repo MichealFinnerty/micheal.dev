@@ -774,7 +774,7 @@
     color:#fff;
     border-color:var(--pine);
   }
-  .process-step h4{
+  .process-step h3{
     font-family:var(--display);
     font-size:16px;
     font-weight:600;
@@ -1207,12 +1207,12 @@
       <div class="process-line reveal">
         <div class="process-step">
           <div class="ps-num">1</div>
-          <h4>Free chat</h4>
+          <h3>Free chat</h3>
           <p>No-obligation discussion about what your business actually needs.</p>
         </div>
         <div class="process-step">
           <div class="ps-num">2</div>
-          <h4>Plan</h4>
+          <h3>Plan</h3>
           <p>We settle on a design direction before any code gets written.</p>
           <ul class="ps-options">
             <li>You provide a sketch or reference</li>
@@ -1221,17 +1221,17 @@
         </div>
         <div class="process-step">
           <div class="ps-num">3</div>
-          <h4>Build</h4>
+          <h3>Build</h3>
           <p>I design and code your site, keeping you updated as it comes together.</p>
         </div>
         <div class="process-step">
           <div class="ps-num">4</div>
-          <h4>Review</h4>
+          <h3>Review</h3>
           <p>You check it on your own phone and laptop before anything goes live.</p>
         </div>
         <div class="process-step">
           <div class="ps-num">5</div>
-          <h4>Launch &amp; support</h4>
+          <h3>Launch &amp; support</h3>
           <p>Once your website goes live, you receive a 3-month warranty covering any issues.</p>
         </div>
       </div>
@@ -1258,7 +1258,7 @@
               </div>
             </div>
 
-            <form id="contactForm" class="contact-form-card" action="https://formspree.io/f/mjgqbrpb" method="POST" style="margin-top:32px;">
+            <form id="contactForm" class="contact-form-card" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="margin-top:32px;">
               <div class="form-row">
                 <label for="cf-name">Name</label>
                 <input type="text" id="cf-name" name="name" placeholder="Your name" required>
@@ -1272,7 +1272,8 @@
                 <textarea id="cf-message" name="message" placeholder="Tell me a bit about your business and what you need..." required></textarea>
               </div>
               <!-- honeypot field to catch basic spam bots -->
-              <input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off">
+              <label for="cf-hp" class="form-honeypot">Leave this field blank</label>
+              <input type="text" id="cf-hp" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off">
               <input type="hidden" name="_subject" value="New enquiry from michealdev.ie">
               <button type="submit" class="btn btn-primary form-submit">Send message</button>
               <p class="form-status" id="formStatus"></p>
