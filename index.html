@@ -816,6 +816,147 @@
     .process-line{grid-template-columns:1fr;}
   }
 
+  /* ===== COMPARISON ===== */
+  .compare-list{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:var(--card);
+  }
+  .compare-row{
+    border-bottom:1px solid var(--line);
+  }
+  .compare-row:last-child{
+    border-bottom:none;
+  }
+  .compare-trigger{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:22px 26px;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    text-align:left;
+    font-family:var(--body);
+    transition:background 0.2s ease;
+  }
+  .compare-trigger:hover{
+    background:#FBFAF6;
+  }
+  .compare-icon{
+    width:38px; height:38px;
+    border-radius:10px;
+    background:rgba(46,110,94,0.08);
+    border:1px solid rgba(46,110,94,0.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    color:var(--pine);
+  }
+  .compare-titles{
+    flex:1;
+    min-width:0;
+  }
+  .compare-titles .ct-title{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:16px;
+  }
+  .compare-titles .ct-sub{
+    font-size:13px;
+    color:var(--stone);
+    margin-top:2px;
+  }
+  .compare-win{
+    font-family:var(--mono);
+    font-size:14px;
+    font-weight:600;
+    color:var(--pine);
+    background:rgba(46,110,94,0.08);
+    border:1px solid rgba(46,110,94,0.18);
+    padding:7px 14px;
+    border-radius:20px;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .compare-chevron{
+    flex-shrink:0;
+    color:var(--stone);
+    transition:transform 0.25s ease;
+  }
+  .compare-row.open .compare-chevron{
+    transform:rotate(180deg);
+  }
+  .compare-panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease;
+  }
+  .compare-row.open .compare-panel{
+    max-height:600px;
+  }
+  .compare-panel-inner{
+    padding:0 26px 26px 82px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+  }
+  .compare-card{
+    background:var(--paper);
+    border-radius:10px;
+    padding:16px;
+  }
+  .compare-card.me{
+    background:rgba(46,110,94,0.06);
+    border:1px solid rgba(46,110,94,0.2);
+  }
+  .compare-card .cc-label{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--stone);
+    margin-bottom:6px;
+  }
+  .compare-card .cc-value{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:16px;
+    margin-bottom:8px;
+  }
+  .compare-card.me .cc-value{
+    color:var(--pine);
+  }
+  .compare-card .cc-detail{
+    font-size:13px;
+    color:var(--stone);
+    line-height:1.5;
+  }
+  @media (max-width:760px){
+    .compare-trigger{
+      padding:18px 20px;
+      gap:12px;
+    }
+    .compare-win{
+      font-size:12.5px;
+      padding:6px 10px;
+    }
+    .compare-titles .ct-sub{display:none;}
+    .compare-panel-inner{
+      grid-template-columns:1fr;
+      padding:0 20px 20px 20px;
+    }
+    .compare-row.open .compare-panel{
+      max-height:1000px;
+    }
+  }
+
   /* ===== CONTACT ===== */
   .contact-section{
     background:var(--ink);
@@ -1066,7 +1207,7 @@
           <div class="about-card">
             <div class="ac-label">Education</div>
             <div class="ac-value">Leaving Cert, Class of 2026</div>
-            <p style="margin-top:10px; font-size:14px; color:var(--stone);">Salesian Secondary College Pallaskenry.  <br>  Honours Computer Science,  <br> Computer Science Subject Award</p>
+            <p style="margin-top:10px; font-size:14px; color:var(--stone);">Salesian Secondary College Pallaskenry.  <br>  Honours Computer Science, Computer Science Subject Award</p>
           </div>
         </div>
 
@@ -1193,6 +1334,185 @@
           <p>As I'm just starting out, my first customer gets a special rate, in exchange for letting me use the finished site as a showcase example in future portfolios and proposals.</p>
         </div>
         <a href="#contact" class="btn btn-primary">Claim this offer</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="compare">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">Me vs The Competition</span>
+        <h2>How michealdev.ie stacks up</h2>
+        <p class="section-sub">A straightforward, no-spin look at how a hand-coded site compares to a traditional agency build or a DIY platform like Wix or Squarespace.</p>
+      </div>
+
+      <div class="compare-list reveal" id="compareList">
+
+        <div class="compare-row open" data-row="0">
+          <button class="compare-trigger" aria-expanded="true">
+            <span class="compare-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2L3 14h7l-1 8 11-12h-7l1-8z"/></svg>
+            </span>
+            <span class="compare-titles">
+              <span class="ct-title">Page load speed</span>
+              <span class="ct-sub">So mobile visitors don't bounce</span>
+            </span>
+            <span class="compare-win">0.2–0.5s</span>
+            <svg class="compare-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="compare-panel">
+            <div class="compare-panel-inner">
+              <div class="compare-card me">
+                <div class="cc-label">michealdev.ie</div>
+                <div class="cc-value">0.2–0.5s</div>
+                <div class="cc-detail">Static HTML/CSS with no database calls, loading near-instantly.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Agencies</div>
+                <div class="cc-value">2–4s</div>
+                <div class="cc-detail">Heavy backend frameworks and unoptimised assets drag on mobile.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Wix / Squarespace</div>
+                <div class="cc-value">3–7s+</div>
+                <div class="cc-detail">Bloated with tracking scripts and generic theme code.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-row" data-row="1">
+          <button class="compare-trigger" aria-expanded="false">
+            <span class="compare-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h3.2a1.8 1.8 0 1 1 0 3.6h-3.4a1.8 1.8 0 1 0 0 3.6h3.4"/></svg>
+            </span>
+            <span class="compare-titles">
+              <span class="ct-title">Annual running cost</span>
+              <span class="ct-sub">Money that stays in your business</span>
+            </span>
+            <span class="compare-win">€10–20/yr</span>
+            <svg class="compare-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="compare-panel">
+            <div class="compare-panel-inner">
+              <div class="compare-card me">
+                <div class="cc-label">michealdev.ie</div>
+                <div class="cc-value">€10–20/yr</div>
+                <div class="cc-detail">Just the domain — hosting on GitHub Pages is free, permanently.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Agencies</div>
+                <div class="cc-value">€200–500+/yr</div>
+                <div class="cc-detail">Recurring hosting, server and support retainers.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Wix / Squarespace</div>
+                <div class="cc-value">€180–300+/yr</div>
+                <div class="cc-detail">Locked into ongoing monthly platform subscriptions.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-row" data-row="2">
+          <button class="compare-trigger" aria-expanded="false">
+            <span class="compare-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M5 7h6.5a2.5 2.5 0 0 1 0 5H5m7 0h6.5a2.5 2.5 0 0 1 0 5H5"/></svg>
+            </span>
+            <span class="compare-titles">
+              <span class="ct-title">Upfront value</span>
+              <span class="ct-sub">Performance per euro spent</span>
+            </span>
+            <span class="compare-win">€300–500</span>
+            <svg class="compare-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="compare-panel">
+            <div class="compare-panel-inner">
+              <div class="compare-card me">
+                <div class="cc-label">michealdev.ie</div>
+                <div class="cc-value">€300–500</div>
+                <div class="cc-detail">Professional-grade build at entry-level freelance pricing.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Agencies</div>
+                <div class="cc-value">€1,500–3,500+</div>
+                <div class="cc-detail">Pricing reflects agency overhead as much as the build itself.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Wix / Squarespace</div>
+                <div class="cc-value">"Free" + your time</div>
+                <div class="cc-detail">No upfront fee, but hours of your own labour to build and maintain it.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-row" data-row="3">
+          <button class="compare-trigger" aria-expanded="false">
+            <span class="compare-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
+            </span>
+            <span class="compare-titles">
+              <span class="ct-title">Maintenance &amp; security</span>
+              <span class="ct-sub">No hacks, no broken layouts</span>
+            </span>
+            <span class="compare-win">Minimal risk</span>
+            <svg class="compare-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="compare-panel">
+            <div class="compare-panel-inner">
+              <div class="compare-card me">
+                <div class="cc-label">michealdev.ie</div>
+                <div class="cc-value">Minimal attack surface</div>
+                <div class="cc-detail">No database, no plugins, no login page — little for attacks to target.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Agencies</div>
+                <div class="cc-value">Ongoing burden</div>
+                <div class="cc-detail">Plugins and themes need constant updates or things break.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Wix / Squarespace</div>
+                <div class="cc-value">Locked-in</div>
+                <div class="cc-detail">Closed platforms make it hard to export your site or take your code elsewhere.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-row" data-row="4">
+          <button class="compare-trigger" aria-expanded="false">
+            <span class="compare-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7l9 6 9-6M3 7v10h18V7"/></svg>
+            </span>
+            <span class="compare-titles">
+              <span class="ct-title">Lead capture</span>
+              <span class="ct-sub">Getting calls &amp; enquiries</span>
+            </span>
+            <span class="compare-win">Lean &amp; direct</span>
+            <svg class="compare-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="compare-panel">
+            <div class="compare-panel-inner">
+              <div class="compare-card me">
+                <div class="cc-label">michealdev.ie</div>
+                <div class="cc-value">Lean &amp; direct</div>
+                <div class="cc-detail">Formspree routes submissions straight to your inbox — no bloat.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Agencies</div>
+                <div class="cc-value">Often overbuilt</div>
+                <div class="cc-detail">Heavy CRM integrations you may not need.</div>
+              </div>
+              <div class="compare-card">
+                <div class="cc-label">Wix / Squarespace</div>
+                <div class="cc-value">Generic</div>
+                <div class="cc-detail">Template contact forms that can feel impersonal to visitors.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1418,6 +1738,17 @@
     revealEls.forEach(el => el.classList.add('in'));
     document.querySelectorAll('.process-step').forEach(el => el.classList.add('in'));
   }
+
+  // ===== Comparison accordion =====
+  const compareRows = document.querySelectorAll('.compare-row');
+  compareRows.forEach(row => {
+    const trigger = row.querySelector('.compare-trigger');
+    trigger.addEventListener('click', () => {
+      const isOpen = row.classList.contains('open');
+      row.classList.toggle('open', !isOpen);
+      trigger.setAttribute('aria-expanded', !isOpen);
+    });
+  });
 
   // ===== Contact form submission (Formspree AJAX) =====
   const form = document.getElementById('contactForm');
