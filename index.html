@@ -883,6 +883,89 @@
     border:0;
   }
 
+  /* ===== CONTACT FORM ===== */
+  .contact-form-card{
+    background:rgba(247,245,240,0.05);
+    border:1px solid rgba(247,245,240,0.12);
+    border-radius:16px;
+    padding:28px;
+  }
+  .form-row{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:18px;
+  }
+  .form-row label{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:rgba(247,245,240,0.55);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .form-row input,
+  .form-row textarea{
+    background:rgba(247,245,240,0.06);
+    border:1px solid rgba(247,245,240,0.15);
+    border-radius:9px;
+    padding:12px 14px;
+    color:var(--paper);
+    font-family:var(--body);
+    font-size:14.5px;
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .form-row input::placeholder,
+  .form-row textarea::placeholder{
+    color:rgba(247,245,240,0.3);
+  }
+  .form-row input:focus,
+  .form-row textarea:focus{
+    border-color:var(--pine-light);
+    background:rgba(247,245,240,0.1);
+    outline:none;
+  }
+  .form-row textarea{
+    resize:vertical;
+    min-height:110px;
+    font-family:var(--body);
+  }
+  .form-honeypot{
+    position:absolute;
+    left:-9999px;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+  }
+  .form-submit{
+    width:100%;
+    justify-content:center;
+    background:var(--amber);
+    color:var(--ink);
+  }
+  .form-submit:hover{
+    background:#fff;
+    box-shadow:0 10px 24px rgba(232,163,61,0.25);
+  }
+  .form-submit:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+    transform:none;
+  }
+  .form-status{
+    margin-top:14px;
+    font-size:13.5px;
+    font-family:var(--mono);
+    display:none;
+  }
+  .form-status.success{
+    display:block;
+    color:#9DC9A8;
+  }
+  .form-status.error{
+    display:block;
+    color:#E89A8D;
+  }
+
   @media (max-width:880px){
     .contact-section{margin:0 14px; padding:56px 28px; border-radius:20px;}
     .contact-inner{grid-template-columns:1fr; gap:40px;}
@@ -1174,6 +1257,26 @@
                 <span>Pallaskenry, Co. Limerick</span>
               </div>
             </div>
+
+            <form id="contactForm" class="contact-form-card" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="margin-top:32px;">
+              <div class="form-row">
+                <label for="cf-name">Name</label>
+                <input type="text" id="cf-name" name="name" placeholder="Your name" required>
+              </div>
+              <div class="form-row">
+                <label for="cf-email">Email</label>
+                <input type="email" id="cf-email" name="email" placeholder="you@example.com" required>
+              </div>
+              <div class="form-row">
+                <label for="cf-message">Message</label>
+                <textarea id="cf-message" name="message" placeholder="Tell me a bit about your business and what you need..." required></textarea>
+              </div>
+              <!-- honeypot field to catch basic spam bots -->
+              <input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off">
+              <input type="hidden" name="_subject" value="New enquiry from michealdev.ie">
+              <button type="submit" class="btn btn-primary form-submit">Send message</button>
+              <p class="form-status" id="formStatus"></p>
+            </form>
           </div>
 
           <div class="map-card">
@@ -1313,6 +1416,44 @@
   } else {
     revealEls.forEach(el => el.classList.add('in'));
     document.querySelectorAll('.process-step').forEach(el => el.classList.add('in'));
+  }
+
+  // ===== Contact form submission (Formspree AJAX) =====
+  const form = document.getElementById('contactForm');
+  const statusEl = document.getElementById('formStatus');
+  if (form) {
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const submitBtn = form.querySelector('.form-submit');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      statusEl.className = 'form-status';
+      statusEl.textContent = '';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          statusEl.textContent = "Thanks — your message has been sent. I'll get back to you soon.";
+          statusEl.className = 'form-status success';
+          form.reset();
+        } else {
+          statusEl.textContent = "Something went wrong sending that. Please email me directly instead.";
+          statusEl.className = 'form-status error';
+        }
+      } catch (err) {
+        statusEl.textContent = "Something went wrong sending that. Please email me directly instead.";
+        statusEl.className = 'form-status error';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
   }
 })();
 </script>
