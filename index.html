@@ -178,9 +178,10 @@
       gap:20px;
       border-bottom:1px solid var(--line);
       transform:translateY(-110%);
-      transition:transform 0.3s ease;
+      transition:transform 0.3s ease, visibility 0.3s ease;
+      visibility:hidden;
     }
-    .nav-links.open{transform:translateY(0);}
+    .nav-links.open{transform:translateY(0); visibility:visible;}
     .nav-cta{display:none;}
     .nav-links .nav-cta-mobile,
     .nav-links .nav-portfolio-mobile{
