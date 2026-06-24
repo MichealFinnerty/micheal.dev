@@ -1027,6 +1027,82 @@
     }
   }
 
+  /* ===== FAQ ===== */
+  .faq-list{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:var(--card);
+  }
+  .faq-row{
+    border-bottom:1px solid var(--line);
+  }
+  .faq-row:last-child{
+    border-bottom:none;
+  }
+  .faq-trigger{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:22px 26px;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    text-align:left;
+    font-family:var(--body);
+    transition:background 0.2s ease;
+  }
+  .faq-trigger:hover{
+    background:#FBFAF6;
+  }
+  .faq-q{
+    flex:1;
+    min-width:0;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:16px;
+  }
+  .faq-chevron{
+    flex-shrink:0;
+    color:var(--stone);
+    transition:transform 0.25s ease;
+  }
+  .faq-row.open .faq-chevron{
+    transform:rotate(180deg);
+  }
+  .faq-panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease;
+  }
+  .faq-row.open .faq-panel{
+    max-height:400px;
+  }
+  .faq-panel-inner{
+    padding:0 26px 24px 26px;
+    font-size:14.5px;
+    color:var(--stone);
+    line-height:1.65;
+    max-width:760px;
+  }
+  @media (max-width:760px){
+    .faq-trigger{
+      padding:18px 20px;
+      gap:12px;
+    }
+    .faq-q{font-size:15px;}
+    .faq-panel-inner{
+      padding:0 20px 20px 20px;
+    }
+    .faq-row.open .faq-panel{
+      max-height:600px;
+    }
+  }
+
   /* ===== CONTACT ===== */
   .contact-section{
     background:var(--ink);
@@ -1225,6 +1301,7 @@
       <a href="#process" class="nav-link">Process</a>
       <a href="#compare" class="nav-link">Compare</a>
       <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="#faq" class="nav-link">FAQ</a>
       <a href="#contact" class="nav-cta-mobile">Get in touch</a>
       <a href="portfolio.html" class="nav-portfolio-mobile">Portfolio</a>
     </div>
@@ -1638,6 +1715,80 @@
     </div>
   </section>
 
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">FAQ</span>
+        <h2>Common questions</h2>
+        <p class="section-sub">Tap a question for the answer. Anything not covered here, just ask in the chat or the form below.</p>
+      </div>
+
+      <div class="faq-list reveal" id="faqList">
+
+        <div class="faq-row" data-row="0">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-q">How long does a website take to build?</span>
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel">
+            <div class="faq-panel-inner">Most basic sites are ready within 1–2 weeks from our first chat. Sites with extra features like booking systems or databases can take 2–4 weeks, depending on how much content you have ready and how quickly we can agree on a design.</div>
+          </div>
+        </div>
+
+        <div class="faq-row" data-row="1">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-q">Do I need to pay anything upfront?</span>
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel">
+            <div class="faq-panel-inner">A small deposit is usually agreed before work starts, with the balance due once you've reviewed the finished site and you're happy with it. The exact split is something we'll sort out during our initial chat.</div>
+          </div>
+        </div>
+
+        <div class="faq-row" data-row="2">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-q">Will I be able to update the site myself?</span>
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel">
+            <div class="faq-panel-inner">For most small text or detail changes, it's easiest to just send me a message and I'll handle it — that's covered by the hourly maintenance rate. If you'd prefer to manage content yourself day to day, we can talk about setting that up too.</div>
+          </div>
+        </div>
+
+        <div class="faq-row" data-row="3">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-q">What about hosting and a domain name?</span>
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel">
+            <div class="faq-panel-inner">Hosting is free through GitHub Pages, so the only ongoing cost is your domain name, typically around €10–20 a year. I can register and set this up for you, or help you do it yourself if you'd rather own it directly.</div>
+          </div>
+        </div>
+
+        <div class="faq-row" data-row="4">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-q">What happens if something breaks after launch?</span>
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel">
+            <div class="faq-panel-inner">Every site comes with a 3-month warranty after launch, so any bugs or issues from the original build are fixed free of charge. After that, fixes and updates are billed at the standard €25 per hour maintenance rate.</div>
+          </div>
+        </div>
+
+        <div class="faq-row" data-row="5">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-q">Do you only work with businesses in Limerick?</span>
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-panel">
+            <div class="faq-panel-inner">I'm based in Pallaskenry and focus mainly on local businesses around Limerick, but since most of the process happens by phone, email and video call, I'm happy to take on projects further afield too.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="wrap">
       <div class="contact-section reveal">
@@ -1827,6 +1978,17 @@
   const compareRows = document.querySelectorAll('.compare-row');
   compareRows.forEach(row => {
     const trigger = row.querySelector('.compare-trigger');
+    trigger.addEventListener('click', () => {
+      const isOpen = row.classList.contains('open');
+      row.classList.toggle('open', !isOpen);
+      trigger.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  // ===== FAQ accordion =====
+  const faqRows = document.querySelectorAll('.faq-row');
+  faqRows.forEach(row => {
+    const trigger = row.querySelector('.faq-trigger');
     trigger.addEventListener('click', () => {
       const isOpen = row.classList.contains('open');
       row.classList.toggle('open', !isOpen);
