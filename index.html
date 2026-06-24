@@ -219,11 +219,45 @@
     padding:160px 0 100px;
     position:relative;
   }
+
+  /* ===== FALLING CODE SYMBOLS ===== */
+  .symbol-field{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+  }
+  .code-symbol{
+    position:absolute;
+    top:0; left:0;
+    font-family:var(--mono);
+    font-weight:500;
+    user-select:none;
+    pointer-events:auto;
+    cursor:grab;
+    will-change:transform;
+    line-height:1;
+    transition:opacity 0.2s ease;
+  }
+  .code-symbol:active{cursor:grabbing;}
+  .code-symbol.dragging{
+    transition:none;
+    z-index:5;
+  }
+  @media (max-width:880px){
+    .symbol-field{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .code-symbol{transition:none;}
+  }
   .hero-grid{
     display:grid;
     grid-template-columns:1.05fr 0.95fr;
     gap:56px;
     align-items:center;
+    position:relative;
+    z-index:1;
   }
   .eyebrow{
     font-family:var(--mono);
@@ -1185,12 +1219,13 @@
 </nav>
 
 <header class="hero" id="top">
+  <div class="symbol-field" id="symbolField" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-grid">
       <div>
         <span class="eyebrow">PALLASKENRY, CO. LIMERICK</span>
         <h1>Websites for local<br>businesses, built by<br><span class="accent">someone local.</span></h1>
-        <p class="hero-sub">My name is Micheál, I am web developer giving small businesses a professional online presence without the agency price tag.</p>
+        <p class="hero-sub">My name is Micheál, I am  an 18 year-old web developer giving small businesses a professional online presence without the agency price tag.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Start your project →</a>
           <a href="#pricing" class="btn btn-ghost">See pricing</a>
@@ -1782,6 +1817,128 @@
       trigger.setAttribute('aria-expanded', !isOpen);
     });
   });
+
+  // ===== Falling code symbols (hero only) =====
+  (function initSymbolField(){
+    const field = document.getElementById('symbolField');
+    if (!field) return;
+
+    const glyphs = ['</>', '{ }', ';', '#', '=>', '( )', '01', '&&', '::', '/*'];
+    const colors = ['var(--pine)', 'var(--stone)', 'var(--amber)'];
+    const COUNT = 16;
+
+    if (reduceMotion) {
+      // Static scattered, no animation, no drag complexity needed but keep draggable for fun
+      for (let i = 0; i < COUNT; i++){
+        const el = document.createElement('span');
+        el.className = 'code-symbol';
+        el.textContent = glyphs[i % glyphs.length];
+        el.style.left = (Math.random() * 92) + '%';
+        el.style.top = (Math.random() * 92) + '%';
+        el.style.fontSize = (14 + Math.random() * 16) + 'px';
+        el.style.color = colors[i % colors.length];
+        el.style.opacity = (0.26 + Math.random() * 0.2).toFixed(2);
+        field.appendChild(el);
+      }
+      return;
+    }
+
+    const symbols = [];
+
+    function makeSymbol(i){
+      const el = document.createElement('span');
+      el.className = 'code-symbol';
+      el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+      const size = 14 + Math.random() * 18;
+      el.style.fontSize = size + 'px';
+      el.style.color = colors[Math.floor(Math.random() * colors.length)];
+      const opacity = 0.2 + Math.random() * 0.22;
+      el.style.opacity = opacity.toFixed(2);
+      field.appendChild(el);
+
+      const fieldWidth = field.clientWidth || 800;
+      const state = {
+        el,
+        x: Math.random() * Math.max(fieldWidth - 30, 40),
+        y: -Math.random() * 400 - 20, // stagger initial entry
+        speed: 20 + Math.random() * 22, // px per second
+        sway: Math.random() * 18,
+        swaySpeed: 0.3 + Math.random() * 0.5,
+        swayPhase: Math.random() * Math.PI * 2,
+        dragging: false,
+        opacity
+      };
+      symbols.push(state);
+      attachDrag(state);
+      return state;
+    }
+
+    function attachDrag(state){
+      const { el } = state;
+      let startX = 0, startY = 0, originX = 0, originY = 0;
+
+      function onPointerDown(e){
+        e.preventDefault();
+        state.dragging = true;
+        el.classList.add('dragging');
+        el.setPointerCapture && el.setPointerCapture(e.pointerId);
+        startX = e.clientX;
+        startY = e.clientY;
+        originX = state.x;
+        originY = state.y;
+        window.addEventListener('pointermove', onPointerMove);
+        window.addEventListener('pointerup', onPointerUp);
+      }
+
+      function onPointerMove(e){
+        if (!state.dragging) return;
+        const fieldRect = field.getBoundingClientRect();
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        state.x = Math.min(Math.max(originX + dx, -40), fieldRect.width - 10);
+        state.y = Math.min(Math.max(originY + dy, -200), fieldRect.height - 10);
+        render(state);
+      }
+
+      function onPointerUp(){
+        state.dragging = false;
+        el.classList.remove('dragging');
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', onPointerUp);
+      }
+
+      el.addEventListener('pointerdown', onPointerDown);
+    }
+
+    function render(state){
+      state.el.style.transform = `translate(${state.x}px, ${state.y}px)`;
+    }
+
+    for (let i = 0; i < COUNT; i++) makeSymbol(i);
+
+    let lastT = performance.now();
+    function tick(t){
+      const dt = Math.min((t - lastT) / 1000, 0.05);
+      lastT = t;
+      const fieldHeight = field.clientHeight || 600;
+      const fieldWidth = field.clientWidth || 800;
+
+      symbols.forEach(state => {
+        if (state.dragging) return;
+        state.y += state.speed * dt;
+        state.swayPhase += state.swaySpeed * dt;
+        const swayOffset = Math.sin(state.swayPhase) * state.sway;
+        if (state.y > fieldHeight + 20) {
+          state.y = -30;
+          state.x = Math.random() * Math.max(fieldWidth - 30, 40);
+        }
+        state.el.style.transform = `translate(${state.x + swayOffset}px, ${state.y}px)`;
+      });
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
 
   // ===== Contact form submission (Formspree AJAX) =====
   const form = document.getElementById('contactForm');
