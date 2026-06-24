@@ -587,6 +587,39 @@
     border:1px solid rgba(46,110,94,0.18);
   }
 
+  .pull-quote{
+    margin:30px 0;
+    padding:22px 26px;
+    border-left:3px solid var(--pine);
+    background:rgba(46,110,94,0.05);
+    border-radius:0 10px 10px 0;
+  }
+  .pull-quote p{
+    font-family:var(--display);
+    font-size:19px;
+    font-weight:600;
+    line-height:1.4;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .pull-quote p::before{content:'\201C';}
+  .pull-quote p::after{content:'\201D';}
+  .pull-quote cite{
+    font-family:var(--mono);
+    font-size:12.5px;
+    font-style:normal;
+    color:var(--stone);
+  }
+  .pull-quote cite a{
+    color:var(--pine);
+    border-bottom:1px dotted rgba(46,110,94,0.4);
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .pull-quote cite a:hover{
+    color:var(--ink);
+    border-bottom-color:var(--ink);
+  }
+
   @media (max-width:880px){
     .about-grid{grid-template-columns:1fr;}
   }
@@ -1435,6 +1468,10 @@
         <div class="about-text reveal">
           <p>I started building websites because I saw how many local shops, trades and services in the area either had no website at all, or one that hadn't been touched in years. Most can't justify the cost a big agency charges for a handful of pages.</p>
           <p>So I do things a bit differently. Clean, modern, mobile friendly sites at a fair price, built and looked after by one person who actually lives here and answers the phone.</p>
+          <blockquote class="pull-quote">
+            <p>Good design is as little design as possible</p>
+            <cite>— <a href="https://en.wikipedia.org/wiki/Dieter_Rams" target="_blank" rel="noopener">Dieter Rams</a>, industrial designer</cite>
+          </blockquote>
           <div class="badge-row">
             <span class="badge">HTML &amp; CSS</span>
             <span class="badge">JavaScript</span>
