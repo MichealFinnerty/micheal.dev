@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>michealdev</title>
+<title>Web Design Limerick</title>
 <link rel="icon" type="image/jpeg" href="Logo/Logo.jpg">
+
   
-<meta name="description" content="Sample websites and client portfolio from Micheál Finnerty, web developer based in Pallaskenry, Co. Limerick.">
+<meta name="description" content="Affordable web design in Askeaton & Pallaskenry. Professional websites for local trades, clubs, and businesses. Built by Micheál Finnerty.">
 
   
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -613,6 +614,23 @@
     toggle.classList.remove('active');
     toggle.setAttribute('aria-expanded', false);
   }));
+
+  // ===== Smooth scroll with navbar offset =====
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#' || !document.querySelector(href)) return;
+      
+      e.preventDefault();
+      const target = document.querySelector(href);
+      const offsetTop = target.offsetTop - 80; // offset for fixed navbar
+      
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    });
+  });
 
   // ===== Active link highlight on scroll =====
   const sections = ['samples', 'portfolio'].map(id => document.getElementById(id));
