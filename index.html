@@ -2001,6 +2001,23 @@
     toggle.setAttribute('aria-expanded', false);
   }));
 
+  // ===== Smooth scroll with navbar offset =====
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#' || !document.querySelector(href)) return;
+      
+      e.preventDefault();
+      const target = document.querySelector(href);
+      const offsetTop = target.offsetTop - 80; // offset for fixed navbar
+      
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    });
+  });
+
   // ===== Hero typing animation =====
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const codeLines = [
