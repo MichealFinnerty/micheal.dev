@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mill House Café — Pallaskenry</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%232B1B17%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ---- Brief palette ---- */
+    --linen:#F4EAE1;       /* base background */
+    --espresso:#2B1B17;    /* near-black, headers/dark sections/ink */
+    --leather:#8B5A3C;     /* warm accent */
+
+    /* ---- Derived tints/shades (kept in-family, not new hues) ---- */
+    --linen-deep:#EADCCC;       /* slightly deeper card/panel tone */
+    --espresso-soft:#3A2620;    /* lifted dark, for dark-section gradients */
+    --espresso-deep:#1C100D;    /* darkest, for hero overlay depth */
+    --leather-dark:#6E4329;     /* pressed/hover state of leather */
+    --leather-light:#C99B6F;    /* tint of leather, used as a warm highlight on dark */
+    --ink:#2B1B17;              /* body text = espresso */
+    --ink-soft:#6B554C;         /* muted brown-grey for secondary text on linen */
+    --on-dark:#F4EAE1;          /* text on dark sections = linen */
+    --on-dark-soft:#D8C6B7;     /* muted text on dark sections */
+    --line:rgba(43,27,23,0.14);
+    --line-dark:rgba(244,234,225,0.16);
+    --radius:3px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Lora', serif;
+    color:var(--ink);
+    background:var(--linen);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Lora', serif;font-weight:700;line-height:1.12;letter-spacing:-0.01em;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  :focus-visible{outline:3px solid var(--leather);outline-offset:3px;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px;}
+  .mono{font-family:'Lora', serif;font-style:italic;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}
+  }
+
+  /* ---------- Scroll progress wheel (signature element) ---------- */
+  .wheel-progress{
+    position:fixed; top:50%; right:10px; transform:translateY(-50%);
+    width:38px; height:38px; z-index:60; pointer-events:none;
+    opacity:0; transition:opacity .4s var(--ease);
+  }
+  .wheel-progress.visible{opacity:1;}
+  .wheel-progress svg{width:100%;height:100%;display:block;}
+  #wheel-rotor{transform-origin:50px 50px;}
+
+  @media (min-width:820px){
+    .wheel-progress{width:54px;height:54px;right:18px;}
+  }
+
+  /* ---------- Header / Nav ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(244,234,225,0.94);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;max-width:1120px;margin:0 auto;
+    position:relative;
+  }
+  .logo{font-family:'Lora',serif;font-weight:700;font-size:1.12rem;color:var(--espresso);display:flex;align-items:center;gap:8px;}
+  .logo-mark{width:24px;height:24px;flex-shrink:0;}
+  .logo span{color:var(--leather);font-style:italic;}
+
+  /* Plain text nav links: About / Reviews / Contact */
+  .nav-links{display:flex;flex-direction:column;gap:16px;font-weight:500;font-size:1rem;}
+  .nav-links a{position:relative;padding:4px 0;color:var(--ink-soft);width:fit-content;}
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--leather);
+    transition:width .25s var(--ease);
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a:hover::after{width:100%;}
+
+  /* Menu = distinct pill button, signals "leaves this page" */
+  .nav-menu-btn{
+    display:inline-flex;align-items:center;gap:7px;
+    background:transparent;color:var(--leather);
+    border:1.5px solid var(--leather);
+    padding:9px 18px;border-radius:999px;
+    font-weight:600;font-size:0.88rem;letter-spacing:0.01em;
+    transition:background .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
+  }
+  .nav-menu-btn svg{width:13px;height:13px;flex-shrink:0;transition:transform .2s var(--ease);}
+  .nav-menu-btn:hover{background:var(--leather);color:var(--linen);transform:translateY(-1px);}
+  .nav-menu-btn:hover svg{transform:translate(2px,-2px);}
+
+  .burger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
+  .burger span{width:22px;height:2px;background:var(--espresso);display:block;transition:transform .25s var(--ease), opacity .25s var(--ease);}
+  .nav.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav.open .burger span:nth-child(2){opacity:0;}
+  .nav.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .nav-drawer{
+    display:none;
+  }
+  .nav.open .nav-drawer{
+    display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;
+    background:var(--linen);padding:22px 20px 26px;gap:20px;
+    border-bottom:1px solid var(--line);
+    box-shadow:0 12px 24px rgba(43,27,23,0.08);
+  }
+  .nav-drawer .nav-menu-btn{align-self:flex-start;margin-top:4px;}
+
+  @media (min-width:820px){
+    .nav{padding:18px 24px;}
+    .burger{display:none;}
+    .nav-drawer{
+      display:flex !important;
+      position:static;flex-direction:row;align-items:center;gap:34px;
+      background:transparent;padding:0;border-bottom:none;box-shadow:none;
+    }
+    .nav-links{flex-direction:row;gap:30px;font-size:0.94rem;}
+    .nav-drawer .nav-menu-btn{margin-top:0;}
+  }
+
+  /* ---------- Hero: parallax banner.jpg ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    height:88vh;min-height:480px;
+    display:flex;align-items:flex-end;
+    color:var(--linen);
+  }
+  .hero-bg{
+    position:absolute;
+    top:-12%; left:0; right:0; height:124%;
+    background-image:url('banner.jpg');
+    background-size:cover;
+    background-position:center;
+    will-change:transform;
+    z-index:0;
+  }
+  .hero-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:
+      linear-gradient(180deg, rgba(28,16,13,0.55) 0%, rgba(28,16,13,0.25) 38%, rgba(28,16,13,0.85) 100%),
+      linear-gradient(100deg, rgba(28,16,13,0.5) 0%, rgba(28,16,13,0.05) 55%);
+  }
+  .hero-inner{
+    position:relative;z-index:2;
+    max-width:1120px;margin:0 auto;width:100%;
+    padding:0 20px 40px;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-family:'Lora',serif;font-style:italic;
+    font-size:0.82rem;letter-spacing:0.06em;
+    color:var(--leather-light);font-weight:600;margin-bottom:16px;
+  }
+  .eyebrow::before{content:"";width:18px;height:1px;background:var(--leather-light);display:inline-block;}
+  .hero h1{
+    font-size:clamp(2rem,7vw,3.7rem);font-weight:700;margin-bottom:16px;
+    opacity:0; transform:translateY(16px);
+    animation:riseIn .9s var(--ease) .15s forwards;
+    max-width:760px;
+  }
+  .hero h1 em{font-style:italic;color:var(--leather-light);}
+  .hero p.lede{
+    font-size:1.02rem;color:var(--on-dark-soft);max-width:440px;margin-bottom:26px;
+    opacity:0; transform:translateY(16px);
+    animation:riseIn .9s var(--ease) .35s forwards;
+  }
+  .btn-row{
+    display:flex;gap:14px;flex-wrap:wrap;
+    opacity:0; transform:translateY(16px);
+    animation:riseIn .9s var(--ease) .5s forwards;
+  }
+  @keyframes riseIn{to{opacity:1;transform:translateY(0);}}
+
+  .btn{
+    display:inline-block;padding:13px 24px;border-radius:var(--radius);font-weight:600;
+    font-size:0.92rem;transition:transform .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  .btn-primary{background:var(--leather);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,0.15) inset;}
+  .btn-primary:hover{background:var(--leather-dark);transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,0.3);}
+  .btn-ghost{border:1px solid rgba(244,234,225,0.4);color:var(--linen);}
+  .btn-ghost:hover{background:rgba(244,234,225,0.1);border-color:rgba(244,234,225,0.65);}
+
+  @media (min-width:600px){
+    .hero h1{font-size:clamp(2.3rem,4.6vw,3.7rem);}
+    .hero p.lede{font-size:1.08rem;}
+  }
+  @media (min-width:820px){
+    .hero{height:84vh;}
+    .hero-inner{padding-bottom:64px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero h1, .hero p.lede, .btn-row{animation:none;opacity:1;transform:none;}
+    .hero-bg{transform:none !important;}
+  }
+
+  section{padding:64px 20px;}
+  .section-head{max-width:600px;margin:0 0 36px;}
+  .section-head.center{margin:0 auto 36px;text-align:center;}
+  .section-head .eyebrow{color:var(--leather-dark);}
+  .section-head .eyebrow::before{background:var(--leather-dark);}
+  .section-head h2{font-size:clamp(1.7rem,3.2vw,2.5rem);color:var(--espresso);}
+  .section-head p{color:var(--ink-soft);margin-top:10px;font-size:1rem;}
+
+  @media (min-width:820px){
+    section{padding:88px 24px;}
+    .section-head{margin:0 0 48px;}
+    .section-head.center{margin:0 auto 48px;}
+  }
+
+  /* ---------- Trust bar: Fair Trade / Organic / Eco-Friendly ---------- */
+  .trust-bar{
+    background:var(--linen-deep);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:22px 20px;
+  }
+  .trust-bar-inner{
+    max-width:1120px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  }
+  .trust-item{
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    text-align:center;
+  }
+  .trust-item .mark{
+    width:30px;height:30px;color:var(--leather);flex-shrink:0;
+  }
+  .trust-item .mark svg{width:100%;height:100%;}
+  .trust-item span{
+    font-family:'Lora',serif;font-weight:600;font-size:0.72rem;
+    letter-spacing:0.02em;color:var(--espresso);
+    line-height:1.25;
+  }
+
+  @media (min-width:600px){
+    .trust-bar{padding:26px 24px;}
+    .trust-bar-inner{gap:24px;}
+    .trust-item{flex-direction:row;gap:10px;text-align:left;}
+    .trust-item .mark{width:28px;height:28px;}
+    .trust-item span{font-size:0.82rem;}
+  }
+  @media (min-width:820px){
+    .trust-bar-inner{max-width:760px;}
+  }
+
+  /* ---------- About ---------- */
+  .about{background:#fff;}
+  .about-grid{display:grid;grid-template-columns:1fr;gap:36px;align-items:center;max-width:1120px;margin:0 auto;}
+  .about-art{order:-1;aspect-ratio:16/10;max-width:380px;margin:0 auto;position:relative;}
+  .about-art img{
+    width:100%;height:100%;object-fit:cover;
+    border-radius:6px;border:1px solid var(--line);
+  }
+  .about h2{color:var(--espresso);font-size:clamp(1.7rem,3.2vw,2.5rem);margin-bottom:16px;}
+  .about p{color:var(--ink-soft);margin-bottom:14px;}
+  .est-row{
+    display:flex;gap:24px;flex-wrap:wrap;margin-top:24px;padding-top:22px;border-top:1px solid var(--line);
+  }
+  .est-row .stat{font-family:'Lora',serif;}
+  .est-row .stat .num{font-size:1.7rem;font-weight:700;color:var(--leather);display:block;}
+  .est-row .stat .lbl{font-family:'Lora',serif;font-style:italic;font-size:0.78rem;letter-spacing:0.03em;color:var(--ink-soft);}
+
+  @media (min-width:820px){
+    .about-grid{grid-template-columns:0.85fr 1.15fr;gap:56px;}
+    .about-art{order:0;aspect-ratio:4/5;max-width:none;margin:0;}
+    .about p{max-width:500px;}
+    .est-row{gap:36px;}
+    .est-row .stat .num{font-size:1.9rem;}
+  }
+
+  /* ---------- Testimonials: carousel ---------- */
+  .testimonials{
+    background:var(--espresso);color:var(--on-dark);position:relative;overflow:hidden;
+  }
+  .testimonials::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle 600px at 10% 110%, rgba(139,90,60,0.22), transparent 60%);
+  }
+  .testimonials .section-head h2{color:#fff;}
+  .testimonials .section-head p{color:var(--on-dark-soft);}
+  .testimonials .eyebrow{color:var(--leather-light);}
+  .testimonials .eyebrow::before{background:var(--leather-light);}
+
+  .carousel{position:relative;max-width:640px;margin:0 auto;}
+  .carousel-track{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:0;
+    border-radius:8px;
+    scrollbar-width:none;
+  }
+  .carousel-track::-webkit-scrollbar{display:none;}
+  .quote{
+    flex:0 0 100%;
+    scroll-snap-align:start;
+    background:rgba(58,38,32,0.6);
+    padding:30px 26px;
+    position:relative;
+    min-height:200px;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .stars{
+    font-size:1.05rem;letter-spacing:0.12em;color:var(--leather-light);margin-bottom:14px;
+  }
+  .stars .dim{color:rgba(244,234,225,0.25);}
+  .quote p{font-size:1.04rem;margin-bottom:18px;color:#F1E7DC;font-style:italic;line-height:1.55;}
+  .quote-author{font-family:'Lora',serif;font-weight:600;font-size:0.85rem;color:var(--leather-light);font-style:normal;}
+
+  .carousel-controls{
+    display:flex;align-items:center;justify-content:center;gap:18px;margin-top:22px;
+  }
+  .carousel-btn{
+    width:38px;height:38px;border-radius:50%;flex-shrink:0;
+    background:transparent;border:1.5px solid var(--line-dark);color:var(--on-dark);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:background .2s var(--ease), border-color .2s var(--ease);
+  }
+  .carousel-btn svg{width:16px;height:16px;}
+  .carousel-btn:hover{background:rgba(244,234,225,0.1);border-color:var(--leather-light);}
+  .carousel-dots{display:flex;align-items:center;gap:8px;}
+  .carousel-dot{
+    width:7px;height:7px;border-radius:50%;background:rgba(244,234,225,0.28);
+    border:none;cursor:pointer;padding:0;transition:background .2s var(--ease), transform .2s var(--ease);
+  }
+  .carousel-dot.active{background:var(--leather-light);transform:scale(1.3);}
+
+  @media (min-width:600px){
+    .quote{padding:36px 40px;min-height:180px;}
+    .quote p{font-size:1.08rem;}
+  }
+  @media (min-width:820px){
+    .carousel{max-width:760px;}
+  }
+
+  /* ---------- Contact ---------- */
+  .contact{background:#fff;}
+  .contact-grid{display:grid;grid-template-columns:1fr;gap:40px;max-width:1120px;margin:0 auto;}
+  .info-block{margin-bottom:22px;padding-left:16px;border-left:2px solid var(--line);}
+  .info-block h3{color:var(--espresso);font-family:'Lora',serif;font-weight:700;font-size:0.86rem;letter-spacing:0.02em;margin-bottom:6px;}
+  .info-block p{color:var(--ink-soft);font-size:0.97rem;}
+  .map-frame{border-radius:8px;overflow:hidden;border:1px solid var(--line);margin-top:8px;filter:saturate(0.85) sepia(0.06);}
+  form{display:flex;flex-direction:column;gap:14px;}
+  label{font-family:'Lora',serif;font-size:0.82rem;letter-spacing:0.01em;color:var(--espresso);font-weight:600;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  input,textarea{
+    padding:13px 14px;border:1px solid var(--line);border-radius:var(--radius);
+    font-family:inherit;font-size:0.96rem;background:var(--linen);color:var(--ink);
+    transition:border-color .2s var(--ease), background .2s var(--ease);
+  }
+  textarea{resize:vertical;min-height:110px;}
+  input:focus,textarea:focus{border-color:var(--leather);background:#fff;}
+  .submit-row{display:flex;align-items:center;gap:16px;margin-top:4px;flex-wrap:wrap;}
+  .form-status{font-size:0.86rem;color:var(--leather-dark);min-height:18px;font-weight:500;font-style:italic;}
+  .btn-submit{
+    background:var(--espresso);color:var(--linen);border:none;cursor:pointer;
+    padding:14px 26px;border-radius:var(--radius);font-weight:600;font-size:0.94rem;
+    font-family:inherit;transition:background .2s var(--ease), transform .2s var(--ease);
+  }
+  .btn-submit:hover{background:var(--leather-dark);transform:translateY(-2px);}
+  .btn-submit:active{transform:translateY(0);}
+
+  @media (min-width:820px){
+    .contact-grid{grid-template-columns:0.9fr 1.1fr;gap:56px;}
+  }
+
+  footer{background:var(--espresso);color:var(--on-dark-soft);padding:40px 20px 28px;}
+  .footer-grid{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:14px;}
+  footer .logo{color:#fff;}
+  footer .logo span{color:var(--leather-light);}
+  footer p{font-size:0.84rem;}
+
+  @media (min-width:600px){
+    .footer-grid{flex-direction:row;align-items:center;}
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease), transform .7s var(--ease);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Scroll-linked mill wheel: turns as the page turns -->
+<div class="wheel-progress" id="wheel-progress" aria-hidden="true">
+  <svg viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="46" fill="none" stroke="#8B5A3C" stroke-width="1.5" opacity="0.55"/>
+    <g id="wheel-rotor" stroke="#8B5A3C" stroke-width="2.5" stroke-linecap="round">
+      <line x1="50" y1="10" x2="50" y2="90"/>
+      <line x1="10" y1="50" x2="90" y2="50"/>
+      <line x1="20" y1="20" x2="80" y2="80"/>
+      <line x1="80" y1="20" x2="20" y2="80"/>
+    </g>
+    <circle cx="50" cy="50" r="5" fill="#8B5A3C"/>
+  </svg>
+</div>
+
+<header>
+  <nav class="nav" id="nav">
+    <a href="#" class="logo">
+      <svg class="logo-mark" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="14" stroke="#2B1B17" stroke-width="2"/>
+        <path d="M16 4V28M4 16H28M7.5 7.5L24.5 24.5M24.5 7.5L7.5 24.5" stroke="#2B1B17" stroke-width="1.4" opacity="0.7"/>
+      </svg>
+      Mill House <span>Café</span>
+    </a>
+
+    <div class="nav-drawer" id="nav-drawer">
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="menu1.html" class="nav-menu-btn">
+        Menu
+        <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Pallaskenry · Co. Limerick</span>
+    <h1>Coffee, conversation, and <em>the old mill stream</em></h1>
+    <p class="lede">A family-run café set inside a converted 19th-century mill, serving fresh bakes and proper coffee right beside the river that once turned the wheel.</p>
+    <div class="btn-row">
+      <a href="#contact" class="btn btn-primary">Book a Table</a>
+      <a href="menu1.html" class="btn btn-ghost">View Menu Highlights</a>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.8"/><path d="M16 8v16M9 12l14 8M9 20l14-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
+      <span>Fair Trade</span>
+    </div>
+    <div class="trust-item">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M16 27c6-3 10-9 10-15.5C26 8 21 6 16 9 11 6 6 8 6 11.5 6 18 10 24 16 27z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 27V14M16 14c0-3 2-5 5-6M16 14c0-3-2-5-5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+      <span>Organic</span>
+    </div>
+    <div class="trust-item">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M16 6c5 2 8 6 8 11 0 5.5-4 10-8 10s-8-4.5-8-10c0-5 3-9 8-11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 18c1.5 2 3 3 4 3s2.5-1 4-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+      <span>Eco-Friendly</span>
+    </div>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-art reveal">
+      <img src="building.png" alt="The Mill House Café building, Pallaskenry">
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Our Story</span>
+      <h2>Three generations, one mill</h2>
+      <p>The Mill House has stood beside the river since 1860. What was once a working flour mill is now home to our café — same stone walls, same water running past the window, just better coffee than the millers ever had.</p>
+      <p>Everything is made fresh each morning, from the bread to the scones, using local suppliers wherever we can.</p>
+      <div class="est-row">
+        <div class="stat">
+          <span class="num">1860</span>
+          <span class="lbl">Mill Built</span>
+        </div>
+        <div class="stat">
+          <span class="num">3rd</span>
+          <span class="lbl">Generation Run</span>
+        </div>
+        <div class="stat">
+          <span class="num">Daily</span>
+          <span class="lbl">Fresh Bakes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="section-head center reveal">
+    <span class="eyebrow" style="margin-left:auto;margin-right:auto;">Reviews</span>
+    <h2>What people are saying</h2>
+  </div>
+
+  <div class="carousel reveal">
+    <div class="carousel-track" id="carousel-track">
+
+      <div class="quote">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>Best scone I've had in Limerick, and the seating by the water is unreal on a sunny day.</p>
+        <div class="quote-author">— Sinéad K.</div>
+      </div>
+
+      <div class="quote">
+        <div class="stars" aria-label="4 out of 5 stars">★★★★<span class="dim">★</span></div>
+        <p>Lovely little spot, friendly staff, and the coffee is properly good. Go-to place when I'm in the area.</p>
+        <div class="quote-author">— Pádraig M.</div>
+      </div>
+
+      <div class="quote">
+        <div class="stars" aria-label="3 out of 5 stars">★★★<span class="dim">★★</span></div>
+        <p>Food was decent and the setting is lovely, but we waited a while for service on a busy Saturday.</p>
+        <div class="quote-author">— Niamh D.</div>
+      </div>
+
+      <div class="quote">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>The brown bread alone is worth the drive out. Sitting right over the old mill stream makes it.</p>
+        <div class="quote-author">— Tomás R.</div>
+      </div>
+
+      <div class="quote">
+        <div class="stars" aria-label="4 out of 5 stars">★★★★<span class="dim">★</span></div>
+        <p>Cosy, well kept, and the staff clearly take pride in the place. Coffee could be a touch stronger for my taste.</p>
+        <div class="quote-author">— Aoife C.</div>
+      </div>
+
+      <div class="quote">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>Brought my parents here for breakfast and they haven't stopped talking about the scones since.</p>
+        <div class="quote-author">— Seán B.</div>
+      </div>
+
+      <div class="quote">
+        <div class="stars" aria-label="3 out of 5 stars">★★★<span class="dim">★★</span></div>
+        <p>Nice atmosphere and a great spot by the river, though the menu felt a bit limited for lunch.</p>
+        <div class="quote-author">— Laura F.</div>
+      </div>
+
+      <div class="quote">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>Properly good flat white, and the building itself is worth a visit on its own. Will be back.</p>
+        <div class="quote-author">— Cian O.</div>
+      </div>
+
+      <div class="quote">
+        <div class="stars" aria-label="4 out of 5 stars">★★★★<span class="dim">★</span></div>
+        <p>Great little stop on a Sunday drive. Gets busy fast so we'd recommend going early.</p>
+        <div class="quote-author">— Roisín N.</div>
+      </div>
+
+      <div class="quote">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>Friendly from the second you walk in, and the riverside seats are the best in Pallaskenry.</p>
+        <div class="quote-author">— Dara H.</div>
+      </div>
+
+    </div>
+
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="carousel-prev" aria-label="Previous review">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="carousel-dots" id="carousel-dots"></div>
+      <button class="carousel-btn" id="carousel-next" aria-label="Next review">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-head reveal">
+    <span class="eyebrow">Get In Touch</span>
+    <h2>Visit or send us a message</h2>
+  </div>
+  <div class="contact-grid reveal">
+    <div>
+      <div class="info-block">
+        <h3>Address</h3>
+        <p>The Old Mill, Pallaskenry, Co. Limerick</p>
+      </div>
+      <div class="info-block">
+        <h3>Opening Hours</h3>
+        <p>Tue–Sun: 8:30am – 5:00pm · Closed Mondays</p>
+      </div>
+      <div class="info-block">
+        <h3>Phone</h3>
+        <p>00 353 85 859 2103</p>
+      </div>
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps?q=Pallaskenry%2C%20Co.%20Limerick&output=embed"
+          width="100%" height="220" style="border:0;display:block;" loading="lazy"
+          title="Map showing business location"></iframe>
+      </div>
+    </div>
+    <div>
+      <form id="contact-form">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" required placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" required placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" required placeholder="How can we help?"></textarea>
+        </div>
+        <div class="submit-row">
+          <button type="submit" class="btn-submit">Send Message</button>
+          <p class="form-status" id="form-status"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="logo">Mill House <span>Café</span></div>
+    <p>&copy; 2026 Mill House Café, Pallaskenry. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const burger = document.getElementById('burger');
+  const nav = document.getElementById('nav');
+  burger.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen);
+  });
+  nav.querySelectorAll('.nav-links a, .nav-menu-btn').forEach(link => {
+    link.addEventListener('click', () => nav.classList.remove('open'));
+  });
+
+  // Contact form (front-end only — connect to a backend or form service to actually send messages)
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    status.textContent = "Thanks! Your message has been noted (demo only — connect this to a real backend or service like Formspree to send for real).";
+    form.reset();
+  });
+
+  // Scroll-linked mill wheel: rotates with scroll progress, doubles as a progress indicator
+  const wheelProgress = document.getElementById('wheel-progress');
+  const wheelRotor = document.getElementById('wheel-rotor');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Hero parallax: background moves slower than scroll, JS-driven so it works on mobile
+  // (background-attachment: fixed is unreliable on iOS Safari)
+  const heroBg = document.getElementById('hero-bg');
+  const heroSection = document.querySelector('.hero');
+
+  let ticking = false;
+
+  function updateScrollEffects() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+
+    // Wheel progress indicator
+    if (scrollTop > 80) {
+      wheelProgress.classList.add('visible');
+    } else {
+      wheelProgress.classList.remove('visible');
+    }
+    if (!reduceMotion) {
+      const degrees = progress * 360 * 4; // multiple turns across the page, like a wheel driven by the stream
+      wheelRotor.style.transform = `rotate(${degrees}deg)`;
+    }
+
+    // Hero parallax (only while hero is in view, for performance)
+    if (!reduceMotion && heroSection) {
+      const heroHeight = heroSection.offsetHeight;
+      if (scrollTop < heroHeight) {
+        const shift = scrollTop * 0.35;
+        heroBg.style.transform = `translateY(${shift}px)`;
+      }
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateScrollEffects);
+      ticking = true;
+    }
+  }, { passive: true });
+  updateScrollEffects();
+
+  // Scroll-triggered reveals
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  // Reviews carousel: scroll-snap track driven by buttons, dots, and native touch swipe
+  const track = document.getElementById('carousel-track');
+  const dotsWrap = document.getElementById('carousel-dots');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+
+  if (track && dotsWrap) {
+    const slides = Array.from(track.children);
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot';
+      dot.setAttribute('aria-label', `Go to review ${i + 1}`);
+      dot.addEventListener('click', () => {
+        goTo(i);
+        stopAutoplay();
+        startAutoplay();
+      });
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function activeIndex() {
+      const trackLeft = track.scrollLeft;
+      let closest = 0;
+      let closestDist = Infinity;
+      slides.forEach((slide, i) => {
+        const dist = Math.abs(slide.offsetLeft - trackLeft);
+        if (dist < closestDist) { closestDist = dist; closest = i; }
+      });
+      return closest;
+    }
+
+    function syncDots() {
+      const idx = activeIndex();
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    let carouselTicking = false;
+    track.addEventListener('scroll', () => {
+      if (!carouselTicking) {
+        requestAnimationFrame(() => { syncDots(); carouselTicking = false; });
+        carouselTicking = true;
+      }
+    }, { passive: true });
+
+    function goTo(idx) {
+      const clamped = Math.max(0, Math.min(slides.length - 1, idx));
+      track.scrollTo({ left: slides[clamped].offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    prevBtn.addEventListener('click', () => goTo(activeIndex() - 1));
+    nextBtn.addEventListener('click', () => goTo(activeIndex() + 1));
+
+    syncDots();
+
+    // Autoplay: advance every 5s, loop back to start after the last slide
+    const AUTOPLAY_DELAY = 5000;
+    let autoplayId = null;
+
+    function startAutoplay() {
+      if (reduceMotion) return; // respect reduced-motion preference, no auto-advance
+      stopAutoplay();
+      autoplayId = setInterval(() => {
+        const idx = activeIndex();
+        const nextIdx = idx >= slides.length - 1 ? 0 : idx + 1;
+        track.scrollTo({ left: slides[nextIdx].offsetLeft, behavior: 'smooth' });
+      }, AUTOPLAY_DELAY);
+    }
+    function stopAutoplay() {
+      if (autoplayId) { clearInterval(autoplayId); autoplayId = null; }
+    }
+
+    // Pause while the user is actively engaging, resume shortly after they let go
+    ['mouseenter', 'touchstart', 'pointerdown'].forEach(evt =>
+      track.addEventListener(evt, stopAutoplay, { passive: true })
+    );
+    ['mouseleave', 'touchend'].forEach(evt =>
+      track.addEventListener(evt, startAutoplay, { passive: true })
+    );
+    [prevBtn, nextBtn].forEach(btn => {
+      btn.addEventListener('click', () => { stopAutoplay(); startAutoplay(); });
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoplay(); else startAutoplay();
+    });
+
+    startAutoplay();
+  }
+</script>
+
+</body>
+</html>
