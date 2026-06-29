@@ -1,10 +1,9 @@
 <!--
   PERFORMANCE NOTES (server/image-side fixes — can't be done in HTML alone):
-  1. Re-export banner.jpg and building.png as WebP or AVIF, sized to their actual
-     display dimensions (hero ~1920px wide max; about-image ~760px wide max).
-     This alone typically cuts the "Improve image delivery" savings reported by Lighthouse.
-  2. Serve a responsive <picture> with srcset for banner.jpg so mobile doesn't
-     download a 1920px-wide asset.
+  1. Images are now served as AVIF (banner.avif, building.avif) with JPG/PNG
+     fallbacks via <picture> for older browsers (Safari <16, old Android WebView).
+  2. Serve a responsive <picture> with srcset for banner.avif so mobile doesn't
+     download a 1920px-wide asset, if you have multiple sizes available.
   3. Set far-future cache headers on static assets at your host/CDN, e.g.:
        Cache-Control: public, max-age=31536000, immutable
      This is what "Use efficient cache lifetimes" is asking for — it's a server
@@ -20,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Hero image is the LCP element: tell the browser about it before CSS parsing finishes -->
-<link rel="preload" as="image" href="banner.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="banner.avif" type="image/avif" fetchpriority="high">
 <!-- Non-blocking font load: print-media trick swaps to all once loaded, with noscript fallback -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"></noscript>
@@ -148,21 +147,27 @@
     .nav-drawer .nav-menu-btn{margin-top:0;}
   }
 
-  /* ---------- Hero: parallax banner.jpg ---------- */
+  /* ---------- Hero: parallax banner.avif ---------- */
   .hero{
     position:relative;overflow:hidden;
     height:88vh;min-height:480px;
     display:flex;align-items:flex-end;
     color:var(--linen);
   }
-  .hero-bg{
+  .hero picture{
     position:absolute;
     top:-12%; left:0; right:0; height:124%;
     width:100%;
+    display:block;
+    z-index:0;
+  }
+  .hero-bg{
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+    width:100%; height:100%;
     object-fit:cover;
     object-position:center;
     will-change:transform;
-    z-index:0;
   }
   .hero-overlay{
     position:absolute;inset:0;z-index:1;
@@ -277,6 +282,7 @@
   .about{background:#fff;}
   .about-grid{display:grid;grid-template-columns:1fr;gap:36px;align-items:center;max-width:1120px;margin:0 auto;}
   .about-art{order:-1;aspect-ratio:16/10;max-width:380px;margin:0 auto;position:relative;}
+  .about-art picture{display:block;width:100%;height:100%;}
   .about-art img{
     width:100%;height:100%;object-fit:cover;
     border-radius:6px;border:1px solid var(--line);
@@ -470,7 +476,10 @@
 </header>
 
 <section class="hero">
-  <img class="hero-bg" id="hero-bg" src="banner.jpg" alt="" fetchpriority="high" decoding="async">
+  <picture>
+    <source srcset="banner.avif" type="image/avif">
+    <img class="hero-bg" id="hero-bg" src="banner.jpg" alt="" fetchpriority="high" decoding="async">
+  </picture>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
     <span class="eyebrow">Pallaskenry · Co. Limerick</span>
@@ -509,7 +518,10 @@
 <section class="about" id="about">
   <div class="about-grid">
     <div class="about-art reveal">
-      <img src="building.png" alt="The Mill House Café building, Pallaskenry" loading="lazy" decoding="async" width="380" height="475">
+      <picture>
+        <source srcset="building.avif" type="image/avif">
+        <img src="building.png" alt="The Mill House Café building, Pallaskenry" loading="lazy" decoding="async" width="380" height="475">
+      </picture>
     </div>
     <div class="reveal">
       <span class="eyebrow">Our Story</span>
