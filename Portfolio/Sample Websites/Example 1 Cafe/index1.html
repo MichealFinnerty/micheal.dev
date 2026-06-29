@@ -730,12 +730,23 @@
   const heroBg = document.getElementById('hero-bg');
   const heroSection = document.querySelector('.hero');
 
+  // Cache layout reads (avoid forced reflow by not querying offsetHeight/scrollHeight every scroll frame)
+  let cachedDocHeight = 0;
+  let cachedHeroHeight = 0;
+  function measureLayout() {
+    cachedDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+    cachedHeroHeight = heroSection ? heroSection.offsetHeight : 0;
+  }
+  measureLayout();
+  window.addEventListener('resize', measureLayout);
+  // Re-measure once more after fonts/images settle, since their load can change document height
+  window.addEventListener('load', measureLayout);
+
   let ticking = false;
 
   function updateScrollEffects() {
     const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+    const progress = cachedDocHeight > 0 ? scrollTop / cachedDocHeight : 0;
 
     // Wheel progress indicator
     if (scrollTop > 80) {
@@ -750,8 +761,7 @@
 
     // Hero parallax (only while hero is in view, for performance)
     if (!reduceMotion && heroSection) {
-      const heroHeight = heroSection.offsetHeight;
-      if (scrollTop < heroHeight) {
+      if (scrollTop < cachedHeroHeight) {
         const shift = scrollTop * 0.35;
         heroBg.style.transform = `translateY(${shift}px)`;
       }
@@ -806,12 +816,20 @@
     });
     const dots = Array.from(dotsWrap.children);
 
+    // Cache slide offsets to avoid forced reflow on every scroll tick
+    let slideOffsets = [];
+    function measureSlideOffsets() {
+      slideOffsets = slides.map(slide => slide.offsetLeft);
+    }
+    measureSlideOffsets();
+    window.addEventListener('resize', measureSlideOffsets);
+
     function activeIndex() {
       const trackLeft = track.scrollLeft;
       let closest = 0;
       let closestDist = Infinity;
-      slides.forEach((slide, i) => {
-        const dist = Math.abs(slide.offsetLeft - trackLeft);
+      slideOffsets.forEach((offset, i) => {
+        const dist = Math.abs(offset - trackLeft);
         if (dist < closestDist) { closestDist = dist; closest = i; }
       });
       return closest;
@@ -832,7 +850,7 @@
 
     function goTo(idx) {
       const clamped = Math.max(0, Math.min(slides.length - 1, idx));
-      track.scrollTo({ left: slides[clamped].offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth' });
+      track.scrollTo({ left: slideOffsets[clamped], behavior: reduceMotion ? 'auto' : 'smooth' });
     }
 
     prevBtn.addEventListener('click', () => goTo(activeIndex() - 1));
