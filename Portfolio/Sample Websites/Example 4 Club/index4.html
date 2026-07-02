@@ -148,7 +148,7 @@
       radial-gradient(circle at 18% 30%, rgba(255,255,255,0.08), transparent 55%),
       linear-gradient(160deg, var(--green-dark) 0%, var(--green-deep) 55%, #134826 100%);
     overflow:hidden;
-    padding:64px 0 110px;
+    padding:64px 0 80px;
   }
   .hero::before{
     content:'';position:absolute;inset:0;
@@ -185,7 +185,7 @@
   /* shield frame holding the title - the signature element */
   .shield-frame{
     position:relative;
-    padding:38px 50px 90px;
+    padding:38px 50px 42px;
     animation:settle 1s ease both 0.15s;
   }
   .shield-frame svg.frame-outline{
@@ -219,10 +219,7 @@
     max-width:480px;
   }
   .hero-ctas{
-    display:flex;gap:16px;flex-wrap:wrap;
-    grid-column:1 / -1;
-    padding-left:336px;
-    margin-top:8px;
+    display:flex;gap:16px;margin-top:30px;flex-wrap:wrap;
   }
   .btn{
     font-family:'Inter',sans-serif;font-weight:700;font-size:0.85rem;
@@ -360,6 +357,17 @@
   footer ul{list-style:none;}
   footer li{margin-bottom:10px;}
   footer li a:hover{color:var(--gold-soft);}
+  .footer-map{
+    margin-top:18px;
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:3px;
+    overflow:hidden;
+    line-height:0;
+  }
+  .footer-map iframe{
+    width:100%;height:170px;border:0;filter:grayscale(0.15) contrast(1.05);
+    display:block;
+  }
   .footer-bottom{
     border-top:1px solid rgba(255,255,255,0.1);
     padding:20px 0;
@@ -373,7 +381,7 @@
     .hero-crest{order:1;}
     .shield-frame{order:2;padding:30px 20px;}
     .hero .motto{margin:6px auto 0;}
-    .hero-ctas{justify-content:center;padding-left:0;margin-top:26px;}
+    .hero-ctas{justify-content:center;}
     .pillars{grid-template-columns:1fr;}
     .news-grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr 1fr;}
@@ -425,8 +433,8 @@
       <div class="navlinks">
         <a href="index4.html" class="active">Home</a>
         <a href="#fixtures">Fixtures</a>
-        <a href="#news">News</a>
         <a href="#club">Our Club</a>
+        <a href="#news">News</a>
         <a href="#contact">Contact</a>
       </div>
       <div class="nav-gallery">
@@ -460,12 +468,11 @@
         <span class="eyebrow">Green &amp; White &middot; Founded 1924</span>
         <h1>EXAMPLE 4 <span>CLUB</span></h1>
         <p class="motto">"Tír Gan Teanga, Tír Gan Anam" &mdash; proudly fielding football and hurling teams from Go Games to Minor grade since 1924.</p>
+        <div class="hero-ctas">
+          <a href="gallery.html" class="btn btn-gold">View Gallery</a>
+          <a href="#fixtures" class="btn btn-outline">Fixtures &amp; Results</a>
+        </div>
       </div>
-    </div>
-
-    <div class="hero-ctas">
-      <a href="gallery.html" class="btn btn-gold">View Gallery</a>
-      <a href="#fixtures" class="btn btn-outline">Fixtures &amp; Results</a>
     </div>
   </div>
 </header>
@@ -613,6 +620,7 @@
       <ul>
         <li><a href="index4.html">Home</a></li>
         <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="#club">Our Club</a></li>
         <li><a href="#news">Club News</a></li>
         <li><a href="#fixtures">Fixtures</a></li>
       </ul>
@@ -633,6 +641,14 @@
         <li>info@example4club.ie</li>
         <li>(061) 000 0000</li>
       </ul>
+      <div class="footer-map">
+        <iframe
+          src="https://www.google.com/maps?q=Thomond+Park,+Limerick&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Map pinned on Thomond Park, Limerick">
+        </iframe>
+      </div>
     </div>
   </div>
   <div class="wrap footer-bottom">
