@@ -148,7 +148,7 @@
       radial-gradient(circle at 18% 30%, rgba(255,255,255,0.08), transparent 55%),
       linear-gradient(160deg, var(--green-dark) 0%, var(--green-deep) 55%, #134826 100%);
     overflow:hidden;
-    padding:64px 0 80px;
+    padding:64px 0 110px;
   }
   .hero::before{
     content:'';position:absolute;inset:0;
@@ -185,7 +185,7 @@
   /* shield frame holding the title - the signature element */
   .shield-frame{
     position:relative;
-    padding:38px 50px 42px;
+    padding:38px 50px 90px;
     animation:settle 1s ease both 0.15s;
   }
   .shield-frame svg.frame-outline{
@@ -219,7 +219,10 @@
     max-width:480px;
   }
   .hero-ctas{
-    display:flex;gap:16px;margin-top:30px;flex-wrap:wrap;
+    display:flex;gap:16px;flex-wrap:wrap;
+    grid-column:1 / -1;
+    padding-left:336px;
+    margin-top:8px;
   }
   .btn{
     font-family:'Inter',sans-serif;font-weight:700;font-size:0.85rem;
@@ -370,7 +373,7 @@
     .hero-crest{order:1;}
     .shield-frame{order:2;padding:30px 20px;}
     .hero .motto{margin:6px auto 0;}
-    .hero-ctas{justify-content:center;}
+    .hero-ctas{justify-content:center;padding-left:0;margin-top:26px;}
     .pillars{grid-template-columns:1fr;}
     .news-grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr 1fr;}
@@ -457,11 +460,12 @@
         <span class="eyebrow">Green &amp; White &middot; Founded 1924</span>
         <h1>EXAMPLE 4 <span>CLUB</span></h1>
         <p class="motto">"Tír Gan Teanga, Tír Gan Anam" &mdash; proudly fielding football and hurling teams from Go Games to Minor grade since 1924.</p>
-        <div class="hero-ctas">
-          <a href="gallery.html" class="btn btn-gold">View Gallery</a>
-          <a href="#fixtures" class="btn btn-outline">Fixtures &amp; Results</a>
-        </div>
       </div>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="gallery.html" class="btn btn-gold">View Gallery</a>
+      <a href="#fixtures" class="btn btn-outline">Fixtures &amp; Results</a>
     </div>
   </div>
 </header>
