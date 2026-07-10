@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Limerick GAA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;600&family=Jersey+M54&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-deep:#0A2818;
+    --green:#136B39;
+    --green-bright:#1C8A43;
+    --white:#FFFFFF;
+    --stone:#EDEBE5;
+    --stone-dark:#D8D5CC;
+    --ink:#131512;
+    --gold:#C9A227;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Jersey M54',sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;}
+  .display{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+
+  /* Hoop signature stripe */
+  .hoop-bar{
+    height:10px;
+    background:repeating-linear-gradient(
+      90deg,
+      var(--green) 0px, var(--green) 34px,
+      var(--white) 34px, var(--white) 44px,
+      var(--green) 44px, var(--green) 78px,
+      var(--gold) 78px, var(--gold) 82px
+    );
+  }
+
+  /* ===== Top utility bar ===== */
+  .util-bar{
+    background:var(--green-deep);
+    color:rgba(255,255,255,0.65);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+  }
+  .util-bar .wrap{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:8px;padding-bottom:8px;
+  }
+  .util-bar a{color:rgba(255,255,255,0.85);}
+  .util-bar a:hover{color:var(--gold);}
+
+  /* ===== Main nav ===== */
+  header.site-header{
+    background:var(--green);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 0 var(--green-deep);
+  }
+  .nav-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;padding-bottom:14px;
+  }
+  .crest{
+    display:flex;align-items:center;gap:12px;
+  }
+  .crest-img{flex-shrink:0;height:46px;width:auto;display:block;object-fit:contain;}
+  .crest-logo-link{display:flex;align-items:center;}
+  .crest-text{color:var(--white);line-height:1.05;display:inline-block;}
+  .crest-text .name{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.02em;}
+  .crest-text .sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:rgba(255,255,255,0.6);display:inline-block;margin-top:2px;}
+  .crest-text .sub:hover{color:var(--gold);text-decoration:underline;}
+
+  nav.primary-nav{display:flex;align-items:center;gap:4px;}
+  .nav-item{position:relative;}
+  .nav-link{
+    display:flex;align-items:center;gap:8px;
+    color:var(--white);
+    font-family:'Work Sans',sans-serif;
+    font-weight:600;font-size:14.5px;
+    padding:10px 16px;
+    border-radius:var(--radius);
+    transition:background .15s ease;
+    background:none;
+    border:none;
+    appearance:none;
+    -webkit-appearance:none;
+  }
+  .nav-link:hover, .nav-link:focus-visible{background:rgba(255,255,255,0.12);}
+  .nav-item.open .nav-link{background:rgba(255,255,255,0.14);}
+  .caret{width:8px;height:8px;border-right:2px solid rgba(255,255,255,0.7);border-bottom:2px solid rgba(255,255,255,0.7);transform:rotate(45deg);margin-top:-3px;transition:transform .15s ease;}
+  .nav-item.open .caret{transform:rotate(-135deg);margin-top:3px;}
+
+  .dropdown{
+    position:absolute;top:calc(100% + 8px);left:0;
+    background:var(--green);
+    min-width:190px;
+    border-radius:var(--radius);
+    box-shadow:0 12px 28px rgba(10,40,24,0.25);
+    padding:6px;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .15s ease, transform .15s ease, visibility .15s;
+  }
+  .nav-item.open .dropdown{opacity:1;visibility:visible;transform:translateY(0);}
+  .dropdown a{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:11px 14px;color:var(--white);font-weight:600;font-size:14px;
+    border-radius:var(--radius);
+  }
+  .dropdown a:hover{background:rgba(255,255,255,0.15);}
+  .dropdown a .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--white);background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:2px;}
+
+  .contact-cta{
+    background:var(--gold);color:var(--green-deep);
+    font-weight:700;font-size:14px;
+    padding:10px 18px;border-radius:var(--radius);
+    margin-left:8px;
+  }
+  .contact-cta:hover{background:#dbb531;}
+
+  .menu-toggle{display:none;background:none;border:0;color:var(--white);flex-direction:column;gap:5px;padding:8px;}
+  .menu-toggle span{width:24px;height:2px;background:var(--white);display:block;}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    height:min(78vh, 620px);
+    min-height:420px;
+    overflow:hidden;
+    background:var(--green-deep);
+  }
+  .slide{
+    position:absolute;inset:0;
+    opacity:0;visibility:hidden;
+    transition:opacity .6s ease;
+    display:flex;align-items:flex-end;
+  }
+  .slide.active{opacity:1;visibility:visible;z-index:2;}
+  .slide-bg{
+    position:absolute;inset:0;
+    background-size:cover;background-position:top center;
+  }
+  .slide-bg::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg, rgba(6,20,12,0.88) 0%, rgba(6,20,12,0.35) 45%, rgba(6,20,12,0.05) 65%);
+  }
+  .slide-content{
+    position:relative;z-index:3;
+    padding:40px 32px 108px;
+    max-width:640px;
+  }
+  .slide-eyebrow{
+    display:flex;align-items:center;gap:8px;
+    color:var(--gold);font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:0.08em;margin-bottom:14px;
+  }
+  .slide-eyebrow::before{content:"";width:8px;height:8px;background:var(--gold);border-radius:1px;}
+  .slide-title{
+    color:var(--white);font-size:clamp(28px,4.6vw,50px);
+    line-height:1.04;margin-bottom:22px;
+  }
+  .slide-read{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--green-bright);color:var(--white);
+    font-weight:700;font-size:14px;
+    padding:11px 20px;border-radius:var(--radius);
+  }
+  .slide-read:hover{background:var(--green);}
+
+  .hero-controls{
+    position:absolute;top:28px;right:32px;z-index:5;
+    display:flex;gap:8px;
+  }
+  .hero-controls button{
+    width:38px;height:38px;border:1px solid rgba(255,255,255,0.4);
+    background:rgba(10,40,24,0.4);color:var(--white);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+  }
+  .hero-controls button:hover{background:rgba(255,255,255,0.2);}
+
+  .hero-dots{
+    position:absolute;left:32px;top:28px;z-index:5;
+    display:flex;gap:6px;
+  }
+  .hero-dots button{
+    width:22px;height:4px;background:rgba(255,255,255,0.35);border:0;border-radius:2px;
+    transition:background .2s ease, width .2s ease;
+  }
+  .hero-dots button.active{background:var(--gold);width:34px;}
+
+  /* Quote nav cards — 3-at-a-time carousel synced to the hero slide */
+  .quote-cards{
+    position:relative;z-index:6;
+    display:flex;gap:14px;
+    align-items:center;
+    justify-content:center;
+    padding:0 32px;
+    margin-top:-58px;
+    margin-bottom:40px;
+    max-width:1240px;margin-left:auto;margin-right:auto;
+  }
+  .quote-card{
+    flex:0 0 auto;width:280px;
+    display:flex;align-items:center;gap:0px;
+    background:rgba(10,40,24,0.82);
+    backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:6px;padding:12px;
+    text-align:left;
+    cursor:pointer;
+    transition:opacity .35s ease, transform .35s ease, background .2s ease, width .35s ease;
+    opacity:1;
+    transform:scale(1);
+  }
+  .quote-card.active{width:320px;border-color:var(--gold);background:rgba(19,107,57,0.9);border:1px solid var(--gold);}
+  .quote-card.side{width:210px;opacity:0.5;transform:scale(0.92);border:1px solid rgba(255,255,255,0.14);}
+  .quote-card.side:hover{opacity:0.85;background:rgba(19,107,57,0.85);}
+  .quote-card:hover{background:rgba(19,107,57,0.85);}
+  .quote-thumb{
+    display:none;
+  }
+  .quote-thumb img{display:none;}
+  .quote-card p{color:var(--white);font-size:12.5px;font-weight:600;line-height:1.35;}
+
+  /* ===== Sections ===== */
+  section{padding:64px 0;}
+  .section-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    margin-bottom:28px;
+  }
+  .section-head h2{font-size:clamp(24px,3vw,32px);}
+  .section-head .view-all{font-weight:700;font-size:13px;color:var(--green);border-bottom:2px solid var(--green);padding-bottom:2px;}
+  .eyebrow-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;
+    color:var(--green);margin-bottom:8px;
+  }
+
+  .news-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:22px;}
+  .news-card{border:1px solid var(--stone-dark);border-radius:6px;overflow:hidden;display:block;}
+  .news-thumb{
+    aspect-ratio:16/10;position:relative;
+    background:linear-gradient(135deg,var(--green),var(--green-deep));
+    display:flex;align-items:center;justify-content:center;
+    color:rgba(255,255,255,0.55);font-family:'IBM Plex Mono',monospace;font-size:11px;
+    overflow:hidden;
+  }
+  .news-thumb img{width:100%;height:100%;object-fit:cover;}
+  .news-body{padding:18px;}
+  .news-body .tag{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;
+    color:var(--green);background:rgba(19,107,57,0.1);padding:3px 8px;border-radius:2px;margin-bottom:10px;
+  }
+  .news-body h3{font-size:17px;line-height:1.3;margin-bottom:8px;}
+  .news-body time{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7a7a72;}
+
+  .sponsors{background:var(--stone);}
+  .sponsor-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .sponsor-box{
+    flex:1;min-width:140px;height:64px;background:var(--white);border:1px solid var(--stone-dark);
+    border-radius:4px;display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--green);font-weight:700;
+    overflow:hidden;transition:all .2s ease;cursor:pointer;
+  }
+  .sponsor-box:hover{
+    background:var(--green);color:var(--white);border-color:var(--green);
+    box-shadow:0 4px 12px rgba(19,107,57,0.2);
+  }
+  .sponsor-box img{width:100%;height:100%;object-fit:contain;padding:8px;}
+
+  /* ===== Contact ===== */
+  .contact-section{background:var(--white);}
+  .contact-grid{
+    display:grid;grid-template-columns:0.9fr 1.3fr;gap:36px;align-items:stretch;
+  }
+  .contact-info{
+    background:var(--green-deep);color:var(--white);
+    border-radius:8px;padding:32px;
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .contact-info h3{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;
+    color:rgba(255,255,255,0.55);margin-bottom:2px;
+  }
+  .contact-info p, .contact-info a{font-size:14.5px;line-height:1.5;color:var(--white);}
+  .contact-info a:hover{color:var(--gold);}
+  .contact-block{border-top:1px solid rgba(255,255,255,0.12);padding-top:16px;}
+  .contact-block:first-child{border-top:0;padding-top:0;}
+  .contact-cta-btn{
+    display:inline-flex;align-items:center;gap:8px;margin-top:6px;
+    background:var(--gold);color:var(--green-deep);font-weight:700;font-size:14px;
+    padding:11px 18px;border-radius:var(--radius);align-self:flex-start;
+  }
+  .contact-cta-btn:hover{background:#dbb531;}
+  .map-embed{
+    border-radius:8px;overflow:hidden;border:1px solid var(--stone-dark);
+    min-height:340px;
+  }
+  .map-embed iframe{width:100%;height:100%;min-height:340px;border:0;display:block;}
+
+  @media(max-width:900px){
+    .contact-grid{grid-template-columns:1fr;}
+  }
+
+  /* ===== Footer ===== */
+  footer{background:var(--green-deep);color:rgba(255,255,255,0.7);padding-top:56px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;}
+  .footer-grid h4{color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em;margin-bottom:16px;}
+  .footer-grid li{margin-bottom:10px;font-size:14px;}
+  .footer-grid a:hover{color:var(--gold);}
+  .footer-crest .name{color:var(--white);font-family:'Anton',sans-serif;font-size:18px;margin-bottom:10px;}
+  .footer-crest p{font-size:13px;line-height:1.6;max-width:280px;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.12);
+    padding:18px 0;font-size:12px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+
+  @media(max-width:900px){
+    .news-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:760px){
+    .menu-toggle{display:flex;}
+    nav.primary-nav{
+      position:fixed;inset:0 0 0 auto;width:78%;max-width:320px;
+      background:var(--green-deep);flex-direction:column;align-items:stretch;
+      padding:88px 20px 24px;gap:2px;
+      transform:translateX(100%);transition:transform .25s ease;z-index:200;
+      overflow-y:auto;
+    }
+    nav.primary-nav.open{transform:translateX(0);}
+    .nav-link{color:var(--white);padding:14px 4px;border-bottom:1px solid rgba(255,255,255,0.08);border-radius:0;}
+    .dropdown{position:static;box-shadow:none;background:rgba(255,255,255,0.06);opacity:1;visibility:visible;transform:none;max-height:0;overflow:hidden;padding:0;transition:max-height .2s ease;}
+    .nav-item.open .dropdown{max-height:200px;padding:4px;}
+    .dropdown a{color:var(--white);}
+    .dropdown a:hover{background:rgba(255,255,255,0.2);}
+    .contact-cta{margin:14px 4px 0;text-align:center;}
+    .nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:150;}
+    .nav-overlay.show{display:block;}
+    .quote-cards{margin-top:-40px;margin-bottom:32px;gap:8px;}
+    .quote-card.active{width:200px;}
+    .quote-card.side{width:110px;}
+    .quote-card.side p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .slide, .dropdown, nav.primary-nav{transition:none;}
+  }
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+  /* ===== Hurling Formation ===== */
+  .hurling-formation {
+    --pitch: #136B39;
+    --line: #ffffff;
+    --line-soft: rgba(255, 255, 255, 0.65);
+    --marker: rgba(8, 46, 26, 0.92);
+    --marker-hover: rgba(201, 162, 39, 0.95);
+    --shadow: rgba(0, 0, 0, 0.28);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--pitch);
+    color: white;
+    padding: 28px;
+    max-width: 980px;
+    margin: 0 auto;
+    border-radius: 18px;
+    box-sizing: border-box;
+  }
+  .hurling-formation * {
+    box-sizing: border-box;
+  }
+  .hurling-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: end;
+    margin-bottom: 18px;
+  }
+  .hurling-title h2 {
+    margin: 0;
+    font-size: clamp(26px, 4vw, 46px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .hurling-title span {
+    opacity: 0.78;
+    font-size: 14px;
+    text-align: right;
+  }
+  .pitch {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.45 / 1;
+    min-height: 520px;
+    background: var(--pitch);
+    border: 3px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 70px var(--shadow);
+  }
+  .pitch-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--line);
+    pointer-events: none;
+  }
+  .pitch-line.soft {
+    background: var(--line-soft);
+  }
+  .halfway { top: 50%; height: 3px; }
+  .top-20 { top: 19%; }
+  .top-45 { top: 32%; }
+  .bottom-20 { bottom: 19%; }
+  .bottom-45 { bottom: 32%; }
+  .mid-circle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 3px solid var(--line);
+    border-radius: 999px;
+    pointer-events: none;
+  }
+  .goal-box,
+  .large-box {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 3px solid var(--line);
+    pointer-events: none;
+  }
+  .goal-box {
+    width: 19%;
+    height: 11%;
+  }
+  .large-box {
+    width: 36%;
+    height: 19%;
+    border-color: rgba(255, 255, 255, 0.88);
+  }
+  .top.goal-box {
+    top: -3px;
+    border-radius: 0 0 10px 10px;
+  }
+  .top.large-box {
+    top: -3px;
+    border-radius: 0 0 14px 14px;
+  }
+  .bottom.goal-box {
+    bottom: -3px;
+    border-radius: 10px 10px 0 0;
+  }
+  .bottom.large-box {
+    bottom: -3px;
+    border-radius: 14px 14px 0 0;
+  }
+  .goal-label {
+    position: absolute;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .goal-label.top {
+    top: 18px;
+    right: 18px;
+  }
+  .goal-label.bottom {
+    bottom: 18px;
+    left: 18px;
+  }
+  .hurling-formation .player {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    transform: translate(-50%, -50%);
+    width: clamp(48px, 7vw, 66px);
+    height: clamp(48px, 7vw, 66px);
+    border-radius: 999px;
+    border: 3px solid var(--line);
+    background: var(--marker);
+    color: white;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(0,0,0,0.15);
+    transition:
+      background 160ms ease,
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      border-color 160ms ease,
+      color 160ms ease;
+    z-index: 2;
+  }
+  .hurling-formation .player:hover,
+  .hurling-formation .player:focus-visible,
+  .hurling-formation .player.is-active {
+    background: var(--marker-hover);
+    border-color: var(--line);
+    color: var(--green-deep, #0A2818);
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(201, 162, 39, 0.35);
+    outline: none;
+  }
+  .player-number {
+    font-weight: 800;
+    font-size: clamp(16px, 2.1vw, 22px);
+    line-height: 1;
+  }
+  .profile-card {
+    position: absolute;
+    left: var(--card-x, 50%);
+    top: var(--card-y, 50%);
+    transform: translate(-50%, calc(-100% - 14px));
+    width: min(250px, calc(100% - 32px));
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    border-radius: 14px;
+    background: rgba(8, 40, 22, 0.96);
+    color: white;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 140ms ease;
+    z-index: 5;
+  }
+  .profile-card.is-visible {
+    opacity: 1;
+  }
+  .profile-card strong {
+    display: block;
+    font-size: 17px;
+    line-height: 1.15;
+    margin-bottom: 5px;
+  }
+  .profile-card span {
+    display: block;
+    font-size: 13px;
+    line-height: 1.45;
+    opacity: 0.84;
+  }
+  .profile-card .club {
+    margin-top: 8px;
+    font-weight: 700;
+    opacity: 1;
+  }
+  @media (max-width: 700px) {
+    .hurling-formation {
+      padding: 18px;
+      border-radius: 14px;
+    }
+    .hurling-title {
+      display: block;
+    }
+    .hurling-title span {
+      display: block;
+      margin-top: 8px;
+      text-align: left;
+    }
+    .pitch {
+      min-height: 560px;
+      aspect-ratio: 0.72 / 1;
+    }
+    .hurling-formation .player {
+      width: 46px;
+      height: 46px;
+    }
+    .player-number {
+      font-size: 15px;
+    }
+    .goal-label {
+      font-size: 9px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="util-bar">
+  <div class="wrap">
+    <span>Treaty County · Hurling &amp; Football</span>
+    <span><a href="#">Membership</a> &nbsp;·&nbsp; <a href="#">Club Shop</a></span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap nav-row">
+    <div class="crest" aria-label="Limerick GAA">
+      <a href="#" aria-label="Limerick GAA home" class="crest-logo-link">
+        <img src="Limerick_GAA_crest.avif" alt="Limerick GAA crest" class="crest-img">
+      </a>
+      <span class="crest-text">
+        <a href="#" class="name">Limerick GAA</a><br>
+        <a href="https://en.wikipedia.org/wiki/Siege_of_Limerick_(1691)" target="_blank" rel="noopener noreferrer" class="sub">Cuimhnigh ar Luimneach</a>
+      </span>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="primary-nav" id="primaryNav">
+      <div class="nav-item">
+        <a href="#" class="nav-link">Home</a>
+      </div>
+      <div class="nav-item" id="resultsItem">
+        <button class="nav-link" id="resultsToggle" aria-expanded="false" aria-controls="resultsDropdown">
+          Results <span class="caret"></span>
+        </button>
+        <div class="dropdown" id="resultsDropdown">
+          <a href="resultsJ.html"><span>Junior</span></a>
+          <a href="resultsS.html"><span>Senior</span></a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="fixtures.html" class="nav-link">Fixtures</a>
+      </div>
+      <div class="nav-item">
+        <a href="news.html" class="nav-link">News</a>
+      </div>
+      <div class="nav-item">
+        <a href="https://www.universe.com/users/limerick-gaa-2C3XLW" class="nav-link" target="_blank" rel="noopener noreferrer">Tickets</a>
+      </div>
+      <a href="#contact" class="contact-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+<div class="hoop-bar"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+
+  <div class="slide active" data-slide="0">
+    <div class="slide-bg" style="background-image:url('Banner Gallery/Aaron Gillan.avif');background-size:cover;background-position:top center;">
+      <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(6,20,12,0.88) 0%, rgba(6,20,12,0.35) 45%, rgba(6,20,12,0.05) 65%);"></div>
+    </div>
+    <div class="slide-content">
+      <div class="slide-eyebrow">Player Feature</div>
+      <h1 class="slide-title display">Aaron Gillan: "It's all about the team"</h1>
+      <a href="news.html" class="slide-read">Read <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="1">
+    <div class="slide-bg" style="background-image:url('Banner Gallery/Cian Lynch.avif');background-size:cover;background-position:top center;">
+      <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(6,20,12,0.88) 0%, rgba(6,20,12,0.35) 45%, rgba(6,20,12,0.05) 65%);"></div>
+    </div>
+    <div class="slide-content">
+      <div class="slide-eyebrow">Captain's Word</div>
+      <h1 class="slide-title display">Cian Lynch: "We want more silverware"</h1>
+      <a href="news.html" class="slide-read">Read <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="2">
+    <div class="slide-bg" style="background-image:url('Banner Gallery/Gearóid Hegarty.avif');background-size:cover;background-position:top center;">
+      <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(6,20,12,0.88) 0%, rgba(6,20,12,0.35) 45%, rgba(6,20,12,0.05) 65%);"></div>
+    </div>
+    <div class="slide-content">
+      <div class="slide-eyebrow">Player Feature</div>
+      <h1 class="slide-title display">Gearóid Hegarty: "Limerick hurling is special"</h1>
+      <a href="news.html" class="slide-read">Read <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="3">
+    <div class="slide-bg" style="background-image:url('Banner Gallery/Kyle Hayes.avif');background-size:cover;background-position:top center;">
+      <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(6,20,12,0.88) 0%, rgba(6,20,12,0.35) 45%, rgba(6,20,12,0.05) 65%);"></div>
+    </div>
+    <div class="slide-content">
+      <div class="slide-eyebrow">Player Feature</div>
+      <h1 class="slide-title display">Kyle Hayes: "Pride in the jersey"</h1>
+      <a href="news.html" class="slide-read">Read <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="4">
+    <div class="slide-bg" style="background-image:url('Banner Gallery/Mike Casey.avif');background-size:cover;background-position:top center;">
+      <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(6,20,12,0.88) 0%, rgba(6,20,12,0.35) 45%, rgba(6,20,12,0.05) 65%);"></div>
+    </div>
+    <div class="slide-content">
+      <div class="slide-eyebrow">Player Feature</div>
+      <h1 class="slide-title display">Mike Casey: "Defence wins matches"</h1>
+      <a href="news.html" class="slide-read">Read <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+
+  <div class="hero-dots" id="heroDots"></div>
+  <div class="hero-controls">
+    <button id="prevSlide" aria-label="Previous slide">‹</button>
+    <button id="nextSlide" aria-label="Next slide">›</button>
+  </div>
+</section>
+
+<div class="quote-cards" id="quoteCards" aria-label="Player quotes, synced to hero image"></div>
+
+<!-- ===== LATEST NEWS ===== -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow-tag">04 · NEWS</div>
+        <h2 class="display">Latest News</h2>
+      </div>
+      <a href="news.html" class="view-all">View all →</a>
+    </div>
+    <div class="news-grid">
+      <a href="news.html" class="news-card">
+        <div class="news-thumb"><img src="Banner Gallery/Aaron Gillan.avif" alt="Aaron Gillan"></div>
+        <div class="news-body">
+          <span class="tag">Senior Hurling</span>
+          <h3>Championship draw: Limerick's road to Croke Park</h3>
+          <time>2 hours ago</time>
+        </div>
+      </a>
+      <a href="news.html" class="news-card">
+        <div class="news-thumb"><img src="Banner Gallery/Cian Lynch.avif" alt="Cian Lynch"></div>
+        <div class="news-body">
+          <span class="tag">Club</span>
+          <h3>New floodlights switched on at the grounds</h3>
+          <time>1 day ago</time>
+        </div>
+      </a>
+      <a href="news.html" class="news-card">
+        <div class="news-thumb"><img src="Banner Gallery/Kyle Hayes.avif" alt="Kyle Hayes"></div>
+        <div class="news-body">
+          <span class="tag">Juniors</span>
+          <h3>Under-15s through to county semi-final</h3>
+          <time>2 days ago</time>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SENIOR HURLING FORMATION ===== -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow-tag">05 · TEAM</div>
+    <section class="hurling-formation" aria-label="Limerick hurling formation">
+      <div class="hurling-title">
+        <h2 class="display">Formation</h2>
+        <span>Hurling lineup • hover or click a player</span>
+      </div>
+      <div class="pitch" id="limerickPitch">
+        <!-- Pitch markings -->
+        <div class="pitch-line top-20"></div>
+        <div class="pitch-line soft top-45"></div>
+        <div class="pitch-line halfway"></div>
+        <div class="pitch-line soft bottom-45"></div>
+        <div class="pitch-line bottom-20"></div>
+        <div class="mid-circle"></div>
+        <div class="large-box top"></div>
+        <div class="goal-box top"></div>
+        <div class="large-box bottom"></div>
+        <div class="goal-box bottom"></div>
+        <div class="goal-label top">OPPOSITION GOAL</div>
+        <div class="goal-label bottom">OWN GOAL</div>
+        <!-- Players -->
+        <button class="player" style="--x:50%; --y:91%;" data-name="Nickie Quaid" data-number="1" data-position="Goalkeeper" data-club="Effin">
+          <span class="player-number">1</span>
+        </button>
+        <button class="player" style="--x:28%; --y:78%;" data-name="Seán Finn" data-number="2" data-position="Right Full Back" data-club="Bruff">
+          <span class="player-number">2</span>
+        </button>
+        <button class="player" style="--x:50%; --y:80%;" data-name="Dan Morrissey" data-number="3" data-position="Full Back" data-club="Ahane">
+          <span class="player-number">3</span>
+        </button>
+        <button class="player" style="--x:72%; --y:78%;" data-name="Mike Casey" data-number="4" data-position="Left Full Back" data-club="Na Piarsaigh">
+          <span class="player-number">4</span>
+        </button>
+        <button class="player" style="--x:24%; --y:62%;" data-name="Diarmaid Byrnes" data-number="5" data-position="Right Half Back" data-club="Patrickswell">
+          <span class="player-number">5</span>
+        </button>
+        <button class="player" style="--x:50%; --y:64%;" data-name="Kyle Hayes" data-number="6" data-position="Centre Half Back" data-club="Kildimo/Pallaskenry">
+          <span class="player-number">6</span>
+        </button>
+        <button class="player" style="--x:76%; --y:62%;" data-name="Barry Nash" data-number="7" data-position="Left Half Back" data-club="South Liberties">
+          <span class="player-number">7</span>
+        </button>
+        <button class="player" style="--x:41%; --y:50%;" data-name="Adam English" data-number="8" data-position="Midfield" data-club="Doon">
+          <span class="player-number">8</span>
+        </button>
+        <button class="player" style="--x:59%; --y:50%;" data-name="William O’Donoghue" data-number="9" data-position="Midfield" data-club="Na Piarsaigh">
+          <span class="player-number">9</span>
+        </button>
+        <button class="player" style="--x:24%; --y:38%;" data-name="Gearóid Hegarty" data-number="10" data-position="Right Half Forward" data-club="St Patricks">
+          <span class="player-number">10</span>
+        </button>
+        <button class="player" style="--x:50%; --y:36%;" data-name="Cian Lynch" data-number="11" data-position="Centre Half Forward" data-club="Patrickswell">
+          <span class="player-number">11</span>
+        </button>
+        <button class="player" style="--x:76%; --y:38%;" data-name="Tom Morrissey" data-number="12" data-position="Left Half Forward" data-club="Ahane">
+          <span class="player-number">12</span>
+        </button>
+        <button class="player" style="--x:28%; --y:22%;" data-name="Aaron Gillane" data-number="13" data-position="Right Full Forward" data-club="Patrickswell">
+          <span class="player-number">13</span>
+        </button>
+        <button class="player" style="--x:50%; --y:20%;" data-name="Aidan O’Connor" data-number="14" data-position="Full Forward" data-club="Ballybrown">
+          <span class="player-number">14</span>
+        </button>
+        <button class="player" style="--x:72%; --y:22%;" data-name="David Reidy" data-number="15" data-position="Left Full Forward" data-club="Dromin/Athlacca">
+          <span class="player-number">15</span>
+        </button>
+        <aside class="profile-card" id="playerProfile" aria-live="polite"></aside>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ===== SPONSORS ===== -->
+<section class="sponsors">
+  <div class="wrap">
+    <div class="eyebrow-tag">CLUB PARTNERS</div>
+    <h2 class="display" style="margin-bottom:26px;">Sponsors</h2>
+    <div class="sponsor-row">
+      <a href="https://www.sseairtricity.com/" target="_blank" rel="noopener noreferrer" class="sponsor-box">
+        SSE Airtricity
+      </a>
+      <a href="https://www.bankofireland.com/" target="_blank" rel="noopener noreferrer" class="sponsor-box">
+        Bank of Ireland
+      </a>
+      <a href="https://www.bordgaisenergy.ie/" target="_blank" rel="noopener noreferrer" class="sponsor-box">
+        Bord Gáis Energy
+      </a>
+      <a href="https://www.dunnesstores.com/" target="_blank" rel="noopener noreferrer" class="sponsor-box">
+        Dunnes Stores
+      </a>
+      <a href="https://www.limerickcity.ie/" target="_blank" rel="noopener noreferrer" class="sponsor-box">
+        Limerick City Council
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<section class="contact-section" id="contact">
+  <div class="wrap">
+    <div class="eyebrow-tag">06 · GET IN TOUCH</div>
+    <h2 class="display" style="margin-bottom:26px;">Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-block">
+          <h3>ADDRESS</h3>
+          <p>Thomond Park<br>Cratloe Road, Limerick<br>V94 K3V9, Ireland</p>
+        </div>
+        <div class="contact-block">
+          <h3>PHONE</h3>
+          <p><a href="tel:+35361200000">+353 61 200 000</a></p>
+        </div>
+        <div class="contact-block">
+          <h3>EMAIL</h3>
+          <p><a href="mailto:info@limerickgaa.ie">info@limerickgaa.ie</a></p>
+        </div>
+        <div class="contact-block">
+          <h3>OFFICE HOURS</h3>
+          <p>Mon – Fri, 9:00 – 17:00</p>
+        </div>
+        <a href="mailto:info@limerickgaa.ie" class="contact-cta-btn">Email Us <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="map-embed">
+        <iframe
+          src="https://maps.google.com/maps?q=Thomond%20Park%2C%20Cratloe%20Road%2C%20Limerick%2C%20Ireland&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          title="Map centered on Thomond Park, Limerick"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-crest">
+      <div class="name display">Limerick GAA</div>
+      <p>Cumann Lúthchleas Gael, Coiste Chontae Luimneach. Green and white since the 1880s — proudly Treaty County.</p>
+    </div>
+    <div>
+      <h4>NAVIGATE</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="resultsJ.html">Results — Junior</a></li>
+        <li><a href="resultsS.html">Results — Senior</a></li>
+        <li><a href="fixtures.html">Fixtures</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>CLUB</h4>
+      <ul>
+        <li><a href="https://www.universe.com/users/limerick-gaa-2C3XLW" target="_blank" rel="noopener noreferrer">Tickets</a></li>
+        <li><a href="#">Membership</a></li>
+        <li><a href="#">Club Shop</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>FOLLOW</h4>
+      <ul>
+	<li><a href="https://www.instagram.com">Instagram</a></li>
+	<li><a href="https://www.x.com">Twitter</a></li>
+	<li><a href="https://www.facebook.com">Facebook</a></li>
+	<li><a href="https://www.youtube.com">Youtube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Limerick GAA — Official website.</span>
+    <span>Treaty County Hurling &amp; Football.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Mobile nav
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('primaryNav');
+  const overlay = document.getElementById('navOverlay');
+  function closeMenu(){
+    nav.classList.remove('open');
+    overlay.classList.remove('show');
+    toggle.setAttribute('aria-expanded','false');
+  }
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    overlay.classList.toggle('show', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  overlay.addEventListener('click', closeMenu);
+
+  // Results dropdown
+  const resultsItem = document.getElementById('resultsItem');
+  const resultsToggle = document.getElementById('resultsToggle');
+  function closeDropdown(){
+    resultsItem.classList.remove('open');
+    resultsToggle.setAttribute('aria-expanded','false');
+  }
+  resultsToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = resultsItem.classList.toggle('open');
+    resultsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('click', (e) => {
+    if(!resultsItem.contains(e.target)) closeDropdown();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){ closeDropdown(); closeMenu(); }
+  });
+
+  // Hero carousel
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsWrap = document.getElementById('heroDots');
+  const quoteCardsWrap = document.getElementById('quoteCards');
+  const quotes = [
+    '"Consistency is key to winning championships" — Aaron',
+    '"We want more silverware" — Cian Lynch',
+    '"Work hard, stay humble" — Gearóid',
+    '"Every training session matters" — Kyle',
+    '"Defence wins matches" — Mike'
+  ];
+  let current = 0;
+  let timer;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i+1));
+    if(i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function makeQuoteCard(index, role){
+    const btn = document.createElement('button');
+    btn.className = 'quote-card ' + role;
+    btn.dataset.target = index;
+    btn.setAttribute('aria-label', role === 'active' ? 'Current player quote' : 'Go to slide ' + (index+1));
+    btn.innerHTML = '<p>' + quotes[index] + '</p>';
+    return btn;
+  }
+
+  function renderQuoteCards(){
+    const total = slides.length;
+    const prevIndex = (current - 1 + total) % total;
+    const nextIndex = (current + 1) % total;
+
+    quoteCardsWrap.innerHTML = '';
+    const prevCard = makeQuoteCard(prevIndex, 'side prev');
+    const activeCard = makeQuoteCard(current, 'active');
+    const nextCard = makeQuoteCard(nextIndex, 'side next');
+
+    [prevCard, activeCard, nextCard].forEach(card => { card.style.opacity = '0'; });
+    quoteCardsWrap.append(prevCard, activeCard, nextCard);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        [prevCard, activeCard, nextCard].forEach(card => { card.style.opacity = ''; });
+      });
+    });
+  }
+
+  quoteCardsWrap.addEventListener('click', (e) => {
+    const card = e.target.closest('.quote-card');
+    if(card) goTo(parseInt(card.dataset.target, 10));
+  });
+
+  function goTo(index){
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    renderQuoteCards();
+    resetTimer();
+  }
+
+  document.getElementById('nextSlide').addEventListener('click', () => goTo(current+1));
+  document.getElementById('prevSlide').addEventListener('click', () => goTo(current-1));
+
+  renderQuoteCards();
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function resetTimer(){
+    clearInterval(timer);
+    if(!reduceMotion){
+      timer = setInterval(() => goTo(current+1), 6000);
+    }
+  }
+  resetTimer();
+})();
+</script>
+
+<script>
+(function(){
+  const pitch = document.getElementById("limerickPitch");
+  if (!pitch) return;
+  const profile = document.getElementById("playerProfile");
+  const players = pitch.querySelectorAll(".player");
+  let activePlayer = null;
+  function showProfile(player) {
+    activePlayer = player;
+    players.forEach((item) => item.classList.remove("is-active"));
+    player.classList.add("is-active");
+    const name = player.dataset.name;
+    const number = player.dataset.number;
+    const position = player.dataset.position;
+    const club = player.dataset.club;
+    profile.innerHTML = `
+      <strong>${number}. ${name}</strong>
+      <span>${position}</span>
+      <span class="club">Original team: ${club}</span>
+    `;
+    const pitchRect = pitch.getBoundingClientRect();
+    const playerRect = player.getBoundingClientRect();
+    const x = playerRect.left - pitchRect.left + playerRect.width / 2;
+    const y = playerRect.top - pitchRect.top;
+    profile.style.setProperty("--card-x", `${x}px`);
+    profile.style.setProperty("--card-y", `${Math.max(y, 95)}px`);
+    profile.classList.add("is-visible");
+  }
+  function hideProfile() {
+    if (!activePlayer) return;
+    activePlayer.classList.remove("is-active");
+    activePlayer = null;
+    profile.classList.remove("is-visible");
+  }
+  players.forEach((player) => {
+    player.addEventListener("mouseenter", () => showProfile(player));
+    player.addEventListener("focus", () => showProfile(player));
+    player.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (activePlayer === player && profile.classList.contains("is-visible")) {
+        hideProfile();
+      } else {
+        showProfile(player);
+      }
+    });
+  });
+  pitch.addEventListener("mouseleave", hideProfile);
+  document.addEventListener("click", (event) => {
+    if (!pitch.contains(event.target)) hideProfile();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") hideProfile();
+  });
+})();
+</script>
+
+</body>
+</html>
