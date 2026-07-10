@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News | Limerick GAA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;600&family=Jersey+M54&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-deep:#0A2818;
+    --green:#136B39;
+    --green-bright:#1C8A43;
+    --white:#FFFFFF;
+    --stone:#EDEBE5;
+    --stone-dark:#D8D5CC;
+    --ink:#131512;
+    --gold:#C9A227;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Jersey M54',sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;}
+  .display{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+
+  .hoop-bar{
+    height:10px;
+    background:repeating-linear-gradient(
+      90deg,
+      var(--green) 0px, var(--green) 34px,
+      var(--white) 34px, var(--white) 44px,
+      var(--green) 44px, var(--green) 78px,
+      var(--gold) 78px, var(--gold) 82px
+    );
+  }
+
+  /* ===== Top utility bar ===== */
+  .util-bar{
+    background:var(--green-deep);
+    color:rgba(255,255,255,0.65);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+  }
+  .util-bar .wrap{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:8px;padding-bottom:8px;
+  }
+  .util-bar a{color:rgba(255,255,255,0.85);}
+  .util-bar a:hover{color:var(--gold);}
+
+  /* ===== Main nav ===== */
+  header.site-header{
+    background:var(--green);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 0 var(--green-deep);
+  }
+  .nav-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;padding-bottom:14px;
+  }
+  .crest{display:flex;align-items:center;gap:12px;}
+  .crest-img{flex-shrink:0;height:46px;width:auto;display:block;object-fit:contain;}
+  .crest-logo-link{display:flex;align-items:center;}
+  .crest-text{color:var(--white);line-height:1.05;display:inline-block;}
+  .crest-text .name{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.02em;}
+  .crest-text .sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:rgba(255,255,255,0.6);display:inline-block;margin-top:2px;}
+  .crest-text .sub:hover{color:var(--gold);text-decoration:underline;}
+
+  nav.primary-nav{display:flex;align-items:center;gap:4px;}
+  .nav-item{position:relative;}
+  .nav-link{
+    display:flex;align-items:center;gap:8px;
+    color:var(--white);
+    font-family:'Work Sans',sans-serif;
+    font-weight:600;font-size:14.5px;
+    padding:10px 16px;
+    border-radius:var(--radius);
+    transition:background .15s ease;
+    background:none;border:none;appearance:none;-webkit-appearance:none;
+  }
+  .nav-link:hover, .nav-link:focus-visible{background:rgba(255,255,255,0.12);}
+  .nav-item.open .nav-link{background:rgba(255,255,255,0.14);}
+  .nav-link.current{background:rgba(255,255,255,0.16);box-shadow:inset 0 -2px 0 var(--gold);}
+  .caret{width:8px;height:8px;border-right:2px solid rgba(255,255,255,0.7);border-bottom:2px solid rgba(255,255,255,0.7);transform:rotate(45deg);margin-top:-3px;transition:transform .15s ease;}
+  .nav-item.open .caret{transform:rotate(-135deg);margin-top:3px;}
+
+  .dropdown{
+    position:absolute;top:calc(100% + 8px);left:0;
+    background:var(--green);min-width:190px;border-radius:var(--radius);
+    box-shadow:0 12px 28px rgba(10,40,24,0.25);padding:6px;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .15s ease, transform .15s ease, visibility .15s;
+  }
+  .nav-item.open .dropdown{opacity:1;visibility:visible;transform:translateY(0);}
+  .dropdown a{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:11px 14px;color:var(--white);font-weight:600;font-size:14px;border-radius:var(--radius);
+  }
+  .dropdown a:hover{background:rgba(255,255,255,0.15);}
+
+  .contact-cta{
+    background:var(--gold);color:var(--green-deep);font-weight:700;font-size:14px;
+    padding:10px 18px;border-radius:var(--radius);margin-left:8px;
+  }
+  .contact-cta:hover{background:#dbb531;}
+
+  .menu-toggle{display:none;background:none;border:0;color:var(--white);flex-direction:column;gap:5px;padding:8px;}
+  .menu-toggle span{width:24px;height:2px;background:var(--white);display:block;}
+
+  /* ===== Page header ===== */
+  .page-head{
+    background:var(--green-deep);color:var(--white);
+    padding:48px 0 32px;
+  }
+  .page-head .eyebrow-tag{color:var(--gold);}
+  .page-head h1{font-size:clamp(32px,5vw,54px);color:var(--white);margin-top:6px;}
+
+  section{padding:64px 0;}
+  .eyebrow-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;
+    color:var(--green);margin-bottom:8px;
+  }
+
+  /* ===== Filter tabs ===== */
+  .news-filters{
+    display:flex;gap:8px;flex-wrap:wrap;
+    border-bottom:1px solid var(--stone-dark);
+    padding-bottom:20px;margin-bottom:36px;
+  }
+  .filter-btn{
+    background:var(--stone);color:var(--ink);
+    font-family:'Work Sans',sans-serif;font-weight:600;font-size:13.5px;
+    padding:9px 16px;border-radius:20px;border:1px solid transparent;
+    transition:all .15s ease;
+  }
+  .filter-btn:hover{background:var(--stone-dark);}
+  .filter-btn.active{background:var(--green);color:var(--white);}
+
+  /* ===== Featured story ===== */
+  .featured-story{
+    display:grid;grid-template-columns:1.2fr 1fr;gap:32px;
+    margin-bottom:52px;border:1px solid var(--stone-dark);border-radius:8px;overflow:hidden;
+  }
+  .featured-thumb{
+    position:relative;min-height:340px;
+    background:linear-gradient(135deg,var(--green),var(--green-deep));
+    overflow:hidden;
+  }
+  .featured-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+  .featured-body{padding:36px 36px 36px 0;display:flex;flex-direction:column;justify-content:center;}
+  .featured-body .tag{
+    display:inline-block;align-self:flex-start;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;
+    color:var(--white);background:var(--green);padding:4px 10px;border-radius:2px;margin-bottom:14px;
+  }
+  .featured-body h2{font-size:clamp(22px,2.6vw,32px);line-height:1.15;margin-bottom:14px;}
+  .featured-body p.dek{font-family:'Work Sans',sans-serif;font-size:15px;line-height:1.6;color:#4a4a44;margin-bottom:18px;}
+  .featured-body time{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7a7a72;margin-bottom:16px;display:block;}
+  .featured-read{
+    display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+    background:var(--green);color:var(--white);font-weight:700;font-size:14px;
+    padding:11px 20px;border-radius:var(--radius);
+  }
+  .featured-read:hover{background:var(--green-bright);}
+
+  @media(max-width:900px){
+    .featured-story{grid-template-columns:1fr;}
+    .featured-body{padding:24px;}
+    .featured-thumb{min-height:220px;}
+  }
+
+  /* ===== News grid ===== */
+  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .news-card{
+    border:1px solid var(--stone-dark);border-radius:6px;overflow:hidden;
+    transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .news-card:hover{box-shadow:0 12px 28px rgba(10,40,24,0.12);transform:translateY(-2px);}
+  .news-thumb{
+    aspect-ratio:16/10;position:relative;
+    background:linear-gradient(135deg,var(--green),var(--green-deep));
+    overflow:hidden;
+  }
+  .news-thumb img{width:100%;height:100%;object-fit:cover;}
+  .news-body{padding:18px;}
+  .news-body .tag{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;
+    color:var(--green);background:rgba(19,107,57,0.1);padding:3px 8px;border-radius:2px;margin-bottom:10px;
+  }
+  .news-body h3{font-size:17px;line-height:1.3;margin-bottom:10px;}
+  .news-body time{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7a7a72;}
+
+  .load-more-wrap{display:flex;justify-content:center;margin-top:44px;}
+  .load-more-btn{
+    background:var(--green-deep);color:var(--white);font-weight:700;font-size:14px;
+    padding:14px 34px;border-radius:var(--radius);
+    font-family:'Work Sans',sans-serif;
+  }
+  .load-more-btn:hover{background:var(--green);}
+  .load-more-btn:disabled{opacity:0.5;cursor:default;}
+
+  .hidden-card{display:none;}
+
+  @media(max-width:900px){
+    .news-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:600px){
+    .news-grid{grid-template-columns:1fr;}
+  }
+
+  /* ===== Footer ===== */
+  footer{background:var(--green-deep);color:rgba(255,255,255,0.7);padding-top:56px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;}
+  .footer-grid h4{color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em;margin-bottom:16px;}
+  .footer-grid li{margin-bottom:10px;font-size:14px;}
+  .footer-grid a:hover{color:var(--gold);}
+  .footer-crest .name{color:var(--white);font-family:'Anton',sans-serif;font-size:18px;margin-bottom:10px;}
+  .footer-crest p{font-size:13px;line-height:1.6;max-width:280px;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.12);padding:18px 0;font-size:12px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+
+  @media(max-width:900px){
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:760px){
+    .menu-toggle{display:flex;}
+    nav.primary-nav{
+      position:fixed;inset:0 0 0 auto;width:78%;max-width:320px;
+      background:var(--green-deep);flex-direction:column;align-items:stretch;
+      padding:88px 20px 24px;gap:2px;
+      transform:translateX(100%);transition:transform .25s ease;z-index:200;
+      overflow-y:auto;
+    }
+    nav.primary-nav.open{transform:translateX(0);}
+    .nav-link{color:var(--white);padding:14px 4px;border-bottom:1px solid rgba(255,255,255,0.08);border-radius:0;}
+    .dropdown{position:static;box-shadow:none;background:rgba(255,255,255,0.06);opacity:1;visibility:visible;transform:none;max-height:0;overflow:hidden;padding:0;transition:max-height .2s ease;}
+    .nav-item.open .dropdown{max-height:200px;padding:4px;}
+    .dropdown a{color:var(--white);}
+    .dropdown a:hover{background:rgba(255,255,255,0.2);}
+    .contact-cta{margin:14px 4px 0;text-align:center;}
+    .nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:150;}
+    .nav-overlay.show{display:block;}
+  }
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<div class="util-bar">
+  <div class="wrap">
+    <span>Treaty County · Hurling &amp; Football</span>
+    <span><a href="#">Membership</a> &nbsp;·&nbsp; <a href="#">Club Shop</a></span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap nav-row">
+    <div class="crest" aria-label="Limerick GAA">
+      <a href="index.html" aria-label="Limerick GAA home" class="crest-logo-link">
+        <img src="Limerick_GAA_crest.avif" alt="Limerick GAA crest" class="crest-img">
+      </a>
+      <span class="crest-text">
+        <a href="index.html" class="name">Limerick GAA</a><br>
+        <a href="https://en.wikipedia.org/wiki/Siege_of_Limerick_(1691)" target="_blank" rel="noopener noreferrer" class="sub">Cuimhnigh ar Luimneach</a>
+      </span>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="primary-nav" id="primaryNav">
+      <div class="nav-item">
+        <a href="index.html" class="nav-link">Home</a>
+      </div>
+      <div class="nav-item" id="resultsItem">
+        <button class="nav-link" id="resultsToggle" aria-expanded="false" aria-controls="resultsDropdown">
+          Results <span class="caret"></span>
+        </button>
+        <div class="dropdown" id="resultsDropdown">
+          <a href="resultsJ.html"><span>Junior</span></a>
+          <a href="resultsS.html"><span>Senior</span></a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="fixtures.html" class="nav-link">Fixtures</a>
+      </div>
+      <div class="nav-item">
+        <a href="news.html" class="nav-link current">News</a>
+      </div>
+      <div class="nav-item">
+        <a href="https://www.universe.com/users/limerick-gaa-2C3XLW" class="nav-link" target="_blank" rel="noopener noreferrer">Tickets</a>
+      </div>
+      <a href="index.html#contact" class="contact-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+<div class="hoop-bar"></div>
+
+<!-- ===== PAGE HEAD ===== -->
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow-tag mono">CLUB NEWS</div>
+    <h1 class="display">Latest News</h1>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+
+    <!-- ===== FILTER TABS ===== -->
+    <div class="news-filters" id="newsFilters">
+      <button class="filter-btn active" data-filter="all">All News</button>
+      <button class="filter-btn" data-filter="senior">Senior Hurling</button>
+      <button class="filter-btn" data-filter="football">Senior Football</button>
+      <button class="filter-btn" data-filter="juniors">Juniors &amp; Underage</button>
+      <button class="filter-btn" data-filter="club">Club News</button>
+      <button class="filter-btn" data-filter="community">Community</button>
+    </div>
+
+    <!-- ===== FEATURED STORY ===== -->
+    <article class="featured-story">
+      <div class="featured-thumb">
+        <img src="News Gallery/Cian Lynch provides fitness update ahead of All-Ireland hurling final.avif" alt="Cian Lynch">
+      </div>
+      <div class="featured-body">
+        <span class="tag mono">Senior Hurling</span>
+        <h2>Cian Lynch provides fitness update ahead of championship</h2>
+        <time class="mono">3 hours ago</time>
+        <p class="dek">The midfield maestro shares his preparation plans and injury status as Limerick gears up for a crucial run of fixtures in the coming weeks.</p>
+        <a href="#" class="featured-read">Read full story <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <!-- ===== NEWS GRID ===== -->
+    <div class="news-grid" id="newsGrid">
+
+      <article class="news-card" data-category="football">
+        <div class="news-thumb"><img src="News Gallery/Limerick and Clare teams named for All-Ireland hurling semi-final.avif" alt="Limerick Clare teams"></div>
+        <div class="news-body">
+          <span class="tag">Senior Football</span>
+          <h3>Limerick and Clare teams named for All-Ireland clash</h3>
+          <time>5 hours ago</time>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="senior">
+        <div class="news-thumb"><img src="News Gallery/Referee confirms All - Ireland betwwen Limerick and Galway.avif" alt="Referee confirms fixture"></div>
+        <div class="news-body">
+          <span class="tag">Senior Hurling</span>
+          <h3>Referee confirms All-Ireland semi-final between Limerick and Cork</h3>
+          <time>8 hours ago</time>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="senior">
+        <div class="news-thumb"><img src="News Gallery/Semi finals are there for winning-Ollie Moran on Limerick triumph.avif" alt="Management statement"></div>
+        <div class="news-body">
+          <span class="tag">Senior Hurling</span>
+          <h3>Semi-finals are there for winning, says management</h3>
+          <time>1 day ago</time>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="juniors">
+        <div class="news-thumb"><img src="News Gallery/The 16th man the Limerick hurlers need if they are to beat Galway.avif" alt="Fan support"></div>
+        <div class="news-body">
+          <span class="tag">Juniors &amp; Underage</span>
+          <h3>The 16th man: why crowd support is vital this summer</h3>
+          <time>1 day ago</time>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="community">
+        <div class="news-thumb"><img src="News Gallery/The dream of another magic summer Sunday lives on for Limerick hurling fans.avif" alt="Championship campaign"></div>
+        <div class="news-body">
+          <span class="tag">Community</span>
+          <h3>The dream of another magic summer for Treaty County</h3>
+          <time>2 days ago</time>
+        </div>
+      </article>
+
+      <article class="news-card hidden-card" data-category="senior">
+        <div class="news-thumb"><img src="News Gallery/WATCH-Put the fucking ball over the bar.avif" alt="Match highlights"></div>
+        <div class="news-body">
+          <span class="tag">Senior Hurling</span>
+          <h3>Watch: Key attacking moments as Limerick edges out rivals</h3>
+          <time>3 days ago</time>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="load-more-wrap">
+      <button class="load-more-btn" id="loadMoreBtn">Load more news</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-crest">
+      <div class="name display">Limerick GAA</div>
+      <p>Cumann Lúthchleas Gael, Coiste Chontae Luimneach. Green and white since the 1880s — proudly Treaty County.</p>
+    </div>
+    <div>
+      <h4>NAVIGATE</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="resultsJ.html">Results — Junior</a></li>
+        <li><a href="resultsS.html">Results — Senior</a></li>
+        <li><a href="fixtures.html">Fixtures</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>CLUB</h4>
+      <ul>
+        <li><a href="https://www.universe.com/users/limerick-gaa-2C3XLW" target="_blank" rel="noopener noreferrer">Tickets</a></li>
+        <li><a href="#">Membership</a></li>
+        <li><a href="#">Club Shop</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>FOLLOW</h4>
+      <ul>
+	<li><a href="https://www.instagram.com">Instagram</a></li>
+	<li><a href="https://www.x.com">Twitter</a></li>
+	<li><a href="https://www.facebook.com">Facebook</a></li>
+	<li><a href="https://www.youtube.com">Youtube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Limerick GAA — Official website.</span>
+    <span>Treaty County Hurling &amp; Football.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Mobile nav
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('primaryNav');
+  const overlay = document.getElementById('navOverlay');
+  function closeMenu(){
+    nav.classList.remove('open');
+    overlay.classList.remove('show');
+    toggle.setAttribute('aria-expanded','false');
+  }
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    overlay.classList.toggle('show', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  overlay.addEventListener('click', closeMenu);
+
+  const resultsItem = document.getElementById('resultsItem');
+  const resultsToggle = document.getElementById('resultsToggle');
+  function closeDropdown(){
+    resultsItem.classList.remove('open');
+    resultsToggle.setAttribute('aria-expanded','false');
+  }
+  resultsToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = resultsItem.classList.toggle('open');
+    resultsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('click', (e) => {
+    if(!resultsItem.contains(e.target)) closeDropdown();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){ closeDropdown(); closeMenu(); }
+  });
+
+  // Filters
+  const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+  const cards = Array.from(document.querySelectorAll('#newsGrid .news-card'));
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+  function applyFilter(filter){
+    cards.forEach(card => {
+      const matches = filter === 'all' || card.dataset.category === filter;
+      card.style.display = matches ? '' : 'none';
+    });
+    // Reset "load more" state relative to filter: reveal hidden-card items only under 'all' initially collapsed
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
+    });
+  });
+
+  // Load more
+  loadMoreBtn.addEventListener('click', () => {
+    const hidden = document.querySelectorAll('.news-card.hidden-card');
+    hidden.forEach(card => card.classList.remove('hidden-card'));
+    loadMoreBtn.disabled = true;
+    loadMoreBtn.textContent = 'No more news';
+  });
+})();
+</script>
+
+</body>
+</html>
