@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fixtures | Limerick GAA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;600&family=Jersey+M54&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-deep:#0A2818;
+    --green:#136B39;
+    --green-bright:#1C8A43;
+    --white:#FFFFFF;
+    --stone:#EDEBE5;
+    --stone-dark:#D8D5CC;
+    --ink:#131512;
+    --gold:#C9A227;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Jersey M54',sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;}
+  .display{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+
+  /* Hoop signature stripe */
+  .hoop-bar{
+    height:10px;
+    background:repeating-linear-gradient(
+      90deg,
+      var(--green) 0px, var(--green) 34px,
+      var(--white) 34px, var(--white) 44px,
+      var(--green) 44px, var(--green) 78px,
+      var(--gold) 78px, var(--gold) 82px
+    );
+  }
+
+  /* ===== Top utility bar ===== */
+  .util-bar{
+    background:var(--green-deep);
+    color:rgba(255,255,255,0.65);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+  }
+  .util-bar .wrap{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:8px;padding-bottom:8px;
+  }
+  .util-bar a{color:rgba(255,255,255,0.85);}
+  .util-bar a:hover{color:var(--gold);}
+
+  /* ===== Main nav ===== */
+  header.site-header{
+    background:var(--green);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 0 var(--green-deep);
+  }
+  .nav-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;padding-bottom:14px;
+  }
+  .crest{
+    display:flex;align-items:center;gap:12px;
+  }
+  .crest-img{flex-shrink:0;height:46px;width:auto;display:block;object-fit:contain;}
+  .crest-logo-link{display:flex;align-items:center;}
+  .crest-text{color:var(--white);line-height:1.05;display:inline-block;}
+  .crest-text .name{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.02em;}
+  .crest-text .sub{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:rgba(255,255,255,0.6);display:inline-block;margin-top:2px;}
+  .crest-text .sub:hover{color:var(--gold);text-decoration:underline;}
+
+  nav.primary-nav{display:flex;align-items:center;gap:4px;}
+  .nav-item{position:relative;}
+  .nav-link{
+    display:flex;align-items:center;gap:8px;
+    color:var(--white);
+    font-family:'Work Sans',sans-serif;
+    font-weight:600;font-size:14.5px;
+    padding:10px 16px;
+    border-radius:var(--radius);
+    transition:background .15s ease;
+    background:none;
+    border:none;
+    appearance:none;
+    -webkit-appearance:none;
+  }
+  .nav-link:hover, .nav-link:focus-visible{background:rgba(255,255,255,0.12);}
+  .nav-item.open .nav-link{background:rgba(255,255,255,0.14);}
+  .caret{width:8px;height:8px;border-right:2px solid rgba(255,255,255,0.7);border-bottom:2px solid rgba(255,255,255,0.7);transform:rotate(45deg);margin-top:-3px;transition:transform .15s ease;}
+  .nav-item.open .caret{transform:rotate(-135deg);margin-top:3px;}
+
+  .dropdown{
+    position:absolute;top:calc(100% + 8px);left:0;
+    background:var(--green);
+    min-width:190px;
+    border-radius:var(--radius);
+    box-shadow:0 12px 28px rgba(10,40,24,0.25);
+    padding:6px;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .15s ease, transform .15s ease, visibility .15s;
+  }
+  .nav-item.open .dropdown{opacity:1;visibility:visible;transform:translateY(0);}
+  .dropdown a{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:11px 14px;color:var(--white);font-weight:600;font-size:14px;
+    border-radius:var(--radius);
+  }
+  .dropdown a:hover{background:rgba(255,255,255,0.15);}
+  .dropdown a .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--white);background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:2px;}
+
+  .contact-cta{
+    background:var(--gold);color:var(--green-deep);
+    font-weight:700;font-size:14px;
+    padding:10px 18px;border-radius:var(--radius);
+    margin-left:8px;
+  }
+  .contact-cta:hover{background:#dbb531;}
+
+  .menu-toggle{display:none;background:none;border:0;color:var(--white);flex-direction:column;gap:5px;padding:8px;}
+  .menu-toggle span{width:24px;height:2px;background:var(--white);display:block;}
+
+  @media(max-width:760px){
+    .menu-toggle{display:flex;}
+    nav.primary-nav{
+      position:fixed;inset:0 0 0 auto;width:78%;max-width:320px;
+      background:var(--green-deep);flex-direction:column;align-items:stretch;
+      padding:88px 20px 24px;gap:2px;
+      transform:translateX(100%);transition:transform .25s ease;z-index:200;
+      overflow-y:auto;
+    }
+    nav.primary-nav.open{transform:translateX(0);}
+    .nav-link{color:var(--white);padding:14px 4px;border-bottom:1px solid rgba(255,255,255,0.08);border-radius:0;}
+    .dropdown{position:static;box-shadow:none;background:rgba(255,255,255,0.06);opacity:1;visibility:visible;transform:none;max-height:0;overflow:hidden;padding:0;transition:max-height .2s ease;}
+    .nav-item.open .dropdown{max-height:200px;padding:4px;}
+    .dropdown a{color:var(--white);}
+    .dropdown a:hover{background:rgba(255,255,255,0.2);}
+    .contact-cta{margin:14px 4px 0;text-align:center;}
+    .nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:150;}
+    .nav-overlay.show{display:block;}
+  }
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+  /* ===== Page header ===== */
+  .page-header{
+    background:var(--green-deep);
+    padding:56px 0 40px;
+    color:var(--white);
+  }
+  .eyebrow-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;
+    color:var(--gold);margin-bottom:8px;
+  }
+  .page-header h1{font-size:clamp(32px,5vw,52px);color:var(--white);}
+  .page-header p.mono{margin-top:12px;color:rgba(255,255,255,0.6);font-size:13px;}
+
+  /* ===== Filter tabs ===== */
+  .filter-bar{
+    background:var(--stone);
+    border-bottom:1px solid var(--stone-dark);
+    position:sticky;top:74px;z-index:50;
+  }
+  .filter-row{
+    display:flex;gap:16px;overflow-x:auto;
+    padding-top:16px;padding-bottom:16px;
+    scrollbar-width:none;
+  }
+  .filter-row::-webkit-scrollbar{display:none;}
+  .filter-tab{
+    flex:0 0 auto;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+    color:var(--ink);background:var(--white);
+    border:1px solid var(--stone-dark);
+    padding:9px 16px;border-radius:20px;
+    white-space:nowrap;
+    transition:all .15s ease;
+  }
+  .filter-tab:hover{border-color:var(--green);}
+  .filter-tab.active{background:var(--green);color:var(--white);border-color:var(--green);}
+
+  /* ===== Fixtures list ===== */
+  section.fixtures-section{padding:48px 0 72px;}
+  .round-heading{
+    display:flex;align-items:baseline;gap:12px;
+    margin:36px 0 16px;
+  }
+  .round-heading:first-child{margin-top:0;}
+  .round-heading h2{font-size:20px;}
+  .round-heading .round-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#7a7a72;}
+
+  .fixture-card{
+    display:grid;
+    grid-template-columns:110px 1fr 90px;
+    align-items:center;
+    gap:18px;
+    border:1px solid var(--stone-dark);
+    border-radius:6px;
+    padding:16px 20px;
+    margin-bottom:12px;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .fixture-card:hover{border-color:var(--green);box-shadow:0 4px 14px rgba(19,107,57,0.08);}
+  .fixture-div{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.06em;
+    color:var(--green);background:rgba(19,107,57,0.1);
+    padding:4px 8px;border-radius:2px;text-align:center;
+  }
+  .fixture-teams{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    font-family:'Work Sans',sans-serif;font-weight:700;font-size:16px;
+    text-align:right;
+  }
+  .fixture-teams .home{text-align:right;flex:1;}
+  .fixture-teams .away{text-align:left;flex:1;}
+  .fixture-teams .vs{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);font-weight:700;
+  }
+  .fixture-meta{
+    display:flex;flex-direction:column;gap:2px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7a7a72;
+    text-align:right;
+  }
+  .fixture-meta .time{color:var(--ink);font-weight:600;font-size:13px;}
+
+  .fixture-sub{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7a7a72;
+    padding-left:2px;margin:-2px 0 10px;
+  }
+
+  @media(max-width:700px){
+    .filter-bar{top:0;}
+    .filter-row{gap:8px;}
+    .fixture-card{
+      grid-template-columns:1fr;
+      text-align:center;
+      gap:8px;
+    }
+    .fixture-div{justify-self:center;}
+    .fixture-teams{text-align:center;}
+    .fixture-meta{align-items:center;text-align:center;}
+  }
+
+  /* ===== Footer ===== */
+  footer{background:var(--green-deep);color:rgba(255,255,255,0.7);padding-top:56px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;}
+  .footer-grid h4{color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em;margin-bottom:16px;}
+  .footer-grid li{margin-bottom:10px;font-size:14px;}
+  .footer-grid a:hover{color:var(--gold);}
+  .footer-crest .name{color:var(--white);font-family:'Anton',sans-serif;font-size:18px;margin-bottom:10px;}
+  .footer-crest p{font-size:13px;line-height:1.6;max-width:280px;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.12);
+    padding:18px 0;font-size:12px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+
+  @media(max-width:900px){
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="util-bar">
+  <div class="wrap">
+    <span>Treaty County · Hurling &amp; Football</span>
+    <span><a href="#">Membership</a> &nbsp;·&nbsp; <a href="#">Club Shop</a></span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap nav-row">
+    <div class="crest" aria-label="Limerick GAA">
+      <a href="index.html" aria-label="Limerick GAA home" class="crest-logo-link">
+        <img src="Limerick_GAA_crest.avif" alt="Limerick GAA crest" class="crest-img">
+      </a>
+      <span class="crest-text">
+        <a href="index.html" class="name">Limerick GAA</a><br>
+        <a href="https://en.wikipedia.org/wiki/Siege_of_Limerick_(1691)" target="_blank" rel="noopener noreferrer" class="sub">Cuimhnigh ar Luimneach</a>
+      </span>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="primary-nav" id="primaryNav">
+      <div class="nav-item">
+        <a href="index.html" class="nav-link">Home</a>
+      </div>
+      <div class="nav-item" id="resultsItem">
+        <button class="nav-link" id="resultsToggle" aria-expanded="false" aria-controls="resultsDropdown">
+          Results <span class="caret"></span>
+        </button>
+        <div class="dropdown" id="resultsDropdown">
+          <a href="resultsJ.html"><span>Junior</span></a>
+          <a href="resultsS.html"><span>Senior</span></a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="fixtures.html" class="nav-link">Fixtures</a>
+      </div>
+      <div class="nav-item">
+        <a href="news.html" class="nav-link">News</a>
+      </div>
+      <div class="nav-item">
+        <a href="https://www.universe.com/users/limerick-gaa-2C3XLW" class="nav-link" target="_blank" rel="noopener noreferrer">Tickets</a>
+      </div>
+      <a href="index.html#contact" class="contact-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+<div class="hoop-bar"></div>
+
+<!-- ===== PAGE HEADER ===== -->
+<div class="page-header">
+  <div class="wrap">
+    <div class="eyebrow-tag">FIXTURES</div>
+    <h1 class="display" id="pageTitle">Senior Hurling Fixtures</h1>
+    <p class="mono" id="pageSubtitle">Bons Secours Hospital Senior Hurling League · 2026 season</p>
+  </div>
+</div>
+
+<!-- ===== FILTER TABS ===== -->
+<div class="filter-bar">
+  <div class="wrap">
+    <div class="filter-row" id="filterRow">
+      <!-- Level filter -->
+      <div style="display:flex;gap:8px;flex:0 0 auto;">
+        <button class="filter-tab active" data-level="senior">Senior</button>
+        <button class="filter-tab" data-level="junior">Junior</button>
+      </div>
+      <!-- Sport filter -->
+      <div style="display:flex;gap:8px;flex:0 0 auto;">
+        <button class="filter-tab active" data-sport="hurling">Hurling</button>
+        <button class="filter-tab" data-sport="football">Gaelic Football</button>
+      </div>
+      <!-- Division filter -->
+      <div style="display:flex;gap:8px;flex:0 0 auto;">
+        <button class="filter-tab active" data-division="all">All Divisions</button>
+        <button class="filter-tab" data-division="city">City</button>
+        <button class="filter-tab" data-division="south">South</button>
+        <button class="filter-tab" data-division="west">West</button>
+        <button class="filter-tab" data-division="east">East</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FIXTURES LIST ===== -->
+<section class="fixtures-section">
+  <div class="wrap" id="fixturesWrap">
+
+    <div class="round-heading">
+      <h2 class="display">Round 1</h2>
+      <span class="round-date mono">Saturday 15th March</span>
+    </div>
+
+    <div class="fixture-card" data-division="city" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">CITY</span>
+      <div class="fixture-teams"><span class="home">Kildimo/Pallaskenry</span><span class="vs">V</span><span class="away">Ballybrown</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Páirc Pailís Chaonraí</span></div>
+    </div>
+    <div class="fixture-card" data-division="south" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">SOUTH</span>
+      <div class="fixture-teams"><span class="home">Blackrock</span><span class="vs">V</span><span class="away">Kilmallock</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Kilfinane</span></div>
+    </div>
+    <div class="fixture-card" data-division="west" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">WEST</span>
+      <div class="fixture-teams"><span class="home">Croagh Kilfinny</span><span class="vs">V</span><span class="away">Feenagh Kilmeedy</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Croagh</span></div>
+    </div>
+    <div class="fixture-card" data-division="west" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">WEST</span>
+      <div class="fixture-teams"><span class="home">Granagh Ballingarry</span><span class="vs">V</span><span class="away">Newcastle West</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Ballingarry</span></div>
+    </div>
+    <div class="fixture-card" data-division="west" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">WEST</span>
+      <div class="fixture-teams"><span class="home">Adare</span><span class="vs">V</span><span class="away">Effin</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Adare</span></div>
+    </div>
+    <div class="fixture-card" data-division="south" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">SOUTH</span>
+      <div class="fixture-teams"><span class="home">Bruff</span><span class="vs">V</span><span class="away">Bruree</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Bruff</span></div>
+    </div>
+    <div class="fixture-card" data-division="city" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">CITY</span>
+      <div class="fixture-teams"><span class="home">Monaleen</span><span class="vs">V</span><span class="away">Mungret St Pauls</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Monaleen</span></div>
+    </div>
+    <div class="fixture-card" data-division="south" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">SOUTH</span>
+      <div class="fixture-teams"><span class="home">Dromin/Athlacca</span><span class="vs">V</span><span class="away">Garryspillane</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Dromin/Athlacca</span></div>
+    </div>
+    <div class="fixture-card" data-division="east" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">EAST</span>
+      <div class="fixture-teams"><span class="home">Murroe/Boher</span><span class="vs">V</span><span class="away">Doon</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Boher</span></div>
+    </div>
+    <div class="fixture-card" data-division="east" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">EAST</span>
+      <div class="fixture-teams"><span class="home">Pallasgreen</span><span class="vs">V</span><span class="away">Cappamore</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Pallasgreen</span></div>
+    </div>
+    <div class="fixture-card" data-division="east" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">EAST</span>
+      <div class="fixture-teams"><span class="home">South Liberties</span><span class="vs">V</span><span class="away">Ahane</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Dooley Park</span></div>
+    </div>
+    <div class="fixture-card" data-division="city" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">CITY</span>
+      <div class="fixture-teams"><span class="home">Na Piarsaigh</span><span class="vs">V</span><span class="away">Patrickswell</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Caherdavin</span></div>
+    </div>
+
+    <div class="round-heading">
+      <h2 class="display">Round 2</h2>
+      <span class="round-date mono">Saturday 22nd March</span>
+    </div>
+
+    <div class="fixture-card" data-division="west" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">WEST</span>
+      <div class="fixture-teams"><span class="home">Feenagh Kilmeedy</span><span class="vs">V</span><span class="away">Granagh Ballingarry</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Feenagh</span></div>
+    </div>
+    <div class="fixture-card" data-division="west" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">WEST</span>
+      <div class="fixture-teams"><span class="home">Adare</span><span class="vs">V</span><span class="away">Croagh Kilfinny</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Adare</span></div>
+    </div>
+    <div class="fixture-card" data-division="west" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">WEST</span>
+      <div class="fixture-teams"><span class="home">Effin</span><span class="vs">V</span><span class="away">Newcastle West</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Effin</span></div>
+    </div>
+    <div class="fixture-card" data-division="south" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">SOUTH</span>
+      <div class="fixture-teams"><span class="home">Garryspillane</span><span class="vs">V</span><span class="away">Glenroe</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Knocklong</span></div>
+    </div>
+    <div class="fixture-card" data-division="south" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">SOUTH</span>
+      <div class="fixture-teams"><span class="home">Bruree</span><span class="vs">V</span><span class="away">Dromin/Athlacca</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Bruree</span></div>
+    </div>
+    <div class="fixture-card" data-division="south" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">SOUTH</span>
+      <div class="fixture-teams"><span class="home">Kilmallock</span><span class="vs">V</span><span class="away">Bruff</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Kilmallock</span></div>
+    </div>
+    <div class="fixture-card" data-division="east" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">EAST</span>
+      <div class="fixture-teams"><span class="home">Cappamore</span><span class="vs">V</span><span class="away">South Liberties</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Cappamore</span></div>
+    </div>
+    <div class="fixture-card" data-division="east" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">EAST</span>
+      <div class="fixture-teams"><span class="home">Doon</span><span class="vs">V</span><span class="away">Pallasgreen</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Doon</span></div>
+    </div>
+    <div class="fixture-card" data-division="city" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">CITY</span>
+      <div class="fixture-teams"><span class="home">Mungret St Pauls</span><span class="vs">V</span><span class="away">Kildimo/Pallaskenry</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>TBC</span></div>
+    </div>
+    <div class="fixture-card" data-division="city" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">CITY</span>
+      <div class="fixture-teams"><span class="home">Patrickswell</span><span class="vs">V</span><span class="away">Monaleen</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Patrickswell</span></div>
+    </div>
+    <div class="fixture-card" data-division="city" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">CITY</span>
+      <div class="fixture-teams"><span class="home">Ballybrown</span><span class="vs">V</span><span class="away">Na Piarsaigh</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Ballybrown</span></div>
+    </div>
+    <div class="fixture-card" data-division="east" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">EAST</span>
+      <div class="fixture-teams"><span class="home">Ahane</span><span class="vs">V</span><span class="away">Murroe/Boher</span></div>
+      <div class="fixture-meta"><span class="time">3:00pm</span><span>Mackey Park</span></div>
+    </div>
+
+    <div class="round-heading">
+      <h2 class="display">Round 3</h2>
+      <span class="round-date mono">Saturday 5th April</span>
+    </div>
+
+    <div class="fixture-card" data-division="city" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">CITY</span>
+      <div class="fixture-teams"><span class="home">Monaleen</span><span class="vs">V</span><span class="away">Na Piarsaigh</span></div>
+      <div class="fixture-meta"><span class="time">4:00pm</span><span>Monaleen</span></div>
+    </div>
+    <div class="fixture-card" data-division="city" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">CITY</span>
+      <div class="fixture-teams"><span class="home">Patrickswell</span><span class="vs">V</span><span class="away">Kildimo/Pallaskenry</span></div>
+      <div class="fixture-meta"><span class="time">4:00pm</span><span>Patrickswell</span></div>
+    </div>
+    <div class="fixture-card" data-division="city" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">CITY</span>
+      <div class="fixture-teams"><span class="home">Mungret St Pauls</span><span class="vs">V</span><span class="away">Ballybrown</span></div>
+      <div class="fixture-meta"><span class="time">4:00pm</span><span>TBC</span></div>
+    </div>
+    <div class="fixture-card" data-division="south" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">SOUTH</span>
+      <div class="fixture-teams"><span class="home">Bruff</span><span class="vs">V</span><span class="away">Blackrock</span></div>
+      <div class="fixture-meta"><span class="time">5:00pm</span><span>Bruff</span></div>
+    </div>
+    <div class="fixture-card" data-division="west" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">WEST</span>
+      <div class="fixture-teams"><span class="home">Granagh Ballingarry</span><span class="vs">V</span><span class="away">Adare</span></div>
+      <div class="fixture-meta"><span class="time">5:00pm</span><span>Ballingarry</span></div>
+    </div>
+    <div class="fixture-card" data-division="west" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">WEST</span>
+      <div class="fixture-teams"><span class="home">Newcastle West</span><span class="vs">V</span><span class="away">Feenagh Kilmeedy</span></div>
+      <div class="fixture-meta"><span class="time">5:00pm</span><span>Newcastle West</span></div>
+    </div>
+    <div class="fixture-card" data-division="west" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">WEST</span>
+      <div class="fixture-teams"><span class="home">Croagh Kilfinny</span><span class="vs">V</span><span class="away">Effin</span></div>
+      <div class="fixture-meta"><span class="time">5:00pm</span><span>Croagh</span></div>
+    </div>
+    <div class="fixture-card" data-division="south" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">SOUTH</span>
+      <div class="fixture-teams"><span class="home">Glenroe</span><span class="vs">V</span><span class="away">Bruree</span></div>
+      <div class="fixture-meta"><span class="time">5:00pm</span><span>Glenroe</span></div>
+    </div>
+    <div class="fixture-card" data-division="east" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">EAST</span>
+      <div class="fixture-teams"><span class="home">Pallasgreen</span><span class="vs">V</span><span class="away">Murroe/Boher</span></div>
+      <div class="fixture-meta"><span class="time">5:00pm</span><span>Pallasgreen</span></div>
+    </div>
+    <div class="fixture-card" data-division="south" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">SOUTH</span>
+      <div class="fixture-teams"><span class="home">Dromin/Athlacca</span><span class="vs">V</span><span class="away">Kilmallock</span></div>
+      <div class="fixture-meta"><span class="time">5:00pm</span><span>Dromin/Athlacca</span></div>
+    </div>
+    <div class="fixture-card" data-division="east" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">EAST</span>
+      <div class="fixture-teams"><span class="home">Doon</span><span class="vs">V</span><span class="away">South Liberties</span></div>
+      <div class="fixture-meta"><span class="time">5:00pm</span><span>Doon</span></div>
+    </div>
+    <div class="fixture-card" data-division="east" data-level="senior" data-sport="hurling">
+      <span class="fixture-div">EAST</span>
+      <div class="fixture-teams"><span class="home">Cappamore</span><span class="vs">V</span><span class="away">Ahane</span></div>
+      <div class="fixture-meta"><span class="time">5:00pm</span><span>Cappamore</span></div>
+    </div>
+
+    <p class="fixture-sub" style="margin-top:28px;text-align:center;">Source: Bons Secours Hospital Senior Hurling League fixtures, limerickgaa.ie · rounds 4 onward TBC</p>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-crest">
+      <div class="name display">Limerick GAA</div>
+      <p>Cumann Lúthchleas Gael, Coiste Chontae Luimneach. Green and white since the 1880s — proudly Treaty County.</p>
+    </div>
+    <div>
+      <h4>NAVIGATE</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="resultsJ.html">Results — Junior</a></li>
+        <li><a href="resultsS.html">Results — Senior</a></li>
+        <li><a href="fixtures.html">Fixtures</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>CLUB</h4>
+      <ul>
+        <li><a href="https://www.universe.com/users/limerick-gaa-2C3XLW" target="_blank" rel="noopener noreferrer">Tickets</a></li>
+        <li><a href="#">Membership</a></li>
+        <li><a href="#">Club Shop</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>FOLLOW</h4>
+      <ul>
+	<li><a href="https://www.instagram.com">Instagram</a></li>
+	<li><a href="https://www.x.com">Twitter</a></li>
+	<li><a href="https://www.facebook.com">Facebook</a></li>
+	<li><a href="https://www.youtube.com">Youtube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Limerick GAA — Official website.</span>
+    <span>Treaty County Hurling &amp; Football.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Mobile nav
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('primaryNav');
+  const overlay = document.getElementById('navOverlay');
+  function closeMenu(){
+    nav.classList.remove('open');
+    overlay.classList.remove('show');
+    toggle.setAttribute('aria-expanded','false');
+  }
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    overlay.classList.toggle('show', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  overlay.addEventListener('click', closeMenu);
+
+  // Results dropdown
+  const resultsItem = document.getElementById('resultsItem');
+  const resultsToggle = document.getElementById('resultsToggle');
+  function closeDropdown(){
+    resultsItem.classList.remove('open');
+    resultsToggle.setAttribute('aria-expanded','false');
+  }
+  resultsToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = resultsItem.classList.toggle('open');
+    resultsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('click', (e) => {
+    if(!resultsItem.contains(e.target)) closeDropdown();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){ closeDropdown(); closeMenu(); }
+  });
+
+  // Multi-filter system
+  const tabs = document.querySelectorAll('.filter-tab');
+  const cards = document.querySelectorAll('.fixture-card');
+  const roundHeadings = document.querySelectorAll('.round-heading');
+  const pageTitle = document.getElementById('pageTitle');
+  const pageSubtitle = document.getElementById('pageSubtitle');
+  
+  let activeLevel = 'senior';
+  let activeSport = 'hurling';
+  let activeDivision = 'all';
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const filterType = tab.dataset.level ? 'level' : (tab.dataset.sport ? 'sport' : 'division');
+      
+      if(filterType === 'level'){
+        document.querySelectorAll('[data-level]').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeLevel = tab.dataset.level;
+      } else if(filterType === 'sport'){
+        document.querySelectorAll('[data-sport]').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeSport = tab.dataset.sport;
+      } else {
+        document.querySelectorAll('[data-division]').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeDivision = tab.dataset.division;
+      }
+
+      // Update page header
+      const levelText = activeLevel.charAt(0).toUpperCase() + activeLevel.slice(1);
+      const sportText = activeSport.charAt(0).toUpperCase() + activeSport.slice(1);
+      pageTitle.textContent = `${levelText} ${sportText} Fixtures`;
+      pageSubtitle.textContent = `${levelText} ${sportText} League · 2026 season`;
+
+      // Filter cards
+      cards.forEach(card => {
+        const match = (activeLevel === 'all' || card.dataset.level === activeLevel) &&
+                      (activeSport === 'all' || card.dataset.sport === activeSport) &&
+                      (activeDivision === 'all' || card.dataset.division === activeDivision);
+        card.style.display = match ? '' : 'none';
+      });
+
+      // Hide round headings with no visible fixtures
+      roundHeadings.forEach(heading => {
+        let el = heading.nextElementSibling;
+        let hasVisible = false;
+        while(el && !el.classList.contains('round-heading')){
+          if(el.classList.contains('fixture-card') && el.style.display !== 'none'){
+            hasVisible = true;
+            break;
+          }
+          el = el.nextElementSibling;
+        }
+        heading.style.display = hasVisible ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
