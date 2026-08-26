@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Templates €5 | michealdev.ie</title>
+<link rel="icon" type="image/jpeg" href="Logo/Logo.jpg">
+
+<meta name="description" content="Website templates for €5. Four finished sites for nursing homes, takeaways, laundrettes and security installers, with all the files included. Built by Micheál Finnerty in Pallaskenry, Co. Limerick.">
+
+<!--
+  ============================================================================
+  TEMPLATE DEMOS
+  ----------------------------------------------------------------------------
+  Every demo lives inside this site, under Templates/<slug>/. Nothing here
+  depends on an external host, so all four demos work the moment this folder
+  is online (or opened locally).
+
+      Templates/ard-na-ri/      index.html
+      Templates/ruby-chinese/   index.html, menu.html
+      Templates/laundry-luxe/   index.html, map.html
+      Templates/vartek/         index.html, services.html, 404.html
+
+  Each folder is fully self-contained - no file inside them points at a
+  parent directory - so a folder can be zipped and handed to a buyer as-is,
+  or moved to its own repo later without editing a single path inside it.
+
+  BRANDING: all four have been stripped to placeholders - "Brand Name Here",
+  hello@brandnamehere.ie, 000 000 0000, "Your Town". The folder names are just
+  the original build slugs; nothing inside them carries a real business name.
+  The PHOTOS are still real premises, so a buyer must replace those.
+
+  TO ADD A TEMPLATE: drop the folder in Templates/, copy one <article> block
+  in the grid below, and update the href, image, name and data-cat.
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0E14;
+    --paper:#F7F5F0;
+    --pine:#2E6E5E;
+    --pine-light:#3D8A75;
+    --amber:#E8A33D;
+    --stone:#8B8378;
+    --line: rgba(11,14,20,0.1);
+    --card: #FFFFFF;
+    --radius: 14px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.5;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--amber); color:var(--ink);}
+
+  :focus-visible{
+    outline:3px solid var(--pine);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(247,245,240,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  nav.scrolled{
+    border-color:var(--line);
+    box-shadow:0 2px 24px rgba(11,14,20,0.05);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:16px 28px;
+    max-width:1120px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    letter-spacing:-0.02em;
+    flex-shrink:0;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--pine);
+    box-shadow:0 0 0 0 rgba(46,110,94,0.5);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(46,110,94,0.45);}
+    70%{box-shadow:0 0 0 8px rgba(46,110,94,0);}
+    100%{box-shadow:0 0 0 0 rgba(46,110,94,0);}
+  }
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-size:14px;
+    font-weight:500;
+  }
+  .nav-links a{
+    position:relative;
+    padding:4px 0;
+    color:var(--ink);
+    opacity:0.75;
+    transition:opacity 0.2s;
+  }
+  .nav-links a:hover{opacity:1;}
+  .nav-links a.active{opacity:1;}
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    bottom:0; left:0;
+    width:0%; height:2px;
+    background:var(--amber);
+    transition:width 0.25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-links a.active::after{width:100%;}
+
+  /* --- Page-level links, kept out of the transparent section bar above --- */
+  .nav-pages{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
+  .nav-pages::before{
+    content:'';
+    width:1px;
+    height:20px;
+    background:var(--line);
+    margin-right:6px;
+  }
+  .nav-page{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:9px 16px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    color:var(--ink);
+    white-space:nowrap;
+    transition:border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .nav-page:hover{border-color:var(--pine); color:var(--pine); transform:translateY(-1px);}
+  .nav-page.current{
+    border-color:var(--pine);
+    color:var(--pine);
+    background:rgba(46,110,94,0.06);
+  }
+  .nav-cta{
+    font-family:var(--mono);
+    font-size:13px;
+    background:var(--ink);
+    color:#FFFFFF !important;
+    padding:10px 18px;
+    border-radius:8px;
+    white-space:nowrap;
+    transition:transform 0.2s ease, background 0.2s ease;
+  }
+  .nav-cta:hover{background:var(--pine); transform:translateY(-1px);}
+  .nav-cta-mobile,
+  .nav-portfolio-mobile,
+  .nav-templates-mobile{display:none;}
+  .nav-toggle{display:none;}
+
+  @media (max-width:1040px){
+    .nav-links{gap:22px; font-size:13.5px;}
+    .nav-page, .nav-cta{padding:9px 13px; font-size:12.5px;}
+    .nav-pages{gap:8px;}
+  }
+
+  @media (max-width:880px){
+    .nav-links{
+      position:fixed;
+      top:64px; right:0;
+      flex-direction:column;
+      background:var(--paper);
+      width:100%;
+      padding:24px 28px;
+      gap:20px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-110%);
+      transition:transform 0.3s ease, visibility 0.3s ease;
+      visibility:hidden;
+    }
+    .nav-links.open{transform:translateY(0); visibility:visible;}
+    .nav-pages{display:none;}
+    .nav-links .nav-cta-mobile,
+    .nav-links .nav-portfolio-mobile,
+    .nav-links .nav-templates-mobile{
+      display:inline-block;
+      font-family:var(--mono);
+      background:var(--ink);
+      color:var(--paper);
+      padding:10px 16px;
+      border-radius:8px;
+      width:fit-content;
+      opacity:1;
+    }
+    .nav-links .nav-portfolio-mobile{
+      background:transparent;
+      color:var(--ink);
+      border:1px solid var(--line);
+    }
+    .nav-links a.nav-cta-mobile::after,
+    .nav-links a.nav-portfolio-mobile::after,
+    .nav-links a.nav-templates-mobile::after{display:none;}
+    .nav-toggle{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      width:38px;
+      height:38px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:0;
+      z-index:101;
+    }
+    .nav-toggle span{
+      width:22px; height:2px;
+      background:var(--ink);
+      border-radius:2px;
+      transition:0.25s ease;
+    }
+    .nav-toggle.active span:nth-child(1){transform:translateY(4px) rotate(45deg);}
+    .nav-toggle.active span:nth-child(2){transform:translateY(-4px) rotate(-45deg);}
+  }
+
+  /* ===== PAGE HEADER ===== */
+  .page-header{
+    padding:160px 0 60px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ===== FALLING CODE SYMBOLS (full page) ===== */
+  .symbol-field{
+    position:absolute;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+  }
+  .code-symbol{
+    position:absolute;
+    top:0; left:0;
+    font-family:var(--mono);
+    font-weight:500;
+    user-select:none;
+    pointer-events:auto;
+    cursor:grab;
+    will-change:transform;
+    line-height:1;
+    transition:opacity 0.2s ease, color 0.3s ease;
+  }
+  .code-symbol:active{cursor:grabbing;}
+  .code-symbol.dragging{
+    transition:none;
+    z-index:5;
+  }
+  .code-symbol.on-dark{
+    filter:brightness(1.6) saturate(1.1);
+  }
+  @media (max-width:880px){
+    .symbol-field{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .code-symbol{transition:none;}
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--pine);
+    letter-spacing:0.04em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+    opacity:0;
+    animation:fadeUp 0.6s ease 0.1s forwards;
+  }
+  .eyebrow::before{
+    content:'';
+    width:18px; height:1px;
+    background:var(--pine);
+  }
+  h1{
+    font-family:var(--display);
+    font-size:clamp(36px, 4.6vw, 56px);
+    line-height:1.06;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    margin-bottom:18px;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.22s forwards;
+    max-width:720px;
+  }
+  h1 .accent{color:var(--pine);}
+  .page-sub{
+    font-size:17px;
+    color:var(--stone);
+    max-width:560px;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.36s forwards;
+  }
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ===== HOW IT WORKS STRIP ===== */
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    margin-top:44px;
+    opacity:0;
+    animation:fadeUp 0.7s ease 0.5s forwards;
+  }
+  .step{
+    background:var(--card);
+    padding:26px 28px;
+  }
+  .step-num{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--amber);
+    letter-spacing:0.06em;
+    margin-bottom:10px;
+  }
+  .step h3{
+    font-family:var(--display);
+    font-size:16.5px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .step p{
+    font-size:13.5px;
+    color:var(--stone);
+    line-height:1.5;
+  }
+  @media (max-width:760px){
+    .steps{grid-template-columns:1fr;}
+  }
+
+  /* ===== SECTION SCAFFOLDING ===== */
+  section{padding:50px 0 100px;}
+  .section-head{
+    margin-bottom:44px;
+    max-width:640px;
+  }
+  .section-tag{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--pine);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:14px;
+    display:block;
+  }
+  h2{
+    font-family:var(--display);
+    font-size:clamp(26px, 3.2vw, 36px);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.15;
+  }
+  .section-sub{
+    color:var(--stone);
+    font-size:15.5px;
+    margin-top:12px;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ===== FILTER PILLS ===== */
+  .filter-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-bottom:34px;
+  }
+  .filter-pill{
+    font-family:var(--mono);
+    font-size:12.5px;
+    padding:8px 15px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--stone);
+    cursor:pointer;
+    transition:border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .filter-pill:hover{border-color:var(--pine); color:var(--pine);}
+  .filter-pill.active{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:var(--paper);
+  }
+
+  /* ===== TEMPLATE GRID ===== */
+  .tpl-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
+    gap:26px;
+  }
+  .tpl-card{
+    display:flex;
+    flex-direction:column;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+  }
+  .tpl-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 22px 46px -22px rgba(11,14,20,0.24);
+    border-color:var(--pine);
+  }
+  .tpl-card.hidden{display:none;}
+
+  .tpl-media{
+    position:relative;
+    display:block;
+    height:186px;
+    overflow:hidden;
+    background:var(--ink);
+  }
+  .tpl-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    filter:grayscale(28%) brightness(0.88) saturate(0.85);
+    transition:transform 0.5s ease, filter 0.4s ease;
+  }
+  .tpl-card:hover .tpl-media img{
+    transform:scale(1.05);
+    filter:grayscale(0%) brightness(1) saturate(1);
+  }
+  .tpl-media::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(11,14,20,0.55) 0%, rgba(11,14,20,0.05) 55%);
+    pointer-events:none;
+  }
+  .tpl-cat{
+    position:absolute;
+    top:14px; left:14px;
+    z-index:2;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.04em;
+    background:rgba(247,245,240,0.92);
+    color:var(--ink);
+    padding:5px 11px;
+    border-radius:20px;
+  }
+  .tpl-num{
+    position:absolute;
+    top:14px; right:16px;
+    z-index:2;
+    font-family:var(--mono);
+    font-size:12px;
+    color:rgba(247,245,240,0.75);
+  }
+  .tpl-view{
+    position:absolute;
+    bottom:14px; left:16px;
+    z-index:2;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--paper);
+    display:flex;
+    align-items:center;
+    gap:7px;
+    opacity:0.85;
+    transition:opacity 0.25s ease, gap 0.25s ease;
+  }
+  .tpl-card:hover .tpl-view{opacity:1; gap:10px;}
+
+  .tpl-body{
+    padding:22px 24px 6px;
+    flex:1;
+  }
+  .tpl-body h3{
+    font-family:var(--display);
+    font-size:19px;
+    font-weight:600;
+    margin-bottom:3px;
+    letter-spacing:-0.01em;
+  }
+  .tpl-trade{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--pine);
+    letter-spacing:0.03em;
+    margin-bottom:11px;
+  }
+  .tpl-body p{
+    font-size:13.8px;
+    color:var(--stone);
+    line-height:1.55;
+    margin-bottom:16px;
+  }
+  .tpl-pages{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .tpl-pages li{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--stone);
+    border:1px solid var(--line);
+    padding:4px 9px;
+    border-radius:5px;
+  }
+
+  .tpl-foot{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    padding:20px 24px 22px;
+    margin-top:20px;
+    border-top:1px solid var(--line);
+  }
+  .tpl-price{
+    font-family:var(--display);
+    font-size:27px;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    line-height:1;
+    display:flex;
+    align-items:baseline;
+    gap:2px;
+  }
+  .tpl-price .tp-once{
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:400;
+    color:var(--stone);
+    letter-spacing:0.03em;
+    margin-left:7px;
+  }
+  .tpl-buy{
+    font-family:var(--mono);
+    font-size:12.5px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:10px 17px;
+    border-radius:8px;
+    white-space:nowrap;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .tpl-buy:hover{background:var(--pine); transform:translateY(-1px);}
+
+  .no-results{
+    display:none;
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:var(--stone);
+    padding:40px 0;
+  }
+  .no-results.show{display:block;}
+
+  /* ===== INCLUDED SECTION ===== */
+  .incl-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:22px;
+  }
+  .incl-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 26px 28px;
+  }
+  .incl-icon{
+    width:40px; height:40px;
+    border-radius:10px;
+    background:rgba(46,110,94,0.09);
+    color:var(--pine);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:16px;
+  }
+  .incl-card h3{
+    font-family:var(--display);
+    font-size:16.5px;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .incl-card p{
+    font-size:13.6px;
+    color:var(--stone);
+    line-height:1.55;
+  }
+
+  /* ===== LICENCE / SMALL PRINT ===== */
+  .note-band{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:30px 34px;
+    display:flex;
+    gap:22px;
+    align-items:flex-start;
+    margin-top:26px;
+  }
+  .note-icon{
+    flex-shrink:0;
+    width:42px; height:42px;
+    border-radius:11px;
+    background:rgba(232,163,61,0.14);
+    color:var(--amber);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .note-band h3{
+    font-family:var(--display);
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .note-band p{
+    font-size:14px;
+    color:var(--stone);
+    line-height:1.6;
+  }
+  .note-band p + p{margin-top:9px;}
+  .ph{
+    font-family:var(--mono);
+    font-size:0.9em;
+    background:rgba(46,110,94,0.09);
+    color:var(--pine);
+    padding:2px 6px;
+    border-radius:4px;
+    white-space:nowrap;
+  }
+  @media (max-width:600px){
+    .note-band{flex-direction:column; padding:24px 22px; gap:16px;}
+  }
+
+  /* ===== CLOSING CTA ===== */
+  .cta-band{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:18px;
+    padding:48px 44px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:28px;
+    flex-wrap:wrap;
+  }
+  .cta-band h2{color:var(--paper);}
+  .cta-band p{
+    color:rgba(247,245,240,0.62);
+    font-size:15px;
+    margin-top:10px;
+    max-width:440px;
+  }
+  .btn-amber{
+    font-family:var(--mono);
+    font-size:13.5px;
+    background:var(--amber);
+    color:var(--ink);
+    padding:14px 24px;
+    border-radius:9px;
+    white-space:nowrap;
+    transition:transform 0.2s ease, background 0.2s ease;
+  }
+  .btn-amber:hover{background:#F2B255; transform:translateY(-2px);}
+  @media (max-width:700px){
+    .cta-band{padding:34px 26px;}
+  }
+
+  main{
+    position:relative;
+    z-index:1;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    padding:48px 0 36px;
+    text-align:center;
+    position:relative;
+    z-index:1;
+  }
+  footer .f-logo{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--stone);
+    margin-bottom:8px;
+  }
+  footer .f-note{
+    font-size:12.5px;
+    color:rgba(139,131,120,0.6);
+  }
+
+  @media (max-width:600px){
+    .wrap{padding:0 20px;}
+    .page-header{padding:130px 0 44px;}
+    .tpl-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="symbol-field" id="symbolField" aria-hidden="true"></div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="dot"></span>michealdev.ie</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#browse" class="nav-link active">Browse</a>
+      <a href="#included" class="nav-link">What you get</a>
+      <a href="#licence" class="nav-link">Licence</a>
+      <a href="index.html#contact" class="nav-cta-mobile">Get in touch</a>
+      <a href="portfolio.html" class="nav-portfolio-mobile">Portfolio</a>
+    </div>
+    <div class="nav-pages">
+      <a href="portfolio.html" class="nav-page">Portfolio</a>
+      <a href="templates.html" class="nav-cta">Templates</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="wrap">
+    <span class="eyebrow">TEMPLATES</span>
+    <h1>Sites I’ve already built, <span class="accent">€5 each.</span></h1>
+    <p class="page-sub">These are four sites I built for real businesses. I’ve taken the names and contact details out and left placeholders behind, so you can put your own in and get it online. You pay once and the files are yours.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">STEP 01</div>
+        <h3>Have a look</h3>
+        <p>Open the demo and click around it. What you see there is what you get, there’s nothing held back.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 02</div>
+        <h3>Pay €5</h3>
+        <p>Send me an email saying which one you want. It’s five euro, once, and there’s no account to set up.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 03</div>
+        <h3>Get the files</h3>
+        <p>I send you the folder with the HTML, CSS and images in it. You can host it free on GitHub Pages or wherever you like.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="browse">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">Browse</span>
+        <h2>What I have at the minute</h2>
+        <p class="section-sub">Each one was built for a particular kind of business, so the layout already suits it. There are four for now and I’ll add more as I build them.</p>
+      </div>
+
+      <div class="filter-row reveal" id="filterRow" role="group" aria-label="Filter templates by category">
+        <button class="filter-pill active" data-filter="all">All 4</button>
+        <button class="filter-pill" data-filter="food">Food &amp; drink</button>
+        <button class="filter-pill" data-filter="care">Care &amp; health</button>
+        <button class="filter-pill" data-filter="trade">Trades &amp; services</button>
+      </div>
+
+      <div class="tpl-grid reveal" id="tplGrid">
+
+        <!-- 01 - Nursing & care home -->
+        <article class="tpl-card" data-cat="care">
+          <a class="tpl-media" href="Templates/ard-na-ri/index.html" target="_blank" rel="noopener" aria-label="View the nursing and care home template demo">
+            <img src="Templates/ard-na-ri/Gallery/outside.jpg" alt="Nursing and care home website template preview" loading="lazy" width="640" height="380">
+            <span class="tpl-cat">Care &amp; health</span>
+            <span class="tpl-num">01</span>
+            <span class="tpl-view">View live demo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+          </a>
+          <div class="tpl-body">
+            <h3>Nursing &amp; Care Home</h3>
+            <div class="tpl-trade">Nursing homes &middot; care &middot; respite</div>
+            <p>This one’s for nursing and care homes. There are four photo galleries covering rooms, gardens, activities and services, because families want to see the place before they ring you. The whole thing reads warm rather than clinical.</p>
+            <ul class="tpl-pages">
+              <li>Single page</li><li>4 galleries</li><li>Services</li><li>Contact</li>
+            </ul>
+          </div>
+          <div class="tpl-foot">
+            <div class="tpl-price">&euro;5<span class="tp-once">once off</span></div>
+            <a class="tpl-buy" href="mailto:micheal.finnerty2@gmail.com?subject=Template%20purchase%3A%20Nursing%20%26%20Care%20Home%20(%E2%82%AC5)&amp;body=Hi%20Miche%C3%A1l%2C%0A%0AI%27d%20like%20to%20buy%20the%20Nursing%20%26%20Care%20Home%20template%20for%20%E2%82%AC5.%0A%0ABusiness%20name%3A%0A%0AThanks%2C">Buy for &euro;5</a>
+          </div>
+        </article>
+
+        <!-- 02 - Chinese takeaway -->
+        <article class="tpl-card" data-cat="food">
+          <a class="tpl-media" href="Templates/ruby-chinese/index.html" target="_blank" rel="noopener" aria-label="View the Chinese takeaway template demo">
+            <img src="Templates/ruby-chinese/1000x1250.avif" alt="Chinese takeaway website template preview" loading="lazy" width="640" height="380">
+            <span class="tpl-cat">Food &amp; drink</span>
+            <span class="tpl-num">02</span>
+            <span class="tpl-view">View live demo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+          </a>
+          <div class="tpl-body">
+            <h3>Chinese Takeaway</h3>
+            <div class="tpl-trade">Takeaways &middot; restaurants &middot; collection</div>
+            <p>The menu gets a page to itself, with a photo and a price for every dish. Opening hours and a tap-to-call number sit up at the top, and the site can be saved to a phone home screen like an app. Handy if most of your orders come in over the phone.</p>
+            <ul class="tpl-pages">
+              <li>Home</li><li>Full menu</li><li>Photo dishes</li><li>Installable app</li>
+            </ul>
+          </div>
+          <div class="tpl-foot">
+            <div class="tpl-price">&euro;5<span class="tp-once">once off</span></div>
+            <a class="tpl-buy" href="mailto:micheal.finnerty2@gmail.com?subject=Template%20purchase%3A%20Chinese%20Takeaway%20(%E2%82%AC5)&amp;body=Hi%20Miche%C3%A1l%2C%0A%0AI%27d%20like%20to%20buy%20the%20Chinese%20Takeaway%20template%20for%20%E2%82%AC5.%0A%0ABusiness%20name%3A%0A%0AThanks%2C">Buy for &euro;5</a>
+          </div>
+        </article>
+
+        <!-- 03 - Laundrette / self-service -->
+        <article class="tpl-card" data-cat="trade">
+          <a class="tpl-media" href="Templates/laundry-luxe/index.html" target="_blank" rel="noopener" aria-label="View the laundrette template demo">
+            <img src="Templates/laundry-luxe/Gallery/Apparatus/Apparatus2.webp" alt="Self-service laundrette website template preview" loading="lazy" width="640" height="380">
+            <span class="tpl-cat">Trades &amp; services</span>
+            <span class="tpl-num">03</span>
+            <span class="tpl-view">View live demo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+          </a>
+          <div class="tpl-body">
+            <h3>Laundrette &amp; Self-Service</h3>
+            <div class="tpl-trade">Laundrettes &middot; self-service &middot; multi-site</div>
+            <p>Worth a look if you work out of more than one spot. It has a proper locations map with a county filter and 28 example sites already on it. Put your own addresses into the list and the map sorts itself out. Machine sizes and pricing are covered too.</p>
+            <ul class="tpl-pages">
+              <li>Home</li><li>Pricing</li><li>Locations map</li><li>24/7 hours</li>
+            </ul>
+          </div>
+          <div class="tpl-foot">
+            <div class="tpl-price">&euro;5<span class="tp-once">once off</span></div>
+            <a class="tpl-buy" href="mailto:micheal.finnerty2@gmail.com?subject=Template%20purchase%3A%20Laundrette%20%26%20Self-Service%20(%E2%82%AC5)&amp;body=Hi%20Miche%C3%A1l%2C%0A%0AI%27d%20like%20to%20buy%20the%20Laundrette%20%26%20Self-Service%20template%20for%20%E2%82%AC5.%0A%0ABusiness%20name%3A%0A%0AThanks%2C">Buy for &euro;5</a>
+          </div>
+        </article>
+
+        <!-- 04 - Security & CCTV installer -->
+        <article class="tpl-card" data-cat="trade">
+          <a class="tpl-media" href="Templates/vartek/index.html" target="_blank" rel="noopener" aria-label="View the security installer template demo">
+            <img src="Templates/vartek/Image/Photo3.avif" alt="Security and CCTV installer website template preview" loading="lazy" width="640" height="380">
+            <span class="tpl-cat">Trades &amp; services</span>
+            <span class="tpl-num">04</span>
+            <span class="tpl-view">View live demo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+          </a>
+          <div class="tpl-body">
+            <h3>Security &amp; CCTV Installer</h3>
+            <div class="tpl-trade">Installers &middot; electricians &middot; trades</div>
+            <p>The most formal looking of the four. There’s a full services page with room for your licence numbers and accreditations, and the sitemap, robots file and error page are all set up already so Google reads it properly.</p>
+            <ul class="tpl-pages">
+              <li>Home</li><li>Services</li><li>404 page</li><li>Sitemap + robots</li>
+            </ul>
+          </div>
+          <div class="tpl-foot">
+            <div class="tpl-price">&euro;5<span class="tp-once">once off</span></div>
+            <a class="tpl-buy" href="mailto:micheal.finnerty2@gmail.com?subject=Template%20purchase%3A%20Security%20%26%20CCTV%20Installer%20(%E2%82%AC5)&amp;body=Hi%20Miche%C3%A1l%2C%0A%0AI%27d%20like%20to%20buy%20the%20Security%20%26%20CCTV%20Installer%20template%20for%20%E2%82%AC5.%0A%0ABusiness%20name%3A%0A%0AThanks%2C">Buy for &euro;5</a>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="no-results" id="noResults">Nothing in that one yet. Try “All 4”, or <a href="index.html#contact" style="color:var(--pine); text-decoration:underline;">ask me about a custom build</a>.</p>
+    </div>
+  </section>
+
+  <section id="included">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">What you get</span>
+        <h2>What you actually get</h2>
+        <p class="section-sub">It’s the real site, not a cut down demo version of it.</p>
+      </div>
+
+      <div class="incl-grid reveal">
+        <div class="incl-card">
+          <div class="incl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+          <h3>All the files</h3>
+          <p>Every HTML, CSS and JavaScript file, along with the images and icons. There’s no paid upgrade and nothing held back.</p>
+        </div>
+        <div class="incl-card">
+          <div class="incl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+          <h3>Works on phones</h3>
+          <p>Built for small screens first and tested there. Most people will land on your site from a phone, so that’s the one that matters.</p>
+        </div>
+        <div class="incl-card">
+          <div class="incl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
+          <h3>Set up for Google</h3>
+          <p>The page titles, descriptions and headings are already done properly. Swap the text for your own details and you’re in decent shape.</p>
+        </div>
+        <div class="incl-card">
+          <div class="incl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <h3>Free hosting</h3>
+          <p>I’ll send you written steps for putting it up on GitHub Pages, which costs nothing and stays fast. The only thing you’d pay for is a domain name.</p>
+        </div>
+        <div class="incl-card">
+          <div class="incl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+          <h3>Loads fast</h3>
+          <p>Plain HTML and CSS with no heavy frameworks, and the images are already compressed. They open quickly even on a bad rural signal.</p>
+        </div>
+        <div class="incl-card">
+          <div class="incl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3>Help if you get stuck</h3>
+          <p>Email me if something won’t behave and I’ll point you right. If you’d rather not go near the code at all, I can set the whole thing up for you as a separate job.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="licence">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">The small print</span>
+        <h2>What you can do with it</h2>
+      </div>
+
+      <div class="note-band reveal">
+        <div class="note-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div>
+          <h3>Using it</h3>
+          <p>The €5 covers one business. Change whatever you want, host it wherever you want and keep it as long as you want. There’s no licence key and nothing to renew.</p>
+          <p>The only thing I’d ask is that you don’t turn around and sell the template on as your own. If you build sites yourself and want to use it for a client, that’s grand, just message me first and we’ll sort something out.</p>
+          <p>I’ve taken all the real details out already. Every business name, phone number, email and address is now an obvious placeholder (<span class="ph">Brand Name Here</span>, <span class="ph">hello@brandnamehere.ie</span>, <span class="ph">000 000 0000</span>, <span class="ph">Your Town</span>), so you can search for those and drop your own in.</p>
+          <p><strong>The photos are the one exception.</strong> They’re real pictures of real premises and vans, and a few of them have signage in shot. They’re only there so you can see how the layout works, so put your own in before the site goes live.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="custom">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <div>
+          <h2>Want it built for you instead?</h2>
+          <p>If you’d rather not do the editing yourself, I build full sites from €100, and €300 if you want booking forms or a database behind it.</p>
+        </div>
+        <a href="index.html#pricing" class="btn-amber">See the packages</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-logo">michealdev.ie</div>
+    <div class="f-note">Micheál Finnerty · Pallaskenry, Co. Limerick · © 2026</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ===== Nav scroll state =====
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  // ===== Mobile nav toggle =====
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    const isOpen = links.classList.toggle('open');
+    toggle.classList.toggle('active', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.classList.remove('active');
+    toggle.setAttribute('aria-expanded', false);
+  }));
+
+  // ===== Smooth scroll with navbar offset =====
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#' || !document.querySelector(href)) return;
+
+      e.preventDefault();
+      const target = document.querySelector(href);
+      const offsetTop = target.offsetTop - 80; // offset for fixed navbar
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  // ===== Active link highlight on scroll =====
+  const sections = ['browse', 'included', 'licence'].map(id => document.getElementById(id));
+  const navAnchors = document.querySelectorAll('.nav-link');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if ('IntersectionObserver' in window) {
+    const navIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navAnchors.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.25, rootMargin: '-80px 0px -40% 0px' });
+    sections.forEach(s => s && navIo.observe(s));
+  }
+
+  // ===== Category filter =====
+  (function initFilter(){
+    const row = document.getElementById('filterRow');
+    const grid = document.getElementById('tplGrid');
+    const empty = document.getElementById('noResults');
+    if (!row || !grid) return;
+
+    const cards = Array.from(grid.querySelectorAll('.tpl-card'));
+
+    row.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-pill');
+      if (!btn) return;
+
+      row.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      let shown = 0;
+
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !match);
+        if (match) shown++;
+      });
+
+      empty.classList.toggle('show', shown === 0);
+    });
+  })();
+
+  // ===== Falling code symbols (full page) =====
+  (function initSymbolField(){
+    const field = document.getElementById('symbolField');
+    if (!field) return;
+
+    const glyphs = ['</>', '{ }', ';', '#', '=>', '( )', '01', '&&', '::', '/*'];
+    const colors = ['var(--pine)', 'var(--stone)', 'var(--amber)'];
+    const COUNT = 34;
+
+    function getDocHeight(){
+      return Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+    }
+
+    function getDarkZones(){
+      // Sections with a dark background that symbols need extra contrast over.
+      return Array.from(document.querySelectorAll('.cta-band')).map(elDark => {
+        const rect = elDark.getBoundingClientRect();
+        const scrollY = window.scrollY || window.pageYOffset;
+        return { top: rect.top + scrollY, bottom: rect.bottom + scrollY };
+      });
+    }
+
+    if (reduceMotion) {
+      // Static scattered across the full page, no animation, still draggable.
+      const docHeight = getDocHeight();
+      field.style.height = docHeight + 'px';
+      const darkZones = getDarkZones();
+      for (let i = 0; i < COUNT; i++){
+        const el = document.createElement('span');
+        el.className = 'code-symbol';
+        el.textContent = glyphs[i % glyphs.length];
+        const topPx = Math.random() * docHeight;
+        el.style.left = (Math.random() * 92) + '%';
+        el.style.top = topPx + 'px';
+        el.style.fontSize = (14 + Math.random() * 16) + 'px';
+        el.style.color = colors[i % colors.length];
+        const onDark = darkZones.some(z => topPx >= z.top && topPx <= z.bottom);
+        el.style.opacity = (onDark ? 0.4 + Math.random() * 0.22 : 0.26 + Math.random() * 0.2).toFixed(2);
+        if (onDark) el.classList.add('on-dark');
+        field.appendChild(el);
+      }
+      return;
+    }
+
+    const symbols = [];
+    let docHeight = getDocHeight();
+    let darkZones = getDarkZones();
+
+    function makeSymbol(){
+      const el = document.createElement('span');
+      el.className = 'code-symbol';
+      el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+      const size = 14 + Math.random() * 18;
+      el.style.fontSize = size + 'px';
+      el.style.color = colors[Math.floor(Math.random() * colors.length)];
+      const baseOpacity = 0.2 + Math.random() * 0.22;
+      el.style.opacity = baseOpacity.toFixed(2);
+      field.appendChild(el);
+
+      const fieldWidth = field.clientWidth || 800;
+      const state = {
+        el,
+        x: Math.random() * Math.max(fieldWidth - 30, 40),
+        y: Math.random() * docHeight, // scatter across the whole page on load
+        speed: 20 + Math.random() * 22, // px per second
+        sway: Math.random() * 18,
+        swaySpeed: 0.3 + Math.random() * 0.5,
+        swayPhase: Math.random() * Math.PI * 2,
+        dragging: false,
+        baseOpacity,
+        onDark: false
+      };
+      symbols.push(state);
+      attachDrag(state);
+      return state;
+    }
+
+    function attachDrag(state){
+      const { el } = state;
+      let startX = 0, startY = 0, originX = 0, originY = 0;
+
+      function onPointerDown(e){
+        e.preventDefault();
+        state.dragging = true;
+        el.classList.add('dragging');
+        el.setPointerCapture && el.setPointerCapture(e.pointerId);
+        startX = e.clientX;
+        startY = e.clientY;
+        originX = state.x;
+        originY = state.y;
+        window.addEventListener('pointermove', onPointerMove);
+        window.addEventListener('pointerup', onPointerUp);
+      }
+
+      function onPointerMove(e){
+        if (!state.dragging) return;
+        const fieldRect = field.getBoundingClientRect();
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        state.x = Math.min(Math.max(originX + dx, -40), fieldRect.width - 10);
+        state.y = Math.min(Math.max(originY + dy, -200), docHeight - 10);
+        render(state);
+      }
+
+      function onPointerUp(){
+        state.dragging = false;
+        el.classList.remove('dragging');
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', onPointerUp);
+      }
+
+      el.addEventListener('pointerdown', onPointerDown);
+    }
+
+    function applyDarkState(state, absoluteY){
+      const onDark = darkZones.some(z => absoluteY >= z.top - 40 && absoluteY <= z.bottom + 40);
+      if (onDark !== state.onDark){
+        state.onDark = onDark;
+        state.el.classList.toggle('on-dark', onDark);
+        state.el.style.opacity = (onDark
+          ? Math.min(state.baseOpacity + 0.22, 0.7)
+          : state.baseOpacity).toFixed(2);
+      }
+    }
+
+    function render(state){
+      state.el.style.transform = 'translate(' + state.x + 'px, ' + state.y + 'px)';
+      applyDarkState(state, state.y);
+    }
+
+    for (let i = 0; i < COUNT; i++) makeSymbol();
+
+    function resizeField(){
+      docHeight = getDocHeight();
+      darkZones = getDarkZones();
+      field.style.height = docHeight + 'px';
+    }
+    resizeField();
+    window.addEventListener('resize', resizeField, { passive: true });
+    window.addEventListener('load', resizeField);
+    setTimeout(resizeField, 1200);
+    setTimeout(resizeField, 3000);
+
+    let lastT = performance.now();
+    function tick(t){
+      const dt = Math.min((t - lastT) / 1000, 0.05);
+      lastT = t;
+      const fieldWidth = field.clientWidth || 800;
+
+      symbols.forEach(state => {
+        if (state.dragging) return;
+        state.y += state.speed * dt;
+        state.swayPhase += state.swaySpeed * dt;
+        const swayOffset = Math.sin(state.swayPhase) * state.sway;
+        if (state.y > docHeight + 20) {
+          state.y = -30;
+          state.x = Math.random() * Math.max(fieldWidth - 30, 40);
+        }
+        state.el.style.transform = 'translate(' + (state.x + swayOffset) + 'px, ' + state.y + 'px)';
+        applyDarkState(state, state.y);
+      });
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  // ===== Scroll reveal =====
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+})();
+</script>
+
+</body>
+</html>
