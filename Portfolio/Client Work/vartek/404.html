@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found | VarTeK Security</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1C2260">
+
+<link rel="icon" href="Brand Library/Logo.png" type="image/png">
+<link rel="apple-touch-icon" href="Brand Library/Logo.png">
+
+<style>
+  :root {
+    --ink-navy: #1C2260;
+    --charcoal: #12131A;
+    --signal-cyan: #17C9D6;
+    --white: #FFFFFF;
+    --radius: 4px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(160deg, var(--charcoal) 0%, var(--ink-navy) 100%);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .not-found {
+    max-width: 480px;
+    position: relative;
+    padding: clamp(2rem, 6vw, 3rem);
+  }
+
+  .not-found::before,
+  .not-found::after,
+  .not-found span::before,
+  .not-found span::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--signal-cyan);
+  }
+
+  .not-found::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .not-found::after { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .not-found span::before { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .not-found span::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+  .eyebrow {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', Consolas, 'Roboto Mono', Menlo, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--signal-cyan);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 800;
+    margin: 0.75rem 0 0.5rem;
+  }
+
+  p {
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 2rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    color: var(--ink-navy);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.9rem 1.75rem;
+    border-radius: var(--radius);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--signal-cyan);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+  <div class="not-found">
+    <span></span>
+    <p class="eyebrow">Camera Offline</p>
+    <h1>404</h1>
+    <p>This page isn't on our feed. It may have moved or never existed.</p>
+    <a href="index.html" class="btn-primary">Back To Home</a>
+  </div>
+</body>
+</html>

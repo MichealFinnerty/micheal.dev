@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vartek.ie/sitemap.xml

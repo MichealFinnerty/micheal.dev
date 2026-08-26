@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laundry Luxe Ireland | Laundry made simple and stress-free</title>
+<meta name="description" content="Laundry Luxe Ireland — self-service 18KG wash and dry machines in locations near you. Detergent included, open 24/7, eco-friendly.">
+
+<style>
+  /* ============================================
+     TOKENS
+     ============================================ */
+  :root{
+    --blue:      #4598C4;   /* Laundry Blue — primary */
+    --blue-dark: #33769D;   /* pressed / hover state of primary */
+    --navy:      #293244;   /* Deep Navy — dark sections, ink */
+    --silver:    #A9B4BC;   /* Metal Silver — borders, secondary text */
+    --mist:      #EEF4F8;   /* Mist — light section backgrounds */
+    --white:     #FFFFFF;
+
+    --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-body:    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono:    ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+
+    --container: 1120px;
+    --radius: 10px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body{
+    margin:0;
+    font-family: var(--font-body);
+    color: var(--navy);
+    background: var(--white);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; }
+  h1,h2,h3{ font-family: var(--font-display); margin: 0; }
+  section{ padding: 5rem 1.5rem; }
+  .wrap{ max-width: var(--container); margin: 0 auto; }
+  .eyebrow{
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .75rem;
+    font-weight: 600;
+  }
+  button{ font-family: inherit; cursor:pointer; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  }
+
+  /* ============================================
+     HEADER / NAV
+     ============================================ */
+  header{
+    position: sticky; top:0; z-index: 100;
+    background: var(--blue);
+  }
+  .nav-inner{
+    max-width: var(--container); margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 1.1rem 1.5rem;
+  }
+  .logo{
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.15rem;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration:none;
+    white-space: nowrap;
+  }
+  nav.primary-nav ul{
+    list-style:none; display:flex; gap: 2rem; margin:0; padding:0;
+  }
+  nav.primary-nav a{
+    color: var(--white);
+    text-decoration:none;
+    font-weight: 600;
+    font-size: .95rem;
+    padding: .25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color .15s ease, opacity .15s ease;
+  }
+  nav.primary-nav a:hover{ border-color: var(--white); }
+  nav.primary-nav a:focus-visible{
+    outline: 2px solid var(--white);
+    outline-offset: 4px;
+  }
+
+  /* Hamburger — hidden on desktop */
+  .hamburger{
+    display:none;
+    position:relative;
+    width: 32px; height: 32px;
+    background:none; border:none; padding:0;
+    z-index: 200;
+  }
+  .hamburger span{
+    position:absolute; left:4px; right:4px;
+    height:3px; border-radius: 2px;
+    background: var(--white);
+    transition: transform .28s ease, opacity .2s ease, top .28s ease;
+  }
+  .hamburger span:nth-child(1){ top: 10px; }
+  .hamburger span:nth-child(2){ top: 19px; }
+  .hamburger[aria-expanded="true"] span:nth-child(1){
+    top: 15px; transform: rotate(45deg);
+  }
+  .hamburger[aria-expanded="true"] span:nth-child(2){
+    top: 15px; transform: rotate(-45deg);
+  }
+
+  /* Blur overlay behind the mobile panel */
+  .nav-scrim{
+    display:none;
+    position: fixed; inset:0;
+    background: rgba(41,50,68,.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 90;
+    opacity: 0;
+    transition: opacity .25s ease;
+  }
+  body.nav-open .nav-scrim{ display:block; opacity:1; }
+  body.nav-open{ overflow:hidden; }
+
+  @media (max-width: 820px){
+    nav.primary-nav{
+      position: absolute;
+      top: 100%; left:0; right:0;
+      width: 100%;
+      background: var(--navy);
+      transform: translateY(-14px);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform .28s ease, opacity .22s ease, visibility .28s;
+      z-index: 150;
+      padding: 1.75rem 1.5rem 2.25rem;
+      box-shadow: 0 20px 30px -14px rgba(0,0,0,.4);
+    }
+    body.nav-open nav.primary-nav{
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+    nav.primary-nav ul{
+      flex-direction: column; gap: 1.5rem;
+    }
+    nav.primary-nav a{ font-size: 1.1rem; }
+    .hamburger{ display:block; }
+  }
+
+  /* ============================================
+     HERO
+     ============================================ */
+  .hero{
+    position: relative;
+    background: var(--blue);
+    padding: 5rem 1.5rem 0;
+  }
+  .hero .wrap{
+    position: relative;
+    z-index: 2;
+    padding-bottom: 4.5rem;
+  }
+  .hero-copy{ max-width: 560px; }
+  .hero h1{
+    color: var(--white);
+    font-size: clamp(2.1rem, 6vw, 3.6rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    line-height: 1.05;
+    max-width: 14ch;
+  }
+  .bubble-field{
+    position:absolute; inset:0;
+    z-index: 1;
+    overflow:hidden;
+    pointer-events:none;
+  }
+  .bubble{
+    position:absolute;
+    bottom: -60px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,.4);
+    background:
+      radial-gradient(circle at 28% 26%, rgba(255,255,255,.5), rgba(255,255,255,0) 45%),
+      conic-gradient(from 210deg,
+        rgba(255,190,235,.16),
+        rgba(180,255,225,.16),
+        rgba(190,215,255,.16),
+        rgba(255,230,190,.16),
+        rgba(255,190,235,.16));
+    box-shadow: inset 0 0 8px rgba(255,255,255,.15);
+    animation: rise linear infinite;
+  }
+  @keyframes rise{
+    0%   { transform: translateY(0) translateX(0); opacity:0; }
+    10%  { opacity: .55; }
+    90%  { opacity: .55; }
+    100% { transform: translateY(-560px) translateX(var(--drift, 20px)); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .bubble{ display:none; }
+  }
+  .cta-btn{
+    display:inline-block;
+    margin-top: 2rem;
+    background: var(--white);
+    color: var(--navy);
+    font-weight: 700;
+    text-decoration:none;
+    padding: .9rem 1.6rem;
+    border-radius: var(--radius);
+    transition: transform .15s ease, background .15s ease;
+  }
+  .cta-btn:hover{ background: var(--mist); transform: translateY(-2px); }
+  .cta-btn:focus-visible{ outline: 3px solid var(--navy); outline-offset: 2px; }
+
+  /* Readout strip — the "control panel" signature detail, hanging below the hero */
+  .readout{
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    z-index: 3;
+    width: min(760px, 92%);
+    background: var(--navy);
+    color: var(--silver);
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    padding: 1.1rem 1.75rem;
+    border-radius: 18px;
+    box-shadow: 0 20px 34px -14px rgba(0,0,0,.4);
+  }
+  .readout .wrap{
+    padding:0;
+    display:flex; flex-wrap:wrap; gap: .5rem 1.6rem;
+    justify-content:center;
+  }
+  .readout span::before{ content: "// "; color: var(--blue); }
+
+  /* ============================================
+     WHY CHOOSE
+     ============================================ */
+  .why{ background: var(--mist); padding-top: 6.5rem; }
+  .section-head{ text-align:center; max-width: 640px; margin: 0 auto 3rem; }
+  .section-head h2{
+    font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+  }
+  .feature-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.75rem;
+  }
+  .feature-card{
+    background: var(--white);
+    border: 1px solid #DCE4EA;
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+    text-align:left;
+  }
+  .feature-card .icon{
+    width: 42px; height:42px;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+  .feature-card h3{
+    font-size: 1.02rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .01em;
+  }
+
+  /* ============================================
+     SERVICES (card grid)
+     ============================================ */
+  .services{ background: var(--white); }
+  .services-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.75rem;
+    align-items: start;
+    max-width: 1040px; margin: 0 auto;
+  }
+  .service-card{
+    background: var(--mist);
+    border: 1px solid #DCE4EA;
+    border-radius: var(--radius);
+    padding: 2rem 1.75rem;
+  }
+  .service-top{ min-height: 160px; }
+  .service-card .icon{
+    width: 44px; height:44px;
+    color: var(--blue);
+    margin-bottom: 1.1rem;
+  }
+  .service-card h3{
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .01em;
+    margin-bottom: .5rem;
+  }
+  .service-stat{
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    color: var(--blue-dark);
+    letter-spacing: .02em;
+    margin: 0;
+  }
+  .temp-chips{ display:flex; flex-wrap:wrap; gap:.5rem; margin: 1rem 0 0; padding:0; list-style:none; }
+  .temp-chips li{
+    font-family: var(--font-mono);
+    background: var(--white);
+    border: 1px solid var(--silver);
+    color: var(--navy);
+    font-size: .78rem;
+    padding: .3rem .6rem;
+    border-radius: 999px;
+  }
+  .service-card details{
+    margin-top: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid #DCE4EA;
+  }
+  .service-card summary{
+    cursor:pointer;
+    list-style:none;
+    display:inline-flex; align-items:center; gap:.4rem;
+    font-weight: 700;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--navy);
+  }
+  .service-card summary::-webkit-details-marker{ display:none; }
+  .service-card summary .icon-toggle{
+    font-family: var(--font-mono);
+    color: var(--blue);
+    transition: transform .2s ease;
+  }
+  .service-card details[open] summary .icon-toggle{ transform: rotate(45deg); }
+  .service-card details p{
+    margin: .8rem 0 0;
+    color:#3E4A5C;
+    font-size: .92rem;
+  }
+  .detail-list{
+    list-style:none;
+    margin: .8rem 0 0;
+    padding: 0;
+    display:flex; flex-direction:column;
+    gap: .5rem;
+  }
+  .detail-list li{
+    display:flex; gap: .55rem;
+    font-size: .88rem;
+    color:#3E4A5C;
+    line-height: 1.4;
+  }
+  .detail-list li::before{
+    content: "";
+    flex-shrink:0;
+    width: 6px; height:6px;
+    margin-top: .45em;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+  .detail-list b{ color: var(--navy); }
+
+  /* Services banner image */
+  .services-banner{
+    max-width: 800px; margin: 0 auto 3rem;
+    border-radius: var(--radius);
+    overflow:hidden;
+  }
+  .services-banner img{ width:100%; height:auto; }
+
+  /* ============================================
+     ABOUT
+     ============================================ */
+  .about{ background: var(--navy); color: var(--white); }
+  .about .section-head h2{ color: var(--white); }
+  .about-tiles{
+    display:flex; flex-direction:column;
+    gap: 3.5rem;
+    max-width: 980px; margin: 0 auto;
+  }
+  .about-tile{
+    display:grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 2.5rem;
+    align-items:center;
+  }
+  .about-tile img{
+    border-radius: var(--radius);
+    box-shadow: 0 18px 40px -14px rgba(0,0,0,.5);
+  }
+  .about-tile h3{
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--blue);
+    margin: 0 0 .6rem;
+  }
+  .about-tile p{
+    font-size: 1.02rem;
+    color: #D7DEE6;
+    margin:0;
+  }
+  @media (max-width: 760px){
+    .about-tile{ grid-template-columns: 1fr; }
+  }
+
+  /* ============================================
+     CONTACT
+     ============================================ */
+  .contact{ background: var(--mist); }
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 900px; margin: 0 auto;
+  }
+  @media (max-width: 720px){ .contact-grid{ grid-template-columns: 1fr; } }
+  .contact-info p{ color:#3E4A5C; }
+  .contact-links{ list-style:none; padding:0; margin: 1.5rem 0 0; }
+  .contact-links li{
+    display:flex; align-items:center; gap:.6rem;
+    margin-bottom:.8rem; font-weight:600;
+  }
+  .contact-links a{ text-decoration:none; color: var(--blue-dark); }
+  .contact-links a:hover{ text-decoration:underline; }
+  .contact-icon{
+    width: 18px; height:18px; flex-shrink:0;
+    color: var(--blue);
+  }
+  #copy-email-link{ cursor:pointer; }
+
+  form{ display:flex; flex-direction:column; gap: 1rem; }
+  .name-row{ display:flex; gap: 1rem; }
+  .name-row .field{ flex:1; }
+  label{
+    display:block; font-size:.8rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.05em;
+    margin-bottom:.35rem; color: var(--navy);
+  }
+  input, textarea{
+    width:100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: .7rem .8rem;
+    border: 1px solid var(--silver);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--navy);
+  }
+  input:focus-visible, textarea:focus-visible{
+    outline: 2px solid var(--blue); outline-offset: 1px;
+  }
+  textarea{ min-height: 120px; resize: vertical; }
+  .submit-btn{
+    align-self:flex-start;
+    background: var(--navy);
+    color: var(--white);
+    font-weight: 700;
+    letter-spacing: .04em;
+    border:none;
+    padding: .85rem 2rem;
+    border-radius: var(--radius);
+    transition: background .15s ease;
+  }
+  .submit-btn:hover{ background: var(--blue-dark); }
+  .form-note{ font-size:.85rem; color:#5B6A7A; margin-top: -.3rem; }
+
+  /* ============================================
+     FOOTER
+     ============================================ */
+  footer{
+    background: var(--navy);
+    color: var(--silver);
+    padding: 1.5rem 1.5rem;
+    font-size: .9rem;
+  }
+  .footer-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+  .footer-brand p{ margin:0; }
+  .footer-brand .brand{ font-weight:700; color: var(--white); }
+  .footer-brand .email-link{ color: var(--silver); }
+  .footer-brand .email-link:hover{ text-decoration:underline; }
+
+  .social-row{
+    display:flex; gap: 1.1rem;
+  }
+  .social-row a{ color: var(--white); }
+  .social-row svg{ width: 20px; height:20px; }
+
+  .footer-credit{ font-size: .8rem; color: var(--silver); }
+  .footer-credit a{ color: var(--white); font-weight:600; text-decoration:none; }
+  .footer-credit a:hover{ text-decoration:underline; }
+
+  footer a{ text-decoration:none; }
+
+  @media (max-width: 640px){
+    .footer-inner{ justify-content:flex-start; text-align:left; }
+    .footer-credit{ width:100%; text-align:left; }
+  }
+
+  /* ============================================
+     SCROLL REVEAL (progressive enhancement — JS adds .reveal then .in-view)
+     ============================================ */
+  .reveal{ opacity:0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in-view{ opacity:1; transform:none; }
+
+  /* ============================================
+     HEADER — shy on scroll + scrollspy state
+     ============================================ */
+  header{ transition: transform .3s ease; }
+  nav.primary-nav a.active{ border-color: var(--white); opacity:1; }
+
+  /* ============================================
+     BACK TO TOP
+     ============================================ */
+  .back-to-top{
+    position: fixed; right: 1.25rem; bottom: 1.25rem;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--navy); color: var(--white);
+    border: none; display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 10px 24px -8px rgba(0,0,0,.4);
+    opacity:0; pointer-events:none; transform: translateY(10px);
+    transition: opacity .25s ease, transform .25s ease, background .15s ease;
+    z-index: 80;
+  }
+  .back-to-top.visible{ opacity:1; pointer-events:auto; transform:none; }
+  .back-to-top:hover{ background: var(--blue-dark); }
+  .back-to-top:focus-visible{ outline: 2px solid var(--white); outline-offset: 2px; }
+
+  /* ============================================
+     TESTIMONIALS CAROUSEL
+     ============================================ */
+  .testimonials{ background: var(--white); }
+  .testimonial-carousel{
+    max-width: 700px; margin: 0 auto;
+    outline: none;
+  }
+  .testimonial-viewport{ overflow:hidden; }
+  .testimonial-track{
+    display:flex;
+    transition: transform .5s ease;
+  }
+  .testimonial-slide{
+    flex: 0 0 100%;
+    margin:0;
+    padding: 0 1rem;
+    text-align:center;
+  }
+  .testimonial-slide p{
+    font-size: 1.2rem;
+    color: var(--navy);
+    line-height:1.5;
+  }
+  .testimonial-slide cite{
+    display:block;
+    margin-top: 1.1rem;
+    font-family: var(--font-mono);
+    font-style:normal;
+    font-size: .8rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color: var(--blue-dark);
+  }
+  .carousel-controls{
+    display:flex; align-items:center; justify-content:center;
+    gap: 1.25rem; margin-top: 2rem;
+  }
+  .carousel-arrow{
+    width: 38px; height:38px; border-radius:50%;
+    background: var(--mist); border: 1px solid var(--silver);
+    color: var(--navy); font-size: 1.2rem; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .carousel-arrow:hover{ background: var(--blue); color: var(--white); border-color: var(--blue); }
+  .carousel-arrow:focus-visible{ outline: 2px solid var(--blue); outline-offset: 2px; }
+  .carousel-dots{ display:flex; gap:.5rem; }
+  .carousel-dots button{
+    width: 8px; height:8px; border-radius:50%;
+    background: var(--silver); border:none; padding:0;
+  }
+  .carousel-dots button.active{ background: var(--blue); width: 22px; border-radius: 5px; transition: width .2s ease, background .2s ease; }
+
+  /* ============================================
+     LOAD-CAPACITY TOGGLE (Dry 18kg card)
+     ============================================ */
+  .load-toggle{ margin-top: 1.1rem; }
+  .load-toggle-buttons{ display:flex; gap:.4rem; }
+  .load-toggle-buttons button{
+    flex:1;
+    background: var(--white);
+    border: 1px solid var(--silver);
+    color: var(--navy);
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    padding: .4rem 0;
+    border-radius: 8px;
+  }
+  .load-toggle-buttons button.active{
+    background: var(--navy); color: var(--white); border-color: var(--navy);
+  }
+  .load-fill-track{
+    margin-top: .75rem;
+    height: 10px; border-radius: 999px;
+    background: var(--white); border: 1px solid var(--silver);
+    overflow:hidden;
+  }
+  .load-fill-bar{
+    height:100%; width: 100%;
+    background: var(--blue);
+    border-radius: 999px;
+    transition: width .35s ease;
+  }
+  .load-toggle-caption{
+    margin: .6rem 0 0;
+    font-size: .82rem;
+    color: #3E4A5C;
+  }
+
+  /* ============================================
+     CONTACT — validation + char counter + copy
+     ============================================ */
+  .field-error{
+    display:block;
+    min-height: 1.1em;
+    font-size: .75rem;
+    color: #B3261E;
+    margin-top: .3rem;
+  }
+  input.invalid, textarea.invalid{ border-color: #B3261E; }
+  .char-count{
+    font-size: .75rem; color: var(--silver); text-align:right;
+    margin: -.6rem 0 0;
+  }
+
+  .toast{
+    position: fixed; left:50%; bottom: 1.5rem;
+    transform: translate(-50%, 20px);
+    background: var(--navy); color: var(--white);
+    font-size: .85rem; font-weight:600;
+    padding: .7rem 1.2rem; border-radius: 999px;
+    box-shadow: 0 12px 28px -10px rgba(0,0,0,.45);
+    opacity:0; pointer-events:none;
+    transition: opacity .25s ease, transform .25s ease;
+    z-index: 200;
+  }
+  .toast.show{ opacity:1; transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+
+<div class="nav-scrim" data-nav-scrim></div>
+
+<header>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">Laundry Luxe Ireland</a>
+
+    <nav class="primary-nav" id="primary-nav">
+      <ul>
+        <li><a href="index.html" data-section="home">Home</a></li>
+        <li><a href="#about" data-section="about">About</a></li>
+        <li><a href="map.html">Map</a></li>
+        <li><a href="#contact" data-section="contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="bubble-field" id="bubble-field" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1>Laundry made simple and stress-free</h1>
+      <a class="cta-btn" href="map.html?locate=1">Find a Laundry Luxe service near you!</a>
+    </div>
+  </div>
+  <div class="readout">
+    <div class="wrap">
+      <span>Open 24/7</span>
+      <span>18KG Drums</span>
+      <span>Eco Wash</span>
+      <span>Detergent Included</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE ============ -->
+<section class="why">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" style="color:var(--blue-dark)">Why Laundry Luxe</p>
+      <h2>Why choose Laundry Luxe</h2>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="9" r="2.4"/><circle cx="15" cy="6" r="1.6"/><circle cx="17" cy="13" r="1.9"/><circle cx="9" cy="17" r="1.5"/></svg>
+        <h3>Detergent included at no extra cost</h3>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10h19"/><circle cx="17.5" cy="15" r="1.4"/></svg>
+        <h3>Use cash or card</h3>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <h3>Open 24/7 with wheelchair accessibility</h3>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="2.5" width="18" height="19" rx="2"/><circle cx="12" cy="13" r="5"/><circle cx="12" cy="13" r="1.6"/><path d="M7 6h1M11 6h1"/></svg>
+        <h3>Our drums fit 3 of your loads at home</h3>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21c-4.5-2-7-5.2-7-9.2C5 7.6 8.4 4 12 3c3.6 1 7 4.6 7 8.8 0 4-2.5 7.2-7 9.2Z"/><path d="M12 8v9"/></svg>
+        <h3>Eco friendly wash service</h3>
+      </div>
+      <div class="feature-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="4" height="6" rx="1.4"/><rect x="17.5" y="13" width="4" height="6" rx="1.4"/><path d="M20 19v1a2 2 0 0 1-2 2h-3"/></svg>
+        <h3>Helpline connects you with a real person every time</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" style="color:var(--blue-dark)">What people say</p>
+      <h2>Real washes, real reviews</h2>
+    </div>
+
+    <div class="testimonial-carousel" id="testimonial-carousel" tabindex="0" aria-roledescription="carousel" aria-label="Customer testimonials">
+      <div class="testimonial-viewport">
+        <div class="testimonial-track" id="testimonial-track">
+          <blockquote class="testimonial-slide">
+            <p>"Ideal for duvets, cushions, heavy throws and bed linen, delighted with this service."</p>
+            <cite>Olivia, Carlow</cite>
+          </blockquote>
+          <blockquote class="testimonial-slide">
+            <p>"An absolute lifesaver after holidays, all done in one go."</p>
+            <cite>Marie, Limerick</cite>
+          </blockquote>
+          <blockquote class="testimonial-slide">
+            <p>"Ideal that detergent is included."</p>
+            <cite>James, Kilkenny</cite>
+          </blockquote>
+          <blockquote class="testimonial-slide">
+            <p>"The big dryers are a gift in wet weather, I get all my drying done in one go, would be lost without it."</p>
+            <cite>Mary, Galway</cite>
+          </blockquote>
+          <blockquote class="testimonial-slide">
+            <p>"The machine is very easy to use, voice prompt very helpful."</p>
+            <cite>Margaret, Clare</cite>
+          </blockquote>
+          <blockquote class="testimonial-slide">
+            <p>"Able to do the weekly wash while doing the shopping is a win-win."</p>
+            <cite>Joan, Limerick</cite>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-arrow" id="testimonial-prev" aria-label="Previous testimonial">&#8249;</button>
+        <div class="carousel-dots" id="testimonial-dots"></div>
+        <button class="carousel-arrow" id="testimonial-next" aria-label="Next testimonial">&#8250;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" style="color:var(--blue-dark)">What we offer</p>
+      <h2>Our Services</h2>
+    </div>
+
+    <div class="services-banner">
+      <img src="Gallery/Apparatus/Apparatus1.jpeg" alt="Laundry Luxe wash and dry bay" width="800" height="450">
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-top">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="2.5" width="18" height="19" rx="2"/><circle cx="12" cy="13" r="5"/><circle cx="12" cy="13" r="1.6"/><path d="M7 6h1M11 6h1"/></svg>
+          <h3>Wash 8kg &amp; 18kg</h3>
+          <p class="service-stat">5 temperature settings, 15&deg;&ndash;80&deg;</p>
+          <ul class="temp-chips">
+            <li>80&deg;</li><li>60&deg;</li><li>40&deg;</li><li>30&deg;</li><li>15&deg;</li>
+          </ul>
+        </div>
+        <details>
+          <summary><span class="label">More on wash settings</span> <span class="icon-toggle">+</span></summary>
+          <p>Every load is sorted by fabric type and washed with accurately measured hypoallergenic detergent.</p>
+          <ul class="detail-list">
+            <li><b>80&deg;</b> for heavily soiled, durable items</li>
+            <li><b>60&deg;</b> for towels, bedding, cottons</li>
+            <li><b>40&deg;</b> for everyday clothing</li>
+            <li><b>30&deg;</b> for colour care</li>
+            <li><b>15&deg;</b> for delicate fabrics</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="service-card">
+        <div class="service-top">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg>
+          <h3>Dry 18kg</h3>
+          <p class="service-stat">Fits 3 standard home loads</p>
+          <div class="load-toggle" data-load-toggle>
+            <div class="load-toggle-buttons">
+              <button type="button" data-loads="1">1 load</button>
+              <button type="button" data-loads="2">2 loads</button>
+              <button type="button" class="active" data-loads="3">3 loads</button>
+            </div>
+            <div class="load-fill-track">
+              <div class="load-fill-bar" id="load-fill-bar"></div>
+            </div>
+            <p class="load-toggle-caption" id="load-toggle-caption">3 home loads together still fit comfortably in one 18kg dry.</p>
+          </div>
+        </div>
+        <details>
+          <summary><span class="label">More on drying</span> <span class="icon-toggle">+</span></summary>
+          <p>Our 18kg dryer holds the equivalent of three standard home loads, drying evenly with three heat settings.</p>
+          <ul class="detail-list">
+            <li><b>High heat</b> for durable items</li>
+            <li><b>Medium heat</b> for everyday clothing</li>
+            <li><b>Low heat</b> for delicate, heat-sensitive fabrics</li>
+          </ul>
+          <p>Each load is monitored for safe, consistent drying.</p>
+        </details>
+      </div>
+
+      <div class="service-card">
+        <div class="service-top">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.3-7-11.5A7 7 0 0 1 19 9.5C19 14.7 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+          <h3>Available in locations near you</h3>
+          <p class="service-stat">Supermarkets &middot; petrol stations &middot; convenience stores</p>
+        </div>
+        <details>
+          <summary><span class="label">More on locations</span> <span class="icon-toggle">+</span></summary>
+          <p>You'll find Laundry Luxe machines exactly where you already are.</p>
+          <ul class="detail-list">
+            <li>Supermarket car parks</li>
+            <li>Petrol stations</li>
+            <li>Local convenience stores</li>
+          </ul>
+          <p>No detours, no wasted time, just fast, reliable laundry in your daily routine.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" style="color:var(--blue)">Who we are</p>
+      <h2>About us</h2>
+    </div>
+    <div class="about-tiles">
+      <div class="about-tile">
+        <div class="about-media">
+          <img src="Gallery/Apparatus/Apparatus2.webp" alt="Laundry Luxe machine outside a local shop" width="480" height="600">
+        </div>
+        <div class="about-copy">
+          <h3>Family-run, built around you</h3>
+          <p>Laundry Luxe Ireland is a family-run business that puts real care into every wash and dry, making everyday life a little easier for the people who rely on us. We welcome busy parents, students, shift workers, carers, Airbnb, sports clubs, and local businesses, anyone whose laundry basket seems to multiply when they're not looking!</p>
+        </div>
+      </div>
+
+      <div class="about-tile">
+        <div class="about-copy">
+          <h3>Gentle on skin, easy on your day</h3>
+          <p>We understand that sensitive skin, allergies, and special fabric needs are part of everyday life, so our hypoallergenic detergent and gentle wash settings are designed to keep you feeling comfortable and cared for. Our machines are perfectly located in places where you can get your shopping done, grab a coffee, or enjoy a rare moment of peace, whether that's between kids' activities or while you're hiding from your own to-do list. We look after your clothes with the same care we give our own, so you can get on with the good stuff.</p>
+        </div>
+        <div class="about-media">
+          <img src="Gallery/Apparatus/Apparatus3.webp" alt="Laundry Luxe 18kg wash and dry machine" width="560" height="420">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" style="color:var(--blue-dark)">Get in touch</p>
+      <h2>Contact Us</h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>If you think your business is a great fit for Laundry Luxe, we'd love to hear from you. Our machines work best in busy, community-focused locations. Get in touch and we'll explore how our self-service laundry can add value, convenience, and extra footfall to your site.</p>
+        <ul class="contact-links">
+          <li>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6.5 12 13l9-6.5"/></svg>
+            <a href="mailto:helen.laundryluxe@gmail.com" id="copy-email-link" data-email="helen.laundryluxe@gmail.com">helen.laundryluxe@gmail.com</a>
+          </li>
+          <li>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5c0-.9.7-1.6 1.6-1.6h2.2c.5 0 .9.3 1 .8l1 3.4c.1.4 0 .9-.3 1.2L8 10.4a13 13 0 0 0 5.6 5.6l1.6-1.5c.3-.3.8-.4 1.2-.3l3.4 1c.5.1.8.5.8 1v2.2c0 .9-.7 1.6-1.6 1.6C10.5 20 4 13.5 4 5Z"/></svg>
+            <a href="tel:+353861033733">(+353) 86 103 3733</a>
+          </li>
+        </ul>
+      </div>
+
+      <form id="contact-form" novalidate>
+        <div class="name-row">
+          <div class="field">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" required>
+            <span class="field-error" data-error-for="first-name"></span>
+          </div>
+          <div class="field">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name" required>
+            <span class="field-error" data-error-for="last-name"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+          <span class="field-error" data-error-for="email"></span>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" maxlength="500" required></textarea>
+          <p class="char-count"><span id="char-count-num">0</span>/500</p>
+          <span class="field-error" data-error-for="message"></span>
+        </div>
+        <button type="submit" class="submit-btn">Send</button>
+        <p class="form-note" id="form-note" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner wrap">
+    <div class="footer-brand">
+      <p class="brand">Laundry Luxe Ireland</p>
+      <p><a class="email-link" href="mailto:helen.laundryluxe@gmail.com">helen.laundryluxe@gmail.com</a></p>
+    </div>
+
+    <div class="social-row">
+      <a href="https://www.instagram.com/laundryluxeireland/" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+      </a>
+      <a href="https://www.facebook.com/share/1JNZMuPry4/?mibextid=wwXIfr" aria-label="Facebook" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 9h3V6h-3c-2 0-3.5 1.6-3.5 3.5V12H8v3h2.5v6h3v-6H16l.6-3h-3.1V9.7c0-.5.4-.7.5-.7Z"/></svg>
+      </a>
+    </div>
+
+    <p class="footer-credit">Site by: <a href="https://michealdev.ie" target="_blank" rel="noopener">michealdev.ie</a></p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  // ---- Mobile menu: hamburger -> X, blurred scrim, focus handling ----
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('primary-nav');
+  const scrim = document.querySelector('[data-nav-scrim]');
+
+  function setNav(open){
+    hamburger.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-open', open);
+  }
+  hamburger.addEventListener('click', () => {
+    setNav(hamburger.getAttribute('aria-expanded') !== 'true');
+  });
+  scrim.addEventListener('click', () => setNav(false));
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setNav(false));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setNav(false);
+  });
+
+  // ---- Hero bubble effect ----
+  const bubbleField = document.getElementById('bubble-field');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function spawnBubble(){
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+
+    const size = 10 + Math.random() * 46;          // 10–56px
+    const left = Math.random() * 100;               // 0–100%
+    const duration = 6 + Math.random() * 7;         // 6–13s
+    const drift = (Math.random() * 80 - 40) + 'px'; // -40 to 40px sideways
+
+    bubble.style.width = size + 'px';
+    bubble.style.height = size + 'px';
+    bubble.style.left = left + '%';
+    bubble.style.setProperty('--drift', drift);
+    bubble.style.animationDuration = duration + 's';
+
+    bubbleField.appendChild(bubble);
+    bubble.addEventListener('animationend', () => bubble.remove());
+  }
+
+  if (!prefersReducedMotion && bubbleField){
+    for (let i = 0; i < 14; i++){
+      setTimeout(spawnBubble, i * 400);
+    }
+    setInterval(spawnBubble, 900);
+  }
+
+  // ---- Contact form: inline validation, character counter, copy-to-clipboard ----
+  const form = document.getElementById('contact-form');
+  const note = document.getElementById('form-note');
+  const messageField = document.getElementById('message');
+  const charCountNum = document.getElementById('char-count-num');
+
+  if (messageField && charCountNum){
+    charCountNum.textContent = messageField.value.length;
+    messageField.addEventListener('input', () => {
+      charCountNum.textContent = messageField.value.length;
+    });
+  }
+
+  function showFieldError(input, message){
+    input.classList.toggle('invalid', Boolean(message));
+    const errorEl = form.querySelector(`[data-error-for="${input.id}"]`);
+    if (errorEl) errorEl.textContent = message || '';
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let firstInvalid = null;
+
+    form.querySelectorAll('input[required], textarea[required]').forEach(input => {
+      let message = '';
+      if (!input.value.trim()){
+        message = 'This field is required.';
+      } else if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)){
+        message = 'Enter a valid email address.';
+      }
+      showFieldError(input, message);
+      if (message && !firstInvalid) firstInvalid = input;
+    });
+
+    if (firstInvalid){
+      firstInvalid.focus();
+      note.textContent = '';
+      return;
+    }
+
+    note.textContent = "Thanks, we'll be in touch shortly.";
+    form.reset();
+    if (charCountNum) charCountNum.textContent = '0';
+  });
+
+  const copyEmailLink = document.getElementById('copy-email-link');
+  const toast = document.getElementById('toast');
+  let toastTimer;
+
+  function showToast(message){
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  if (copyEmailLink){
+    copyEmailLink.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = copyEmailLink.getAttribute('data-email');
+      try{
+        await navigator.clipboard.writeText(email);
+        showToast('Email copied to clipboard');
+      }catch{
+        showToast(email);
+      }
+    });
+  }
+
+  // ---- Scrollspy: highlight the nav link for the section in view ----
+  const spySections = ['home', 'about', 'contact']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  const spyLinks = document.querySelectorAll('nav.primary-nav a[data-section]');
+
+  if (spySections.length){
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          spyLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('data-section') === entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+
+    spySections.forEach(section => spyObserver.observe(section));
+  }
+
+  // ---- Scroll reveal for cards and tiles ----
+  const revealTargets = document.querySelectorAll(
+    '.feature-card, .service-card, .about-tile, .testimonial-carousel'
+  );
+  if (revealTargets.length){
+    revealTargets.forEach(el => el.classList.add('reveal'));
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealTargets.forEach(el => revealObserver.observe(el));
+  }
+
+  // ---- Back to top ----
+  const backToTop = document.getElementById('back-to-top');
+  if (backToTop){
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+    }, { passive: true });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+  }
+
+  // ---- Testimonials carousel ----
+  const track = document.getElementById('testimonial-track');
+  const dotsWrap = document.getElementById('testimonial-dots');
+  const prevBtn = document.getElementById('testimonial-prev');
+  const nextBtn = document.getElementById('testimonial-next');
+  const carousel = document.getElementById('testimonial-carousel');
+
+  if (track && dotsWrap && prevBtn && nextBtn && carousel){
+    const slides = Array.from(track.children);
+    let current = 0;
+    let autoplayTimer;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function goTo(index){
+      current = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+    function next(){ goTo(current + 1); }
+    function prev(){ goTo(current - 1); }
+
+    function startAutoplay(){
+      if (prefersReducedMotion) return;
+      clearInterval(autoplayTimer);
+      autoplayTimer = setInterval(next, 6000);
+    }
+    function stopAutoplay(){ clearInterval(autoplayTimer); }
+
+    nextBtn.addEventListener('click', () => { next(); startAutoplay(); });
+    prevBtn.addEventListener('click', () => { prev(); startAutoplay(); });
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('focusin', stopAutoplay);
+    carousel.addEventListener('focusout', startAutoplay);
+
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight'){ next(); startAutoplay(); }
+      if (e.key === 'ArrowLeft'){ prev(); startAutoplay(); }
+    });
+
+    let touchStartX = null;
+    track.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+      if (touchStartX === null) return;
+      const delta = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(delta) > 40){ delta < 0 ? next() : prev(); startAutoplay(); }
+      touchStartX = null;
+    });
+
+    startAutoplay();
+  }
+
+  // ---- Equalize service-card top blocks so all three dividers align exactly ----
+  function equalizeServiceTops(){
+    const tops = document.querySelectorAll('.service-top');
+    if (!tops.length) return;
+    tops.forEach(t => { t.style.height = 'auto'; });
+    let max = 0;
+    tops.forEach(t => { max = Math.max(max, t.offsetHeight); });
+    tops.forEach(t => { t.style.height = max + 'px'; });
+  }
+  equalizeServiceTops();
+  window.addEventListener('load', equalizeServiceTops);
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(equalizeServiceTops, 150);
+  });
+
+  // ---- Load-capacity toggle (Dry 18kg card) ----
+  const loadToggle = document.querySelector('[data-load-toggle]');
+  if (loadToggle){
+    const loadButtons = loadToggle.querySelectorAll('[data-loads]');
+    const loadFillBar = document.getElementById('load-fill-bar');
+    const loadCaption = document.getElementById('load-toggle-caption');
+    const captions = {
+      1: '1 home load takes up just a third of the 18kg drum, plenty of room to spare.',
+      2: '2 home loads together, still well within the 18kg capacity.',
+      3: '3 home loads together still fit comfortably in one 18kg dry.'
+    };
+
+    loadButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const loads = btn.getAttribute('data-loads');
+        loadButtons.forEach(b => b.classList.toggle('active', b === btn));
+        loadFillBar.style.width = (loads / 3 * 100) + '%';
+        loadCaption.textContent = captions[loads];
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
